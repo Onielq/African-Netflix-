@@ -65,6 +65,64 @@
 @media(orientation:portrait){.app.playing .rotate-prompt{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#050507;color:#fff;text-align:center}.rotate-prompt i{display:block;width:42px;height:42px;transform:rotate(90deg);stroke-width:1.5;animation:turnPhone 1.8s ease-in-out infinite alternate}.rotate-prompt strong{font-size:16px;font-weight:650}.rotate-prompt span{font-size:12px;color:#96969d}.app.playing .player-ui{display:none}}
 @media(orientation:landscape){.app.playing .rotate-prompt{display:none}.app.playing .player-ui{display:flex}}
 @keyframes turnPhone{to{transform:rotate(0deg)}}
+</style><style id="precision-mobile-pass">
+/* Keep the episode label as a supporting action, not a second headline */
+.main-actions{gap:9px}
+.main-actions .play-btn{max-width:none;flex:1;justify-content:center;padding:0 14px}
+.main-actions .play-episode{font-size:13px;opacity:.62;font-weight:500;margin-left:auto;letter-spacing:0;white-space:nowrap}
+.main-actions .play-main{font-size:15px;font-weight:700}
+.main-actions .play-btn svg{flex:0 0 18px}
+/* Inline swipe affordance: icon sits beside the words, never above them */
+.hint{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:17px;font-size:12px;letter-spacing:.05px;color:#d5d5d8;opacity:.72;transform:none;transition:opacity .25s,transform .25s}
+.hint span{display:inline-flex;align-items:center;justify-content:center;font-size:0;line-height:1;margin:0;animation:hintNudge 1.5s ease-in-out infinite}
+.hint span:before{content:"";width:15px;height:15px;background:currentColor;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 14 5-5 5 5'/%3E%3C/svg%3E") center/contain no-repeat}
+.app.swiping-up .hint{opacity:1;transform:translateY(-3px)}
+@keyframes hintNudge{0%,100%{transform:translateY(2px)}50%{transform:translateY(-2px)}}
+/* Compact top composition on the details screen without crushing typography */
+.details-layout{padding-top:calc(env(safe-area-inset-top) + 70px);padding-left:18px;padding-right:18px;padding-bottom:calc(env(safe-area-inset-bottom) + 30px)}
+.details-intro{gap:13px;margin:0 0 12px;min-height:130px;align-items:flex-start}
+.mini-video{width:104px;height:130px;flex:0 0 104px}
+.intro-info{padding-top:2px}
+.playing-label{font-size:11px;margin-bottom:7px}
+.intro-title{font-size:27px;line-height:1.08;margin-bottom:10px;letter-spacing:-.65px}
+.intro-info .metadata{gap:5px}
+.intro-info .pill{font-size:10px;padding:6px 8px}
+.details-actions{margin:0 0 13px;gap:9px}
+.details-actions .play-btn{height:44px;max-width:none;flex:1;justify-content:center}
+.details-actions .play-btn svg{fill:none!important;stroke:#171717!important}
+.synopsis-card{padding:18px 18px 17px;margin-bottom:16px;border-radius:22px}
+.synopsis{font-size:14px;line-height:1.5;color:#e8e8e8}
+.credits{gap:12px;margin-top:15px}
+.credit-label{font-size:11px}
+.credit-value{font-size:12px;line-height:1.45}
+.tabs{height:40px;gap:20px;margin-bottom:13px}
+.tabs button{font-size:13px}
+.episode-heading{margin-bottom:11px}
+.episode-heading h2{font-size:19px}
+.episode-rail{gap:12px}
+.episode{width:190px;flex-basis:190px}
+.episode-image{height:104px}
+.ep-title{font-size:13px;margin-top:8px}
+.ep-meta{font-size:11px;opacity:.62}
+/* Season picker: compact bubble rising directly above the Season 7 control */
+.season-backdrop{position:fixed;inset:0;z-index:25;display:block;padding:0;background:transparent;opacity:0;pointer-events:none}
+.season-backdrop.open{opacity:1;pointer-events:auto}
+.season-sheet{position:absolute;left:0;top:0;width:158px;max-height:min(300px,48vh);overflow:auto;padding:7px 8px;border:1px solid #ffffff20;border-radius:17px;background:rgba(48,48,54,.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 10px 32px #0008;transform:translateY(8px) scale(.96);transform-origin:bottom center;opacity:0;transition:transform .2s cubic-bezier(.2,.8,.2,1),opacity .16s}
+.season-sheet.open{transform:translateY(0) scale(1);opacity:1}
+.season-sheet .sheet-grabber,.season-sheet h3{display:none}
+.season-option{width:100%;display:flex;align-items:center;justify-content:space-between;padding:10px 10px;border:0;border-radius:11px;background:transparent;color:#f5f5f5;text-align:left;font-size:14px;font-weight:550}
+.season-option.selected{background:#ffffff16;color:#fff}
+.season-option i svg{width:16px;height:16px;stroke:#e50914;stroke-width:2.4}
+.season-select{border-radius:20px;padding:9px 12px;background:#29292e;border:1px solid #ffffff16;font-size:12px}
+@media(max-height:740px){
+ .details-layout{padding-top:calc(env(safe-area-inset-top) + 64px)}
+ .details-intro{min-height:120px;margin-bottom:10px}
+ .mini-video{height:120px}
+ .synopsis-card{padding:15px 16px;margin-bottom:13px}
+ .synopsis{font-size:13px;line-height:1.45}
+ .credits{margin-top:12px}
+ .tabs{margin-bottom:11px}
+}
 </style></head>
 <body>
 <div class="app" id="app">
@@ -85,7 +143,7 @@
    <button class="circle" aria-label="Download" onclick="notify('Season 7 download added')"><svg viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 18v3h16v-3"/></svg></button>
    <button class="circle" id="myListOne" aria-label="Add to My List" onclick="toggleList()"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
   </div>
-  <div class="hint"><span>⌃</span>Swipe up for episodes and more</div>
+  <div class="hint"><span aria-hidden="true"></span>Swipe up for episodes and more</div>
  </div>
 </section>
 <section class="screen screen-two" id="screenTwo" aria-label="Black Mirror details">
@@ -187,13 +245,13 @@ document.addEventListener('keydown',e=>{if(e.key==='ArrowUp'||e.key==='Escape')s
 <script>
 let ytPlayer=null,ytReady=false,trailerDuration=0,autoplayAttempted=false;
 function setTrailerProgress(t,d){if(Number.isFinite(d)&&d>0)trailerDuration=d;const p=trailerDuration?Math.max(0,Math.min(100,t/trailerDuration*100)):0;document.querySelectorAll('#screenOne>.progress-track i').forEach(x=>x.style.width=p+'%')}
-function startTrailer(){if(!ytReady||!ytPlayer)return;try{ytPlayer.mute();ytPlayer.setVolume(0);ytPlayer.playVideo();autoplayAttempted=true;paused=false}catch(e){}}
-window.onYouTubeIframeAPIReady=function(){ytPlayer=new YT.Player('blackMirrorTrailer',{events:{onReady:function(e){ytReady=true;e.target.mute();e.target.setVolume(0);e.target.playVideo();startTrailer()},onStateChange:function(e){if(e.data===YT.PlayerState.PLAYING){document.getElementById('heroSlot').classList.add('loaded');const d=ytPlayer.getDuration();setTrailerProgress(ytPlayer.getCurrentTime(),d)}if(e.data===YT.PlayerState.ENDED)setTrailerProgress(trailerDuration,trailerDuration);if(e.data===YT.PlayerState.PAUSED)paused=true;if(e.data===YT.PlayerState.PLAYING)paused=false},onAutoplayBlocked:function(){/* The browser may require the first user gesture; the first gesture retries muted playback. */},onError:function(){document.getElementById('heroSlot').classList.remove('loaded');notify('Trailer could not be loaded. Check the video availability.')}}})};
+function startTrailer(){if(!ytReady||!ytPlayer)return;try{ytPlayer.mute();ytPlayer.setVolume(0);try{ytPlayer.setPlaybackQuality('hd1080')}catch(e){}ytPlayer.playVideo();autoplayAttempted=true;paused=false}catch(e){}}
+window.onYouTubeIframeAPIReady=function(){ytPlayer=new YT.Player('blackMirrorTrailer',{playerVars:{vq:'hd1080',playsinline:1,rel:0,modestbranding:1},events:{onReady:function(e){ytReady=true;e.target.mute();e.target.setVolume(0);try{e.target.setPlaybackQuality('hd1080')}catch(err){}e.target.playVideo();startTrailer()},onStateChange:function(e){if(e.data===YT.PlayerState.PLAYING){document.getElementById('heroSlot').classList.add('loaded');const d=ytPlayer.getDuration();setTrailerProgress(ytPlayer.getCurrentTime(),d)}if(e.data===YT.PlayerState.ENDED)setTrailerProgress(trailerDuration,trailerDuration);if(e.data===YT.PlayerState.PAUSED)paused=true;if(e.data===YT.PlayerState.PLAYING)paused=false},onAutoplayBlocked:function(){/* The browser may require the first user gesture; the first gesture retries muted playback. */},onError:function(){document.getElementById('heroSlot').classList.remove('loaded');notify('Trailer could not be loaded. Check the video availability.')}}})};
 const ytApi=document.createElement('script');ytApi.src='https://www.youtube.com/iframe_api';ytApi.async=true;document.head.appendChild(ytApi);
 setInterval(()=>{if(ytReady&&ytPlayer&&ytPlayer.getPlayerState&&ytPlayer.getPlayerState()===YT.PlayerState.PLAYING)setTrailerProgress(ytPlayer.getCurrentTime(),ytPlayer.getDuration())},200);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!paused)startTrailer()});document.addEventListener('touchstart',()=>{if(!paused)startTrailer()},{once:true,passive:true});document.addEventListener('click',()=>{if(!paused&&ytReady&&ytPlayer.getPlayerState()!==YT.PlayerState.PLAYING)startTrailer()},{once:true});
 let chosenSeason=7;
-function openSeasons(){const opts=document.getElementById('seasonOptions'),anchor=document.querySelector('.season-select'),pop=document.getElementById('seasonSheet');opts.innerHTML='';for(let s=7;s>=1;s--){const b=document.createElement('button');b.className='season-option'+(s===chosenSeason?' selected':'');b.innerHTML='<span>Season '+s+'</span>'+(s===chosenSeason?'<i data-lucide="check"></i>':'');b.onclick=()=>{chosenSeason=s;document.getElementById('seasonLabel').textContent='Season '+s;closeSeasons();if(s!==7)notify('Season '+s+' selected — episode data is not connected yet');if(window.lucide)lucide.createIcons()};opts.appendChild(b)}const r=anchor.getBoundingClientRect();pop.style.left=Math.max(12,Math.min(innerWidth-202,r.right-190))+'px';pop.style.top=Math.min(innerHeight-275,r.bottom+8)+'px';document.getElementById('seasonBackdrop').classList.add('open');pop.classList.add('open');if(window.lucide)lucide.createIcons()}
+function openSeasons(){const opts=document.getElementById('seasonOptions'),anchor=document.querySelector('.season-select'),pop=document.getElementById('seasonSheet');opts.innerHTML='';for(let s=7;s>=1;s--){const b=document.createElement('button');b.className='season-option'+(s===chosenSeason?' selected':'');b.innerHTML='<span>Season '+s+'</span>'+(s===chosenSeason?'<i data-lucide="check"></i>':'');b.onclick=()=>{chosenSeason=s;document.getElementById('seasonLabel').textContent='Season '+s;closeSeasons();if(s!==7)notify('Season '+s+' selected — episode data is not connected yet');if(window.lucide)lucide.createIcons()};opts.appendChild(b)}const r=anchor.getBoundingClientRect();pop.style.left=Math.max(12,Math.min(innerWidth-170,r.left+(r.width-158)/2))+'px';pop.style.top=Math.max(12,r.top-8)+'px';pop.style.transformOrigin='bottom center';document.getElementById('seasonBackdrop').classList.add('open');pop.classList.add('open');if(window.lucide)lucide.createIcons()}
 function closeSeasons(){document.getElementById('seasonBackdrop').classList.remove('open');document.getElementById('seasonSheet').classList.remove('open')}
 </script><script src="https://unpkg.com/lucide@latest"></script><script>
 function hydrateLucideIcons(){if(!window.lucide)return;
