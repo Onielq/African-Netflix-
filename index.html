@@ -201,9 +201,33 @@
   <section class="tab-panel" id="trailers" hidden><div class="episode-heading"><h2>Trailers &amp; More</h2></div><button class="season-select" onclick="showTrailer()">Season 7 Official Trailer ↗</button></section>
  </main>
 </section>
-<div class="screen-three" id="episodePlayer"><div class="player-backdrop"><img src="https://cdn.mos.cms.futurecdn.net/TLvFoYVPXawr9iRsMwKnWh.jpg" alt=""></div>
- <div class="player-ui"><div class="player-controls"><button class="circle" onclick="closeEpisode()"><svg viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"/></svg></button><span style="font-size:12px;font-weight:700">BLACK MIRROR · S7:E1</span><button class="circle" onclick="toggleMute()"><svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4H4z"/></svg></button></div><button class="player-center" onclick="notify('Episode playback source is not connected yet')"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></button><div class="player-caption">Common People <small>Episode playback preview · Connect a licensed episode stream to watch the full episode.</small><div class="progress-track" style="position:relative;inset:auto;margin-top:13px"><i style="width:8%;animation:none"></i></div></div></div>
-</div>
+<section class="screen-three" id="episodePlayer" aria-label="Video player">
+ <video id="episodeVideo" class="episode-video" playsinline preload="metadata"></video>
+ <div class="player-shade"></div>
+ <div class="player-ui" id="playerUI">
+  <header class="player-top">
+   <div class="player-identity"><button class="player-icon" aria-label="Close player" onclick="closeEpisode()">×</button><div><strong id="playerEpisodeTitle">BLACK MIRROR · S7:E1</strong><small id="playerEpisodeName">Common People</small></div></div>
+   <div class="player-reactions"><button class="player-icon" aria-label="Dislike" onclick="reactEpisode('dislike')">▁</button><button class="player-icon" aria-label="Like" onclick="reactEpisode('like')">♥</button><button class="player-icon" aria-label="Double-like" onclick="reactEpisode('double-like')">♥♥</button></div>
+   <div class="player-tools"><button class="player-icon" aria-label="Cast" onclick="castEpisode()">⌁</button><button class="player-icon" aria-label="Picture in Picture" onclick="togglePiP()">▣</button><button class="player-icon" aria-label="Minimise" onclick="closeEpisode()">－</button><button class="player-icon" id="lockButton" aria-label="Lock controls" onclick="togglePlayerLock()">♙</button></div>
+  </header>
+  <button class="player-center" id="centerPlay" aria-label="Play" onclick="toggleEpisodePlayback()">▶</button>
+  <aside class="player-side player-brightness"><span>☼</span><input aria-label="Brightness" type="range" min="35" max="130" value="100" oninput="setPlayerBrightness(this.value)"></aside>
+  <aside class="player-side player-volume"><span>◖))</span><input aria-label="Volume" id="playerVolume" type="range" min="0" max="1" step=".05" value="1" oninput="setEpisodeVolume(this.value)"></aside>
+  <footer class="player-bottom">
+   <div class="player-timeline"><span id="playerCurrentTime">0:00</span><input id="playerSeek" aria-label="Seek video" type="range" min="0" max="100" value="0" oninput="seekEpisode(this.value)"><span id="playerDuration">0:00</span></div>
+   <nav class="player-actions"><button onclick="makeClip()">Clip</button><button onclick="cyclePlaybackSpeed()">Speed <span id="speedLabel">1×</span></button><button onclick="scrollToEpisodes()">Episodes</button><button onclick="toggleSubtitles()">Audio &amp; Subtitles</button><button onclick="nextEpisode()">Next Episode</button></nav>
+   <div class="episode-rail" id="playerEpisodeRail">
+    <button class="episode-thumb active" onclick="selectEpisode(1)"><span class="thumb-art">S7</span><span>1 · Common People</span></button>
+    <button class="episode-thumb" onclick="selectEpisode(2)"><span class="thumb-art">S7</span><span>2 · Bête Noire</span></button>
+    <button class="episode-thumb" onclick="selectEpisode(3)"><span class="thumb-art">S7</span><span>3 · Hotel Reverie</span></button>
+    <button class="episode-thumb" onclick="selectEpisode(4)"><span class="thumb-art">S7</span><span>4 · Plaything</span></button>
+    <button class="episode-thumb" onclick="selectEpisode(5)"><span class="thumb-art">S7</span><span>5 · Eulogy</span></button>
+    <button class="episode-thumb" onclick="selectEpisode(6)"><span class="thumb-art">S7</span><span>6 · USS Callister: Into Infinity</span></button>
+   </div>
+  </footer>
+  <div class="player-source-notice" id="playerSourceNotice">Episode stream is not connected. A licensed video URL is required to play this episode.</div>
+ </div>
+</section>
 </div>
 <script>
 const app=document.getElementById('app');
@@ -217,8 +241,30 @@ function moveTrailer(to){/* Keep the YouTube iframe mounted in heroSlot. The det
 function showDetails(){if(app.classList.contains('details'))return;app.classList.add('details')}
 function showTrailer(){if(!app.classList.contains('details'))return;app.classList.remove('details')}
 let muted=true,paused=false;function playerCommand(func,args=[]){if(ytReady&&ytPlayer&&ytPlayer[func])ytPlayer[func](...args)}function toggleMute(){muted=!muted;if(ytReady){muted?ytPlayer.mute():ytPlayer.unMute()}document.getElementById('muteButton').setAttribute('aria-label',muted?'Unmute trailer':'Mute trailer');document.getElementById('muteButton').innerHTML='<i data-lucide="'+(muted?'volume-x':'volume-2')+'"></i>';if(window.lucide)lucide.createIcons()}
-function playEpisode(){app.classList.add('playing');try{if(screen.orientation&&screen.orientation.lock)screen.orientation.lock('landscape').catch(()=>{})}catch(e){}}
-function closeEpisode(){app.classList.remove('playing');try{if(screen.orientation&&screen.orientation.unlock)screen.orientation.unlock()}catch(e){}}
+const EPISODE_STREAM_URLS={1:"",2:"",3:"",4:"",5:"",6:""};
+let activeEpisode=1,playerLocked=false,playerSpeedIndex=0,episodeReaction="";
+const playerVideo=()=>document.getElementById('episodeVideo');
+function playEpisode(){app.classList.add('playing');document.getElementById('episodePlayer').setAttribute('aria-hidden','false');const v=playerVideo();const src=EPISODE_STREAM_URLS[activeEpisode];if(src&&v.src!==new URL(src,location.href).href){v.src=src;v.load()}if(src){v.play().then(()=>{document.getElementById('centerPlay').textContent='Ⅱ'}).catch(()=>notify('Tap play to start the episode'))}else{document.getElementById('playerSourceNotice').classList.add('visible');document.getElementById('centerPlay').textContent='▶'}try{if(screen.orientation?.lock)screen.orientation.lock('landscape').catch(()=>{})}catch(e){}}
+function closeEpisode(){const v=playerVideo();v.pause();app.classList.remove('playing');document.getElementById('episodePlayer').setAttribute('aria-hidden','true');try{if(screen.orientation?.unlock)screen.orientation.unlock()}catch(e){}}
+function toggleEpisodePlayback(){const v=playerVideo();if(!v.src){document.getElementById('playerSourceNotice').classList.add('visible');return}if(v.paused){v.play().then(()=>document.getElementById('centerPlay').textContent='Ⅱ').catch(()=>notify('Playback could not start'))}else{v.pause();document.getElementById('centerPlay').textContent='▶'}}
+function fmtPlayerTime(t){if(!Number.isFinite(t))return'0:00';return Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0')}
+function seekEpisode(value){const v=playerVideo();if(Number.isFinite(v.duration))v.currentTime=v.duration*Number(value)/100}
+function setEpisodeVolume(value){playerVideo().volume=Number(value);playerVideo().muted=Number(value)===0}
+function setPlayerBrightness(value){playerVideo().style.filter='brightness('+Number(value)/100+')'}
+function reactEpisode(kind){episodeReaction=kind;document.querySelectorAll('.player-reactions button').forEach(b=>b.classList.remove('selected'));const labels={dislike:'Dislike',like:'Like', 'double-like':'Double-like'};const b=[...document.querySelectorAll('.player-reactions button')].find(x=>x.getAttribute('aria-label')===labels[kind]);if(b)b.classList.add('selected')}
+function togglePiP(){const v=playerVideo();if(document.pictureInPictureEnabled&&v.requestPictureInPicture)v.requestPictureInPicture().catch(()=>notify('Picture-in-Picture is unavailable for this video'));else notify('Picture-in-Picture is not supported in this browser')}
+function castEpisode(){if(navigator.mediaSession)notify('Connect a supported casting device to cast this episode');else notify('Casting is not available in this browser')}
+function togglePlayerLock(){playerLocked=!playerLocked;document.getElementById('playerUI').classList.toggle('controls-locked',playerLocked);document.getElementById('lockButton').classList.toggle('selected',playerLocked);document.getElementById('lockButton').setAttribute('aria-label',playerLocked?'Unlock controls':'Lock controls')}
+function cyclePlaybackSpeed(){const speeds=[1,1.25,1.5,1.75,2,.75];playerSpeedIndex=(playerSpeedIndex+1)%speeds.length;playerVideo().playbackRate=speeds[playerSpeedIndex];document.getElementById('speedLabel').textContent=speeds[playerSpeedIndex]+'×'}
+function scrollToEpisodes(){document.getElementById('playerEpisodeRail').scrollIntoView({behavior:'smooth',block:'nearest',inline:'nearest'})}
+function toggleSubtitles(){const v=playerVideo();if(!v.textTracks||!v.textTracks.length){notify('No subtitle or alternate audio tracks are attached to this stream');return}for(let i=0;i<v.textTracks.length;i++)v.textTracks[i].mode=v.textTracks[i].mode==='showing'?'disabled':'showing'}
+function makeClip(){notify('Clip creation needs a connected stream and clip service')}
+function selectEpisode(n){activeEpisode=n;const names={1:'Common People',2:'Bête Noire',3:'Hotel Reverie',4:'Plaything',5:'Eulogy',6:'USS Callister: Into Infinity'};document.getElementById('playerEpisodeTitle').textContent='BLACK MIRROR · S7:E'+n;document.getElementById('playerEpisodeName').textContent=names[n];document.querySelectorAll('.episode-thumb').forEach((b,i)=>b.classList.toggle('active',i===n-1));const v=playerVideo();v.pause();v.removeAttribute('src');v.load();document.getElementById('playerSourceNotice').classList.add('visible');document.getElementById('centerPlay').textContent='▶'}
+function nextEpisode(){selectEpisode(Math.min(6,activeEpisode+1))}
+playerVideo()?.addEventListener('timeupdate',()=>{const v=playerVideo();document.getElementById('playerCurrentTime').textContent=fmtPlayerTime(v.currentTime);document.getElementById('playerDuration').textContent=fmtPlayerTime(v.duration);if(Number.isFinite(v.duration))document.getElementById('playerSeek').value=v.currentTime/v.duration*100});
+playerVideo()?.addEventListener('play',()=>{document.getElementById('centerPlay').textContent='Ⅱ';document.getElementById('playerSourceNotice').classList.remove('visible')});
+playerVideo()?.addEventListener('pause',()=>document.getElementById('centerPlay').textContent='▶');
+playerVideo()?.addEventListener('ended',nextEpisode);
 function closeApp(){showTrailer();if(ytReady)ytPlayer.pauseVideo()}
 let saved=false;function toggleList(){saved=!saved;['myListOne','myListTwo'].forEach(id=>{const b=document.getElementById(id);if(!b)return;b.style.background=saved?'#e50914':'rgba(22,22,25,.58)';b.setAttribute('aria-label',saved?'Remove from My List':'Add to My List');b.innerHTML='<i data-lucide="'+(saved?'check':'plus')+'"></i>'});if(window.lucide)lucide.createIcons();notify(saved?'Added to My List':'Removed from My List')}
 function notify(t){const old=document.getElementById('notice');if(old)old.remove();const n=document.createElement('div');n.id='notice';n.textContent=t;n.style.cssText='position:fixed;z-index:30;bottom:calc(env(safe-area-inset-bottom) + 24px);left:50%;transform:translateX(-50%);padding:12px 17px;border-radius:25px;background:#f5f5f5;color:#111;font-size:12px;font-weight:700;white-space:nowrap;box-shadow:0 6px 25px #0008';document.body.appendChild(n);setTimeout(()=>n.remove(),1900)}
@@ -321,5 +367,24 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 .details-layout{padding-top:calc(env(safe-area-inset-top) + 70px)!important;padding-bottom:calc(env(safe-area-inset-bottom) + 34px)!important}
 @media(max-height:740px){.details-intro{min-height:160px!important;margin-bottom:16px!important}.mini-video{width:128px!important;height:160px!important;flex-basis:128px!important}.intro-title{font-size:25px!important}.synopsis-card{padding:17px 18px!important;margin-bottom:16px!important}.synopsis{font-size:13px!important;line-height:1.48!important}.episode-image{height:104px!important}}
 @media(min-width:700px){.app.details .screen-one>.trailer-frame{left:max(24px,calc((100vw - 712px)/2))!important}.app.details .screen-one>.progress-track{left:calc(max(24px,calc((100vw - 712px)/2)) + 10px)!important}.details-layout{max-width:760px!important}}
+</style>
+<style id="complete-landscape-player">
+#episodePlayer{position:fixed!important;inset:0!important;z-index:100!important;display:none;background:#000;overflow:hidden;touch-action:manipulation}
+.app.playing #episodePlayer{display:block!important}
+#episodePlayer .episode-video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;filter:brightness(1);z-index:0}
+#episodePlayer .player-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,#000b,transparent 22%,transparent 65%,#000d);z-index:1}
+#episodePlayer .player-ui{position:absolute;inset:0;z-index:2;display:flex!important;flex-direction:column;justify-content:space-between;padding:calc(env(safe-area-inset-top) + 12px) calc(env(safe-area-inset-right) + 16px) calc(env(safe-area-inset-bottom) + 12px) calc(env(safe-area-inset-left) + 16px);color:white}
+.player-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px}
+.player-identity,.player-reactions,.player-tools{display:flex;align-items:center;gap:9px}.player-tools{justify-content:flex-end}.player-identity strong,.player-identity small{display:block}.player-identity strong{font-size:12px}.player-identity small{font-size:11px;color:#bbb;margin-top:3px}
+.player-icon{width:36px;height:36px;border:0;border-radius:50%;background:#ffffff20;color:white;font-size:18px;display:grid;place-items:center;backdrop-filter:blur(12px)}.player-icon.selected{background:#e50914;color:#fff}
+.player-center{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;border:1px solid #ffffff66;background:#ffffff30;color:#fff;font-size:25px;display:grid;place-items:center;backdrop-filter:blur(10px)}
+.player-side{position:absolute;top:42%;display:flex;align-items:center;gap:8px;color:#fff;background:#0006;padding:9px;border-radius:18px}.player-side input{width:88px;accent-color:#fff}.player-brightness{left:10px;writing-mode:vertical-rl;transform:rotate(180deg)}.player-brightness input{width:76px}.player-volume{right:10px;writing-mode:vertical-rl;transform:rotate(180deg)}.player-volume input{width:76px}
+.player-bottom{width:min(820px,calc(100% - 120px));align-self:center;margin-top:auto}.player-timeline{display:flex;align-items:center;gap:9px;font-size:10px;color:#eee}.player-timeline input{flex:1;accent-color:#e50914}.player-actions{display:flex;justify-content:space-between;gap:8px;margin:8px 0}.player-actions button{border:0;background:transparent;color:white;font-size:11px;padding:7px 4px;white-space:nowrap}
+.episode-rail{display:flex;gap:9px;overflow-x:auto;padding:5px 0 3px;scrollbar-width:thin}.episode-thumb{flex:0 0 145px;display:flex;align-items:center;gap:8px;border:1px solid #ffffff22;border-radius:8px;padding:5px;background:#161619;color:#fff;text-align:left;font-size:10px}.episode-thumb.active{border-color:#e50914}.thumb-art{width:48px;height:34px;flex:0 0 48px;border-radius:4px;background:linear-gradient(135deg,#3b3039,#17171b);display:grid;place-items:center;font-weight:800}
+.player-source-notice{display:none;position:absolute;left:50%;top:57%;transform:translate(-50%,-50%);max-width:min(440px,75vw);padding:11px 15px;border-radius:9px;background:#111d;color:#ddd;text-align:center;font-size:12px;pointer-events:none}.player-source-notice.visible{display:block}
+.controls-locked .player-top,.controls-locked .player-bottom,.controls-locked .player-side,.controls-locked .player-center{opacity:.12;pointer-events:none}
+@media(orientation:portrait){#episodePlayer .player-ui{width:100vh;height:100vw;inset:0 auto auto 0;transform-origin:top left;transform:translateX(100vw) rotate(90deg);padding:12px 18px}.player-bottom{width:calc(100% - 100px)}.player-top{gap:7px}.player-icon{width:32px;height:32px}.player-identity strong{font-size:10px}.player-identity small{font-size:9px}.player-actions button{font-size:9px}.episode-thumb{flex-basis:125px}}
+@media(orientation:landscape){#episodePlayer .player-ui{transform:none;width:100%;height:100%}}
+@media(max-height:420px) and (orientation:landscape){.player-bottom{width:min(740px,calc(100% - 100px))}.episode-rail{max-height:48px}.episode-thumb{flex-basis:125px}.thumb-art{height:28px}}
 </style>
 </body></html>
