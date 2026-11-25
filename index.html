@@ -133,6 +133,15 @@
 .app.details .screen-home,.app.details .screen-search{transform:translateY(100%);opacity:0;pointer-events:none}
 #screenOne,#screenTwo{visibility:hidden;pointer-events:none}
 .app.details #screenOne,.app.details #screenTwo{visibility:visible;pointer-events:auto}
+/* Movie selection opens trailer screen first; details is a separate upward transition. */
+.app.details:not(.show-detail) .screen-one{z-index:5;transform:none;opacity:1;background:#08080b;pointer-events:auto}
+.app.details:not(.show-detail) .screen-one>.trailer-frame{inset:0;top:0;left:0;right:0;bottom:0;width:auto;height:auto;border-radius:0;z-index:1}
+.app.details:not(.show-detail) .screen-one>.trailer-frame:before,.app.details:not(.show-detail) .screen-one>.trailer-frame:after,.app.details:not(.show-detail) .screen-one>.trailer-frame .poster-fallback{display:block}
+.app.details:not(.show-detail) .screen-one>.trailer-frame iframe{position:absolute;width:177.78vh;height:100%;min-width:100vw;left:50%;top:0;transform:translateX(-50%)}
+.app.details:not(.show-detail) .screen-one>.progress-track{display:block;visibility:visible;top:calc(env(safe-area-inset-top) + 7px);left:15px;right:15px;width:auto;height:2px;z-index:4}
+.app.details:not(.show-detail) .screen-one>.top-controls,.app.details:not(.show-detail) .screen-one>.hero-copy{visibility:visible}
+.app.details:not(.show-detail) .screen-two{transform:translateY(100%)}
+.app.details.show-detail .screen-two{transform:translateY(0)}
 .home-header,.search-header{position:relative;z-index:2;flex:none;display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top) + 12px) 22px 12px;background:linear-gradient(115deg,#2c2529,#17191c 70%,#111)}
 .home-brand{display:flex;align-items:center;gap:8px;font-size:28px}.home-brand strong{font-size:27px;letter-spacing:-.7px}.netflix-n{font-family:Arial Black,Arial,sans-serif;font-size:42px;line-height:1;color:#e50914;font-weight:900;text-shadow:1px 0 #b20710,-1px 0 #b20710}
 .home-header-actions{display:flex;align-items:center;gap:22px}.icon-plain{background:none;padding:6px;display:grid;place-items:center;color:#fff}.icon-plain svg{width:25px;height:25px;stroke-width:2}
@@ -348,23 +357,23 @@ const poster=document.querySelector('#heroSlot .poster-fallback');
 document.getElementById('heroSlot').appendChild(frame);
 
 function moveTrailer(to){/* The single trailer iframe stays mounted in heroSlot; CSS moves its viewport into the details preview without reloading playback. */}
-function showDetails(){app.classList.remove('searching');if(app.classList.contains('details'))return;app.classList.add('details')}
-function showTrailer(){if(!app.classList.contains('details'))return;app.classList.remove('details')}
+function showDetails(){if(!app.classList.contains('details'))return;app.classList.add('show-detail')}
+function showTrailer(){if(!app.classList.contains('details'))return;app.classList.remove('show-detail')}
 let muted=true,paused=false;function playerCommand(func,args=[]){if(ytReady&&ytPlayer&&ytPlayer[func])ytPlayer[func](...args)}function toggleMute(){muted=!muted;if(ytReady){muted?ytPlayer.mute():ytPlayer.unMute()}document.getElementById('muteButton').setAttribute('aria-label',muted?'Unmute trailer':'Mute trailer');document.getElementById('muteButton').innerHTML='<i data-lucide="'+(muted?'volume-x':'volume-2')+'"></i>';if(window.lucide)lucide.createIcons()}
 function playEpisode(){app.classList.add('playing');try{if(screen.orientation&&screen.orientation.lock)screen.orientation.lock('landscape').catch(()=>{})}catch(e){}}
 function closeEpisode(){app.classList.remove('playing');try{if(screen.orientation&&screen.orientation.unlock)screen.orientation.unlock()}catch(e){}}
-function closeApp(){app.classList.remove('details','searching');showTrailer();if(ytReady)ytPlayer.pauseVideo()}
+function closeApp(){app.classList.remove('details','show-detail','searching');if(ytReady)ytPlayer.pauseVideo()}
 let saved=false;function toggleList(){saved=!saved;['myListOne','myListTwo'].forEach(id=>{const b=document.getElementById(id);if(!b)return;b.style.background=saved?'#e50914':'rgba(22,22,25,.58)';b.setAttribute('aria-label',saved?'Remove from My List':'Add to My List');b.innerHTML='<i data-lucide="'+(saved?'check':'plus')+'"></i>'});if(window.lucide)lucide.createIcons();notify(saved?'Added to My List':'Removed from My List')}
 function notify(t){const old=document.getElementById('notice');if(old)old.remove();const n=document.createElement('div');n.id='notice';n.textContent=t;n.style.cssText='position:fixed;z-index:30;bottom:calc(env(safe-area-inset-bottom) + 24px);left:50%;transform:translateX(-50%);padding:12px 17px;border-radius:25px;background:#f5f5f5;color:#111;font-size:12px;font-weight:700;white-space:nowrap;box-shadow:0 6px 25px #0008';document.body.appendChild(n);setTimeout(()=>n.remove(),1900)}
 function shareShow(){if(navigator.share){navigator.share({title:'Black Mirror',text:'Watch Black Mirror Season 7'}).catch(()=>{})}else if(navigator.clipboard){navigator.clipboard.writeText(location.href);notify('Link copied')}}
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tab-panel').forEach(x=>x.hidden=x.id!==b.dataset.tab)}));
 let startX=0,startY=0,startTarget=null;const stage=document.getElementById('screenOne');
 app.addEventListener('touchstart',e=>{startX=e.changedTouches[0].clientX;startY=e.changedTouches[0].clientY;startTarget=e.target;app.classList.remove('swiping-up')},{passive:true});
-app.addEventListener('touchmove',e=>{if(startTarget&&startTarget.closest&&startTarget.closest('#screenOne')&&!app.classList.contains('details')&&startY-e.touches[0].clientY>10)app.classList.add('swiping-up')},{passive:true});
-app.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;if(Math.abs(dy)>55&&Math.abs(dy)>Math.abs(dx)){if(app.classList.contains('details')){if(dy>0)showTrailer()}else if(startTarget&&startTarget.closest&&startTarget.closest('#screenOne')&&dy<0)showDetails()}setTimeout(()=>app.classList.remove('swiping-up'),500)},{passive:true});
-let wheelLock=false;app.addEventListener('wheel',e=>{if(wheelLock)return;const inTrailer=e.target.closest&&e.target.closest('#screenOne');if(!inTrailer&&!app.classList.contains('details'))return;if(Math.abs(e.deltaY)>30){wheelLock=true;if(app.classList.contains('details')){if(e.deltaY<0)showTrailer()}else if(e.deltaY>0)showDetails();setTimeout(()=>wheelLock=false,700)}},{passive:true});
+app.addEventListener('touchmove',e=>{if(startTarget&&startTarget.closest&&startTarget.closest('#screenOne')&&!app.classList.contains('show-detail')&&startY-e.touches[0].clientY>10)app.classList.add('swiping-up')},{passive:true});
+app.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;if(Math.abs(dy)>55&&Math.abs(dy)>Math.abs(dx)){if(app.classList.contains('details')){if(dy>0&&app.classList.contains('show-detail'))showTrailer();else if(dy<0&&!app.classList.contains('show-detail'))showDetails()}else if(startTarget&&startTarget.closest&&startTarget.closest('#screenOne')&&dy<0)showDetails()}setTimeout(()=>app.classList.remove('swiping-up'),500)},{passive:true});
+let wheelLock=false;app.addEventListener('wheel',e=>{if(wheelLock)return;const inTrailer=e.target.closest&&e.target.closest('#screenOne');if(!inTrailer&&!app.classList.contains('details'))return;if(Math.abs(e.deltaY)>30){wheelLock=true;if(app.classList.contains('details')){if(app.classList.contains('show-detail')&&e.deltaY<0)showTrailer();else if(!app.classList.contains('show-detail')&&e.deltaY>0)showDetails()}else if(e.deltaY>0)showDetails();setTimeout(()=>wheelLock=false,700)}},{passive:true});
 document.getElementById('heroSlot').addEventListener('click',()=>{if(!ytReady){startTrailer();return}paused=!paused;if(paused)ytPlayer.pauseVideo();else{ytPlayer.mute();ytPlayer.playVideo()}});
-document.addEventListener('keydown',e=>{if(e.key==='ArrowUp'||e.key==='Escape')showTrailer();if(e.key==='ArrowDown')showDetails()});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowUp'||e.key==='Escape'){if(app.classList.contains('show-detail'))showTrailer();else if(e.key==='Escape')closeApp()}if(e.key==='ArrowDown'&&app.classList.contains('details')&&!app.classList.contains('show-detail'))showDetails()});
 </script>
 
 <style>
@@ -411,9 +420,9 @@ lucide.createIcons({attrs:{'stroke-width':1.8}});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',hydrateLucideIcons);else hydrateLucideIcons();
 </script>
 <script id="home-search-player-actions">
-function showHome(){app.classList.remove('details','searching');}
+function showHome(){app.classList.remove('details','show-detail','searching');}
 function openSearch(){app.classList.remove('details');app.classList.add('searching');setTimeout(()=>{const f=document.getElementById('titleSearch');if(f)f.focus({preventScroll:true})},250);}
-function openShow(){app.classList.remove('searching');showDetails();}
+function openShow(){app.classList.remove('searching','show-detail');app.classList.add('details');}
 function setSearchTerm(t){const f=document.getElementById('titleSearch');f.value=t;filterSearch(t);}
 function filterSearch(value){const q=value.trim().toLowerCase();document.querySelectorAll('#searchResults .search-result').forEach(row=>row.style.display=!q||row.textContent.toLowerCase().includes(q)?'grid':'none');}
 function setReaction(btn){btn.classList.toggle('chosen');btn.style.background=btn.classList.contains('chosen')?'#e50914':'#29292d';}
