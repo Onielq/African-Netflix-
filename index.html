@@ -123,7 +123,21 @@
  .credits{margin-top:12px}
  .tabs{margin-bottom:11px}
 }
-</style></head>
+</style>
+<style id="player-orientation-fix">
+/* The player must never ask the viewer to rotate the phone.
+   In portrait browsers, render the player as a landscape viewport rotated
+   inside the available screen. In native landscape, use the viewport normally. */
+.rotate-prompt{display:none!important}
+.app.playing .screen-three{display:block!important;position:fixed;inset:0;width:100vw;height:100dvh;overflow:hidden;background:#000;z-index:100}
+.app.playing .player-ui{display:flex!important;position:absolute;left:50%;top:50%;width:100dvh;height:100vw;max-width:none;max-height:none;min-height:0;box-sizing:border-box;transform:translate(-50%,-50%) rotate(90deg);transform-origin:center;flex-direction:column;justify-content:space-between;padding:12px 20px;background:linear-gradient(180deg,#000b,transparent 24%,transparent 76%,#000b);z-index:3}
+.app.playing .player-backdrop{display:none!important}
+@media(orientation:landscape){
+ .app.playing .screen-three{width:100vw;height:100dvh}
+ .app.playing .player-ui{left:0;top:0;width:100vw;height:100dvh;transform:none;padding:18px 28px 22px}
+}
+</style>
+</head>
 <body>
 <div class="app" id="app">
 <section class="screen screen-one" id="screenOne" aria-label="Black Mirror trailer">
@@ -187,8 +201,7 @@
   <section class="tab-panel" id="trailers" hidden><div class="episode-heading"><h2>Trailers &amp; More</h2></div><button class="season-select" onclick="showTrailer()">Season 7 Official Trailer ↗</button></section>
  </main>
 </section>
-<div class="screen-three" id="episodePlayer"><div class="rotate-prompt"><i data-lucide="smartphone"></i><strong>Turn your phone sideways</strong><span>Landscape playback</span></div>
- <div class="player-backdrop"><img src="https://cdn.mos.cms.futurecdn.net/TLvFoYVPXawr9iRsMwKnWh.jpg" alt=""></div>
+<div class="screen-three" id="episodePlayer"><div class="player-backdrop"><img src="https://cdn.mos.cms.futurecdn.net/TLvFoYVPXawr9iRsMwKnWh.jpg" alt=""></div>
  <div class="player-ui"><div class="player-controls"><button class="circle" onclick="closeEpisode()"><svg viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"/></svg></button><span style="font-size:12px;font-weight:700">BLACK MIRROR · S7:E1</span><button class="circle" onclick="toggleMute()"><svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4H4z"/></svg></button></div><button class="player-center" onclick="notify('Episode playback source is not connected yet')"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></button><div class="player-caption">Common People <small>Episode playback preview · Connect a licensed episode stream to watch the full episode.</small><div class="progress-track" style="position:relative;inset:auto;margin-top:13px"><i style="width:8%;animation:none"></i></div></div></div>
 </div>
 </div>
