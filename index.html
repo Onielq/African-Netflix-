@@ -200,9 +200,9 @@ frame.id='blackMirrorTrailer';frame.title='Black Mirror Season 7 official traile
 const poster=document.querySelector('#heroSlot .poster-fallback');
 document.getElementById('heroSlot').appendChild(frame);
 
-function moveTrailer(to){/* The single trailer iframe stays mounted in heroSlot; CSS moves its viewport into the details preview without reloading playback. */}
-function showDetails(){if(app.classList.contains('details'))return;app.classList.add('details')}
-function showTrailer(){if(!app.classList.contains('details'))return;app.classList.remove('details')}
+function moveTrailer(to){const slot=document.getElementById('heroSlot'),progress=document.querySelector('#screenOne>.progress-track'),mini=document.getElementById('miniSlot');if(!slot||!mini||!progress)return;if(to==='details'){mini.appendChild(slot);mini.appendChild(progress)}else{document.getElementById('screenOne').insertBefore(slot,document.querySelector('#screenOne>.top-controls'));document.getElementById('screenOne').insertBefore(progress,document.querySelector('#screenOne>.top-controls'))}}
+function showDetails(){if(app.classList.contains('details'))return;moveTrailer('details');app.classList.add('details')}
+function showTrailer(){if(!app.classList.contains('details'))return;app.classList.remove('details');moveTrailer('trailer')}
 let muted=true,paused=false;function playerCommand(func,args=[]){if(ytReady&&ytPlayer&&ytPlayer[func])ytPlayer[func](...args)}function toggleMute(){muted=!muted;if(ytReady){muted?ytPlayer.mute():ytPlayer.unMute()}document.getElementById('muteButton').setAttribute('aria-label',muted?'Unmute trailer':'Mute trailer');document.getElementById('muteButton').innerHTML='<i data-lucide="'+(muted?'volume-x':'volume-2')+'"></i>';if(window.lucide)lucide.createIcons()}
 function playEpisode(){app.classList.add('playing');try{if(screen.orientation&&screen.orientation.lock)screen.orientation.lock('landscape').catch(()=>{})}catch(e){}}
 function closeEpisode(){app.classList.remove('playing');try{if(screen.orientation&&screen.orientation.unlock)screen.orientation.unlock()}catch(e){}}
@@ -273,5 +273,24 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 #seasonSheet .season-option.selected{background:#ffffff12;font-weight:700}
 #seasonSheet .season-option svg{width:15px;height:15px;stroke:#e50914;fill:none;stroke-width:2.5}
 #seasonSheet:after{content:"";position:absolute;bottom:-6px;left:calc(50% - 6px);width:11px;height:11px;background:rgba(43,43,49,.98);border-right:1px solid #ffffff24;border-bottom:1px solid #ffffff24;transform:rotate(45deg)}
+</style>
+
+<style id="details-reference-flow-fix">
+/* Details page uses one in-flow trailer preview; no floating duplicate over the actions. */
+.app.details .screen-one{transform:translateY(-100%)!important;opacity:0!important;pointer-events:none!important;z-index:1!important}
+.app.details .screen-one>.trailer-frame,.app.details .screen-one>.progress-track{display:none!important}
+.app.details .screen-two{transform:translateY(0)!important;z-index:3!important}
+.details-layout{top:0!important;left:0!important;right:0!important;bottom:0!important;max-width:none!important;width:100%!important;transform:none!important;overflow-y:auto!important;overscroll-behavior:contain!important;padding-top:calc(env(safe-area-inset-top) + 70px)!important;padding-left:18px!important;padding-right:18px!important;padding-bottom:calc(env(safe-area-inset-bottom) + 24px)!important}
+.details-intro{position:relative!important;display:flex!important;align-items:flex-start!important;gap:13px!important;min-height:130px!important;margin:0 0 12px!important}
+.mini-video{position:relative!important;display:block!important;flex:0 0 104px!important;width:104px!important;height:130px!important;min-height:0!important;overflow:hidden!important;border-radius:8px!important;background:#17171b!important}
+.mini-video>#heroSlot{position:absolute!important;inset:0!important;display:block!important;width:100%!important;height:100%!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;z-index:1!important;border-radius:8px!important;overflow:hidden!important}
+.mini-video>#heroSlot iframe{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-width:0!important;left:0!important;top:0!important;transform:none!important;pointer-events:none!important}
+.mini-video>#heroSlot:before,.mini-video>#heroSlot:after,.mini-video>#heroSlot .poster-fallback{display:none!important}
+.mini-video>.progress-track{position:absolute!important;display:block!important;visibility:visible!important;left:0!important;right:0!important;top:auto!important;bottom:0!important;width:100%!important;height:3px!important;z-index:3!important}
+.intro-info{flex:1 1 auto!important;min-width:0!important;padding-top:2px!important}
+.details-actions{position:relative!important;display:flex!important;clear:both!important;margin:0 0 13px!important;gap:9px!important;z-index:2!important}
+.synopsis-card{position:relative!important;margin-top:0!important}
+@media(max-height:740px){.details-layout{padding-top:calc(env(safe-area-inset-top) + 62px)!important}.details-intro{min-height:116px!important;margin-bottom:10px!important}.mini-video{height:116px!important;flex-basis:92px!important;width:92px!important}.intro-title{font-size:23px!important}.synopsis-card{padding:14px 15px!important;margin-bottom:12px!important}.synopsis{font-size:12px!important;line-height:1.42!important}}
+@media(min-width:700px){.details-layout{max-width:760px!important;left:50%!important;right:auto!important;width:100%!important;transform:translateX(-50%)!important;padding-left:24px!important;padding-right:24px!important}.mini-video{width:125px!important;height:160px!important;flex-basis:125px!important}}
 </style>
 </body></html>
