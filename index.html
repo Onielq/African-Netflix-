@@ -60,6 +60,11 @@
 .player-center{border:1px solid #ffffff55;backdrop-filter:blur(10px)}
 @media(orientation:portrait){.app.playing .screen-three{display:flex;align-items:center;justify-content:center;background:#000}.app.playing .screen-three:before{content:"";position:absolute;inset:0;background:#000}.app.playing .player-ui{position:relative;width:100vw;height:56.25vw;max-height:100vh;min-height:190px;padding:12px 16px;background:linear-gradient(180deg,#000a,transparent 25%,transparent 70%,#000b)}.app.playing .player-backdrop{display:none}}
 @media(orientation:landscape){.app.playing .screen-three{display:block}.app.playing .player-ui{padding:18px 28px 22px}}
+</style><style id="landscape-prompt">
+.rotate-prompt{display:none}
+@media(orientation:portrait){.app.playing .rotate-prompt{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#050507;color:#fff;text-align:center}.rotate-prompt i{display:block;width:42px;height:42px;transform:rotate(90deg);stroke-width:1.5;animation:turnPhone 1.8s ease-in-out infinite alternate}.rotate-prompt strong{font-size:16px;font-weight:650}.rotate-prompt span{font-size:12px;color:#96969d}.app.playing .player-ui{display:none}}
+@media(orientation:landscape){.app.playing .rotate-prompt{display:none}.app.playing .player-ui{display:flex}}
+@keyframes turnPhone{to{transform:rotate(0deg)}}
 </style></head>
 <body>
 <div class="app" id="app">
@@ -124,7 +129,7 @@
   <section class="tab-panel" id="trailers" hidden><div class="episode-heading"><h2>Trailers &amp; More</h2></div><button class="season-select" onclick="showTrailer()">Season 7 Official Trailer ↗</button></section>
  </main>
 </section>
-<div class="screen-three" id="episodePlayer">
+<div class="screen-three" id="episodePlayer"><div class="rotate-prompt"><i data-lucide="smartphone"></i><strong>Turn your phone sideways</strong><span>Landscape playback</span></div>
  <div class="player-backdrop"><img src="https://cdn.mos.cms.futurecdn.net/TLvFoYVPXawr9iRsMwKnWh.jpg" alt=""></div>
  <div class="player-ui"><div class="player-controls"><button class="circle" onclick="closeEpisode()"><svg viewBox="0 0 24 24"><path d="m18 6-12 12M6 6l12 12"/></svg></button><span style="font-size:12px;font-weight:700">BLACK MIRROR · S7:E1</span><button class="circle" onclick="toggleMute()"><svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4H4z"/></svg></button></div><button class="player-center" onclick="notify('Episode playback source is not connected yet')"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></button><div class="player-caption">Common People <small>Episode playback preview · Connect a licensed episode stream to watch the full episode.</small><div class="progress-track" style="position:relative;inset:auto;margin-top:13px"><i style="width:8%;animation:none"></i></div></div></div>
 </div>
