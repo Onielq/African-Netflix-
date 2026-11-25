@@ -36,8 +36,8 @@
   <div class="metadata"><span class="pill rating">TV-MA</span><span class="pill">HD</span><span class="pill">CC Subtitles</span><span class="pill">Audio Description</span></div>
   <p class="description">Dystopian tales about the dark side of tech. Season 7 opens with Common People.</p>
   <div class="main-actions">
-   <button class="play-btn" onclick="playEpisode()"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg>Play&nbsp; S7 Episode 1</button>
-   <button class="circle" aria-label="Download" onclick="notify('Download added to your list')"><svg viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 18v3h16v-3"/></svg></button>
+   <button class="play-btn" onclick="playEpisode()"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg><span class='play-main'>Play</span><span class='play-episode'>S7 Episode 1</span></button>
+   <button class="circle" aria-label="Download" onclick="notify('Season 7 download added')"><svg viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 18v3h16v-3"/></svg></button>
    <button class="circle" id="myListOne" aria-label="Add to My List" onclick="toggleList()"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
   </div>
   <div class="hint"><span>⌃</span>Swipe up for episodes and more</div>
@@ -73,7 +73,7 @@
    <button class="active" data-tab="episodes">Episodes</button><button data-tab="similar">More Like This</button><button data-tab="trailers">Trailers &amp; More</button>
   </nav>
   <section class="tab-panel" id="episodes">
-   <div class="episode-heading"><h2>Episodes</h2><button class="season-select" onclick="notify('Season 7 selected')">Season 7⌄</button></div>
+   <div class="episode-heading"><h2>Episodes</h2><button class="season-select" onclick="openSeasons()" aria-haspopup="dialog"><span id="seasonLabel">Season 7</span><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></div>
    <div class="episode-rail">
     <article class="episode"><div class="episode-image"><img src="https://cdn.mos.cms.futurecdn.net/TLvFoYVPXawr9iRsMwKnWh.jpg" alt="Common People episode still"><button class="ep-download" aria-label="Download episode" onclick="notify('Episode added to downloads')"><svg viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 18v3h16v-3"/></svg></button></div><div class="ep-title">1. Common People</div><div class="ep-meta">Episode 1 · 57m</div></article>
     <article class="episode"><div class="episode-image"><img src="https://s.yimg.com/ny/api/res/1.2/gK_991pwFFAMNZ9iGnxTLg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02OTg7Y2Y9d2VicA--/https%3A/media.zenfs.com/en/tyla_547/2961618a838a0a866dc91f1408aee0d1" alt="Bête Noire episode still"><button class="ep-download" aria-label="Download episode" onclick="notify('Episode added to downloads')"><svg viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 18v3h16v-3"/></svg></button></div><div class="ep-title">2. Bête Noire</div><div class="ep-meta">Episode 2 · 50m</div></article>
@@ -92,15 +92,15 @@
 <script>
 const app=document.getElementById('app');
 const frame=document.createElement('iframe');
-frame.src='https://www.youtube-nocookie.com/embed/1iqra1ojEvM?autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist=1iqra1ojEvM&modestbranding=1&rel=0';
-frame.title='Black Mirror Season 7 official trailer';frame.allow='autoplay; encrypted-media; picture-in-picture';frame.referrerPolicy='strict-origin-when-cross-origin';
+frame.src='https://www.youtube-nocookie.com/embed/1iqra1ojEvM?autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist=1iqra1ojEvM&modestbranding=1&rel=0&enablejsapi=1&origin='+encodeURIComponent(location.origin);
+frame.id='blackMirrorTrailer';frame.title='Black Mirror Season 7 official trailer';frame.allow='autoplay; encrypted-media; picture-in-picture';frame.referrerPolicy='strict-origin-when-cross-origin';
 const poster=document.querySelector('#heroSlot .poster-fallback');
 document.getElementById('heroSlot').appendChild(frame);
 frame.addEventListener('load',()=>document.getElementById('heroSlot').classList.add('loaded'));
 function moveTrailer(to){const slot=document.getElementById(to);slot.appendChild(frame);slot.classList.add('loaded')}
 function showDetails(){if(app.classList.contains('details'))return;app.classList.add('details');moveTrailer('miniSlot')}
 function showTrailer(){if(!app.classList.contains('details'))return;app.classList.remove('details');moveTrailer('heroSlot')}
-let muted=true,paused=false;function playerCommand(func,args=[]){frame.contentWindow?.postMessage(JSON.stringify({event:'command',func,args}),'*')}function toggleMute(){muted=!muted;playerCommand(muted?'mute':'unMute');const icon=document.getElementById('muteIcon');if(icon)icon.innerHTML=muted?'<path d="M4 10v4h4l5 4V6l-5 4H4z"/><path d="m17 9 4 6m0-6-4 6"/>':'<path d="M4 10v4h4l5 4V6l-5 4H4z"/><path d="M16 9a5 5 0 0 1 0 6m2-9a9 9 0 0 1 0 12"/>'}
+let muted=true,paused=false;function playerCommand(func,args=[]){frame.contentWindow?.postMessage(JSON.stringify({event:'command',func,args}),'*')}function toggleMute(){muted=!muted;if(ytPlayer){muted?ytPlayer.mute():ytPlayer.unMute()}else playerCommand(muted?'mute':'unMute');const icon=document.getElementById('muteIcon');if(icon)icon.innerHTML=muted?'<path d="M4 10v4h4l5 4V6l-5 4H4z"/><path d="m17 9 4 6m0-6-4 6"/>':'<path d="M4 10v4h4l5 4V6l-5 4H4z"/><path d="M16 9a5 5 0 0 1 0 6m2-9a9 9 0 0 1 0 12"/>'}
 function playEpisode(){app.classList.add('playing')}
 function closeEpisode(){app.classList.remove('playing')}
 function closeApp(){showTrailer()}
@@ -112,7 +112,35 @@ let startX=0,startY=0;const stage=document.getElementById('screenOne');
 app.addEventListener('touchstart',e=>{startX=e.changedTouches[0].clientX;startY=e.changedTouches[0].clientY},{passive:true});
 app.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;if(Math.abs(dy)>55&&Math.abs(dy)>Math.abs(dx)){if(dy<0)showDetails();else showTrailer()}},{passive:true});
 let wheelLock=false;app.addEventListener('wheel',e=>{if(wheelLock)return;if(Math.abs(e.deltaY)>30){wheelLock=true;e.deltaY>0?showDetails():showTrailer();setTimeout(()=>wheelLock=false,700)}},{passive:true});
-let clickTimer;document.getElementById('screenOne').addEventListener('click',e=>{if(e.target.closest('button'))return;if(clickTimer){clearTimeout(clickTimer);clickTimer=null;paused=!paused;playerCommand(paused?'pauseVideo':'playVideo')}else clickTimer=setTimeout(()=>{clickTimer=null},260)});
+let clickTimer;document.getElementById('screenOne').addEventListener('click',e=>{if(e.target.closest('button'))return;if(clickTimer){clearTimeout(clickTimer);clickTimer=null;paused=!paused;if(ytPlayer){paused?ytPlayer.pauseVideo():ytPlayer.playVideo()}else playerCommand(paused?'pauseVideo':'playVideo')}else clickTimer=setTimeout(()=>{clickTimer=null},260)});
 document.addEventListener('keydown',e=>{if(e.key==='ArrowUp'||e.key==='Escape')showTrailer();if(e.key==='ArrowDown')showDetails()});
 </script>
-</body></html>
+
+<style>
+.progress-track i{width:0%;animation:none;transition:width .18s linear}
+.mini-video .progress-track{top:auto;bottom:10px;left:10px;right:10px;height:3px;z-index:4;background:#ffffff70}
+.mini-video .progress-track i{height:3px}
+.play-main{font-weight:650;color:#111}.play-episode{font-weight:500;color:#777;opacity:.78}
+.season-select{border-radius:22px;padding:10px 15px;display:flex;align-items:center;gap:10px}
+.season-select svg{width:13px;height:13px;stroke:#eee;fill:none;stroke-width:2}
+.season-backdrop{position:absolute;inset:0;z-index:20;background:rgba(0,0,0,.65);backdrop-filter:blur(7px);opacity:0;pointer-events:none;transition:opacity .24s}
+.season-backdrop.open{opacity:1;pointer-events:auto}
+.season-sheet{position:absolute;left:0;right:0;bottom:0;z-index:21;padding:12px 22px calc(env(safe-area-inset-bottom) + 22px);border-radius:25px 25px 0 0;background:linear-gradient(180deg,#303035,#17171b);box-shadow:0 -18px 60px #0008;transform:translateY(105%);transition:transform .32s cubic-bezier(.2,.8,.2,1)}
+.season-sheet.open{transform:translateY(0)}.sheet-grabber{width:38px;height:4px;border-radius:5px;background:#777;margin:0 auto 18px}
+.season-sheet h3{font-size:18px;margin:0 0 12px}.season-option{width:100%;display:flex;align-items:center;justify-content:space-between;background:transparent;padding:14px 2px;color:#eee;font-size:15px;text-align:left;border-bottom:1px solid #ffffff12}
+.season-option.selected{font-weight:700}.season-option svg{width:18px;height:18px;stroke:#e50914;fill:none;stroke-width:2.5}
+.ep-meta{opacity:.65}.episode-bottom-fade{height:34px;margin:0 -18px -20px;pointer-events:none;background:linear-gradient(180deg,transparent,#08080a)}
+</style>
+<div class="season-backdrop" id="seasonBackdrop" onclick="closeSeasons()"></div>
+<section class="season-sheet" id="seasonSheet" role="dialog" aria-modal="true" aria-label="Choose a season"><div class="sheet-grabber"></div><h3>Seasons</h3><div id="seasonOptions"></div></section>
+<script>
+let ytPlayer=null,ytReady=false,trailerDuration=0;
+window.onYouTubeIframeAPIReady=function(){ytPlayer=new YT.Player('blackMirrorTrailer',{events:{onReady:function(e){ytReady=true;e.target.mute();e.target.playVideo()},onStateChange:function(e){if(e.data===YT.PlayerState.ENDED)setTrailerProgress(trailerDuration,trailerDuration)}}})};
+const ytApi=document.createElement('script');ytApi.src='https://www.youtube.com/iframe_api';document.head.appendChild(ytApi);
+function setTrailerProgress(t,d){if(Number.isFinite(d)&&d>0)trailerDuration=d;const p=trailerDuration?Math.max(0,Math.min(100,t/trailerDuration*100)):0;document.querySelectorAll('.progress-track i').forEach(x=>x.style.width=p+'%')}
+setInterval(()=>{if(ytReady&&ytPlayer&&ytPlayer.getPlayerState()===1)setTrailerProgress(ytPlayer.getCurrentTime(),ytPlayer.getDuration())},250);
+const originalMoveTrailer=moveTrailer;moveTrailer=function(to){originalMoveTrailer(to);setTimeout(()=>{if(ytReady&&ytPlayer)setTrailerProgress(ytPlayer.getCurrentTime(),ytPlayer.getDuration())},80)};
+let chosenSeason=7;
+function openSeasons(){const opts=document.getElementById('seasonOptions');opts.innerHTML='';for(let s=7;s>=1;s--){const b=document.createElement('button');b.className='season-option'+(s===chosenSeason?' selected':'');b.innerHTML='<span>Season '+s+'</span>'+(s===chosenSeason?'<svg viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></svg>':'');b.onclick=()=>{chosenSeason=s;document.getElementById('seasonLabel').textContent='Season '+s;closeSeasons();if(s!==7)notify('Season '+s+' selected — episodes will appear when available')};opts.appendChild(b)}document.getElementById('seasonBackdrop').classList.add('open');document.getElementById('seasonSheet').classList.add('open')}
+function closeSeasons(){document.getElementById('seasonBackdrop').classList.remove('open');document.getElementById('seasonSheet').classList.remove('open')}
+</script></body></html>
