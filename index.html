@@ -60,12 +60,7 @@
 .player-center{border:1px solid #ffffff55;backdrop-filter:blur(10px)}
 @media(orientation:portrait){.app.playing .screen-three{display:flex;align-items:center;justify-content:center;background:#000}.app.playing .screen-three:before{content:"";position:absolute;inset:0;background:#000}.app.playing .player-ui{position:relative;width:100vw;height:56.25vw;max-height:100vh;min-height:190px;padding:12px 16px;background:linear-gradient(180deg,#000a,transparent 25%,transparent 70%,#000b)}.app.playing .player-backdrop{display:none}}
 @media(orientation:landscape){.app.playing .screen-three{display:block}.app.playing .player-ui{padding:18px 28px 22px}}
-</style><style id="landscape-prompt">
-.rotate-prompt{display:none}
-@media(orientation:portrait){.app.playing .rotate-prompt{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#050507;color:#fff;text-align:center}.rotate-prompt i{display:block;width:42px;height:42px;transform:rotate(90deg);stroke-width:1.5;animation:turnPhone 1.8s ease-in-out infinite alternate}.rotate-prompt strong{font-size:16px;font-weight:650}.rotate-prompt span{font-size:12px;color:#96969d}.app.playing .player-ui{display:none}}
-@media(orientation:landscape){.app.playing .rotate-prompt{display:none}.app.playing .player-ui{display:flex}}
-@keyframes turnPhone{to{transform:rotate(0deg)}}
-</style><style id="precision-mobile-pass">
+</style><style id="landscape-prompt-removed">.rotate-prompt{display:none!important}</style><style id="precision-mobile-pass">
 /* Keep the episode label as a supporting action, not a second headline */
 .main-actions{gap:9px}
 .main-actions .play-btn{max-width:none;flex:1;justify-content:center;padding:0 14px}
@@ -371,7 +366,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <style id="complete-landscape-player">
 #episodePlayer{position:fixed!important;inset:0!important;z-index:100!important;display:none;background:#000;overflow:hidden;touch-action:manipulation}
 .app.playing #episodePlayer{display:block!important}
-#episodePlayer .episode-video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;filter:brightness(1);z-index:0}
+#episodePlayer .episode-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000;filter:brightness(1);z-index:0}
 #episodePlayer .player-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,#000b,transparent 22%,transparent 65%,#000d);z-index:1}
 #episodePlayer .player-ui{position:absolute;inset:0;z-index:2;display:flex!important;flex-direction:column;justify-content:space-between;padding:calc(env(safe-area-inset-top) + 12px) calc(env(safe-area-inset-right) + 16px) calc(env(safe-area-inset-bottom) + 12px) calc(env(safe-area-inset-left) + 16px);color:white}
 .player-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px}
