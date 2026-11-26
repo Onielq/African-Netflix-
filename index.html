@@ -234,12 +234,12 @@
     <button onclick="nextEpisode()"><i data-lucide="skip-forward" aria-hidden="true"></i><span>Next Episode</span></button>
    </nav>
    <div class="episode-rail" id="playerEpisodeRail">
-    <button class="episode-thumb active" onclick="selectEpisode(1)"><span class="thumb-art">S7</span><span>1 · Common People</span></button>
-    <button class="episode-thumb" onclick="selectEpisode(2)"><span class="thumb-art">S7</span><span>2 · Bête Noire</span></button>
-    <button class="episode-thumb" onclick="selectEpisode(3)"><span class="thumb-art">S7</span><span>3 · Hotel Reverie</span></button>
-    <button class="episode-thumb" onclick="selectEpisode(4)"><span class="thumb-art">S7</span><span>4 · Plaything</span></button>
-    <button class="episode-thumb" onclick="selectEpisode(5)"><span class="thumb-art">S7</span><span>5 · Eulogy</span></button>
-    <button class="episode-thumb" onclick="selectEpisode(6)"><span class="thumb-art">S7</span><span>6 · USS Callister: Into Infinity</span></button>
+    <button class="episode-thumb active" aria-pressed="true" onclick="selectEpisode(1)"><img class="thumb-art" src="https://cdn.mos.cms.futurecdn.net/TLvFoYVPXawr9iRsMwKnWh.jpg" alt="" loading="lazy"><span>1 · Common People</span></button>
+    <button class="episode-thumb" aria-pressed="false" onclick="selectEpisode(2)"><img class="thumb-art" src="https://s.yimg.com/ny/api/res/1.2/gK_991pwFFAMNZ9iGnxTLg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02OTg7Y2Y9d2VicA--/https%3A/media.zenfs.com/en/tyla_547/2961618a838a0a866dc91f1408aee0d1" alt="" loading="lazy"><span>2 · Bête Noire</span></button>
+    <button class="episode-thumb" aria-pressed="false" onclick="selectEpisode(3)"><img class="thumb-art" src="https://media.zenfs.com/en/aol_entertainment_weekly_articles_368/4d6143fbfea017c0c78dbf3cd4389fec" alt="" loading="lazy"><span>3 · Hotel Reverie</span></button>
+    <button class="episode-thumb" aria-pressed="false" onclick="selectEpisode(4)"><span class="thumb-art thumb-art--fallback">S7</span><span>4 · Plaything</span></button>
+    <button class="episode-thumb" aria-pressed="false" onclick="selectEpisode(5)"><span class="thumb-art thumb-art--fallback">S7</span><span>5 · Eulogy</span></button>
+    <button class="episode-thumb" aria-pressed="false" onclick="selectEpisode(6)"><span class="thumb-art thumb-art--fallback">S7</span><span>6 · USS Callister: Into Infinity</span></button>
    </div>
   </footer>
   <div class="player-source-notice" id="playerSourceNotice">Episode stream is not connected. A licensed video URL is required to play this episode.</div>
@@ -269,7 +269,7 @@ function fmtPlayerTime(t){if(!Number.isFinite(t))return'0:00';return Math.floor(
 function seekEpisode(value){const v=playerVideo();if(Number.isFinite(v.duration))v.currentTime=v.duration*Number(value)/100}
 function setEpisodeVolume(value){playerVideo().volume=Number(value);playerVideo().muted=Number(value)===0}
 function setPlayerBrightness(value){playerVideo().style.filter='brightness('+Number(value)/100+')'}
-function reactEpisode(kind){episodeReaction=kind;document.querySelectorAll('.player-reactions button').forEach(b=>b.classList.remove('selected'));const labels={dislike:'Dislike',like:'Like', 'double-like':'Double-like'};const b=[...document.querySelectorAll('.player-reactions button')].find(x=>x.getAttribute('aria-label')===labels[kind]);if(b)b.classList.add('selected')}
+function reactEpisode(kind){episodeReaction=kind;document.querySelectorAll('.player-reactions button').forEach(b=>{const selected=b.getAttribute('aria-label')===(kind==='double-like'?'Double-like':kind[0].toUpperCase()+kind.slice(1));b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected))})}
 function togglePiP(){const v=playerVideo();if(document.pictureInPictureEnabled&&v.requestPictureInPicture)v.requestPictureInPicture().catch(()=>notify('Picture-in-Picture is unavailable for this video'));else notify('Picture-in-Picture is not supported in this browser')}
 function castEpisode(){if(navigator.mediaSession)notify('Connect a supported casting device to cast this episode');else notify('Casting is not available in this browser')}
 function togglePlayerLock(){playerLocked=!playerLocked;document.getElementById('playerUI').classList.toggle('controls-locked',playerLocked);document.getElementById('lockButton').classList.toggle('selected',playerLocked);document.getElementById('lockButton').setAttribute('aria-label',playerLocked?'Unlock controls':'Lock controls')}
@@ -277,7 +277,7 @@ function cyclePlaybackSpeed(){const speeds=[1,1.25,1.5,1.75,2,.75];playerSpeedIn
 function scrollToEpisodes(){document.getElementById('episodePlayer').classList.toggle('show-episodes')}
 function toggleSubtitles(){const v=playerVideo();if(!v.textTracks||!v.textTracks.length){notify('No subtitle or alternate audio tracks are attached to this stream');return}for(let i=0;i<v.textTracks.length;i++)v.textTracks[i].mode=v.textTracks[i].mode==='showing'?'disabled':'showing'}
 function makeClip(){notify('Clip creation needs a connected stream and clip service')}
-function selectEpisode(n){activeEpisode=n;const names={1:'Common People',2:'Bête Noire',3:'Hotel Reverie',4:'Plaything',5:'Eulogy',6:'USS Callister: Into Infinity'};document.getElementById('playerEpisodeTitle').textContent='BLACK MIRROR · S7:E'+n;document.getElementById('playerEpisodeName').textContent=names[n];document.querySelectorAll('.episode-thumb').forEach((b,i)=>b.classList.toggle('active',i===n-1));const v=playerVideo();v.pause();v.removeAttribute('src');v.load();document.getElementById('playerSourceNotice').classList.add('visible');document.getElementById('centerPlay').textContent='▶'}
+function selectEpisode(n){activeEpisode=n;const names={1:'Common People',2:'Bête Noire',3:'Hotel Reverie',4:'Plaything',5:'Eulogy',6:'USS Callister: Into Infinity'};document.getElementById('playerEpisodeTitle').textContent='BLACK MIRROR · S7:E'+n;document.getElementById('playerEpisodeName').textContent=names[n];document.querySelectorAll('.episode-thumb').forEach((b,i)=>{const selected=i===n-1;b.classList.toggle('active',selected);b.setAttribute('aria-pressed',String(selected))});const v=playerVideo();v.pause();v.removeAttribute('src');v.load();document.getElementById('playerSourceNotice').classList.add('visible');document.getElementById('centerPlay').textContent='▶'}
 function nextEpisode(){selectEpisode(Math.min(6,activeEpisode+1))}
 playerVideo()?.addEventListener('timeupdate',()=>{const v=playerVideo();document.getElementById('playerCurrentTime').textContent=fmtPlayerTime(v.currentTime);document.getElementById('playerDuration').textContent=fmtPlayerTime(v.duration);if(Number.isFinite(v.duration))document.getElementById('playerSeek').value=v.currentTime/v.duration*100});
 playerVideo()?.addEventListener('play',()=>{document.getElementById('centerPlay').textContent='Ⅱ';document.getElementById('playerSourceNotice').classList.remove('visible')});
@@ -478,4 +478,37 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  #episodePlayer .player-actions button{font-size:10px}
 }
 </style>
-<style id="lucide-player-icon-fix">#episodePlayer .player-center svg{fill:none!important;stroke:currentColor!important;stroke-width:2!important}#episodePlayer .player-icon svg,#episodePlayer .player-side svg,#episodePlayer .skip-button svg,#episodePlayer .player-actions svg{fill:none!important;stroke:currentColor!important}</style></body></html>
+<style id="lucide-player-icon-fix">#episodePlayer .player-center svg{fill:none!important;stroke:currentColor!important;stroke-width:2!important}#episodePlayer .player-icon svg,#episodePlayer .player-side svg,#episodePlayer .skip-button svg,#episodePlayer .player-actions svg{fill:none!important;stroke:currentColor!important}</style><style id="design-system-polish">
+/* African Netflix player system — restrained streaming UI, tuned for the landscape player */
+:root{color-scheme:dark;--an-bg:#050505;--an-surface:#151515;--an-text:#f5f5f5;--an-muted:#b8b8b8;--an-accent:#e50914;--an-focus:#fff;--an-hit:44px;--an-ease:cubic-bezier(.2,.8,.2,1)}
+#episodePlayer{background:var(--an-bg);color:var(--an-text)}
+#episodePlayer .player-icon{width:var(--an-hit);height:var(--an-hit);flex-basis:var(--an-hit);min-width:var(--an-hit);min-height:var(--an-hit);transition:background-color .16s var(--an-ease),opacity .16s var(--an-ease),transform .16s var(--an-ease)}
+#episodePlayer .player-reactions .player-icon{width:48px;height:48px;flex-basis:48px}
+#episodePlayer .player-tools .player-icon{width:44px;height:44px;flex-basis:44px}
+#episodePlayer .player-center{width:68px;height:68px;transition:background-color .16s var(--an-ease),transform .16s var(--an-ease)}
+#episodePlayer .skip-button{width:52px;height:52px;min-width:44px;min-height:44px;transition:opacity .16s var(--an-ease),transform .16s var(--an-ease)}
+#episodePlayer .player-actions button{min-height:44px;padding:8px 10px;border-radius:7px;transition:background-color .16s var(--an-ease),opacity .16s var(--an-ease)}
+#episodePlayer .episode-thumb{min-height:52px;transition:border-color .16s var(--an-ease),background-color .16s var(--an-ease)}
+#episodePlayer .thumb-art{display:block;object-fit:cover;object-position:center;width:64px;height:42px;flex:0 0 64px;border-radius:3px}
+#episodePlayer .thumb-art--fallback{display:grid;place-items:center;background:linear-gradient(135deg,#343434,#111);font-weight:700;color:#ddd}
+#episodePlayer .episode-thumb.active{border-color:var(--an-accent);background:#202020}
+#episodePlayer button:focus-visible,#episodePlayer input:focus-visible{outline:2px solid var(--an-focus);outline-offset:3px}
+#episodePlayer button:active{transform:scale(.97)}
+#episodePlayer .player-icon.selected{background:#ffffff2b;border-color:#ffffff70}
+#episodePlayer .player-timeline input,#episodePlayer .player-side input{touch-action:pan-x}
+@media(hover:hover){
+ #episodePlayer .player-icon:hover,#episodePlayer .player-actions button:hover{background:#ffffff20}
+ #episodePlayer .skip-button:hover{opacity:.72}
+ #episodePlayer .episode-thumb:hover{background:#242424;border-color:#ffffff70}
+}
+@media(orientation:portrait){
+ #episodePlayer .player-icon{width:44px;height:44px;flex-basis:44px}
+ #episodePlayer .player-reactions .player-icon{width:44px;height:44px;flex-basis:44px}
+ #episodePlayer .player-tools .player-icon{width:44px;height:44px;flex-basis:44px}
+ #episodePlayer .player-actions button{padding-inline:7px;font-size:10px}
+ #episodePlayer .episode-thumb{flex-basis:170px;min-width:170px}
+}
+@media(prefers-reduced-motion:reduce){
+ #episodePlayer *,#episodePlayer *::before,#episodePlayer *::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
+}
+</style></body></html>
