@@ -202,36 +202,36 @@
  <div class="player-ui" id="playerUI">
   <header class="player-top">
    <div class="player-identity">
-    <button class="player-icon close-player" aria-label="Close player" onclick="closeEpisode()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <button class="player-icon close-player" aria-label="Close player" onclick="closeEpisode()"><i data-lucide="x" aria-hidden="true"></i></button>
     <div><strong id="playerEpisodeName">Common People</strong><small id="playerEpisodeTitle">BLACK MIRROR · S7:E1</small></div>
    </div>
    <div class="player-reactions" aria-label="Episode reactions">
-    <button class="player-icon" aria-label="Dislike" onclick="reactEpisode('dislike')"><svg viewBox="0 0 24 24"><path d="M7 10v10M4 10h3v10H4a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2Zm3 0 2-7h8a2 2 0 0 1 2 2l-1 5h2a2 2 0 0 1 2 2l-2 7a2 2 0 0 1-2 1h-7l-4-4"/></svg></button>
-    <button class="player-icon" aria-label="Like" onclick="reactEpisode('like')"><svg viewBox="0 0 24 24"><path d="M7 14v-10M4 14h3V4H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2Zm3 0 2 7h8a2 2 0 0 0 2-2l-1-5h2a2 2 0 0 0 2-2l-2-7a2 2 0 0 0-2-1h-7l-4 4"/></svg></button>
-    <button class="player-icon" aria-label="Double-like" onclick="reactEpisode('double-like')"><svg viewBox="0 0 24 24"><path d="m12 20-8-7.5A5 5 0 0 1 11 5l1 1 1-1a5 5 0 0 1 7 7.5L12 20Z"/><path d="M7 3 6 1M17 3l1-2"/></svg></button>
+    <button class="player-icon" aria-label="Dislike" onclick="reactEpisode('dislike')"><i data-lucide="thumbs-down" aria-hidden="true"></i></button>
+    <button class="player-icon" aria-label="Like" onclick="reactEpisode('like')"><i data-lucide="thumbs-up" aria-hidden="true"></i></button>
+    <button class="player-icon" aria-label="Double-like" onclick="reactEpisode('double-like')"><i data-lucide="heart-plus" aria-hidden="true"></i></button>
    </div>
    <div class="player-tools">
-    <button class="player-icon" aria-label="Cast" onclick="castEpisode()"><svg viewBox="0 0 24 24"><path d="M2 17a5 5 0 0 1 5 5M2 12a10 10 0 0 1 10 10M2 7a15 15 0 0 1 15 15M19 5h3v14h-9"/></svg></button>
-    <button class="player-icon" aria-label="Picture in Picture" onclick="togglePiP()"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 12h7v5h-7z"/></svg></button>
-    <button class="player-icon" aria-label="Minimise" onclick="closeEpisode()"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
-    <button class="player-icon" id="lockButton" aria-label="Lock controls" onclick="togglePlayerLock()"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/></svg></button>
+    <button class="player-icon" aria-label="Cast" onclick="castEpisode()"><i data-lucide="cast" aria-hidden="true"></i></button>
+    <button class="player-icon" aria-label="Picture in Picture" onclick="togglePiP()"><i data-lucide="picture-in-picture-2" aria-hidden="true"></i></button>
+    <button class="player-icon" aria-label="Minimise" onclick="closeEpisode()"><i data-lucide="minimize-2" aria-hidden="true"></i></button>
+    <button class="player-icon" id="lockButton" aria-label="Lock controls" onclick="togglePlayerLock()"><i data-lucide="lock" aria-hidden="true"></i></button>
    </div>
   </header>
-  <aside class="player-side player-brightness"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg><input aria-label="Brightness" type="range" min="35" max="130" value="100" oninput="setPlayerBrightness(this.value)"></aside>
+  <aside class="player-side player-brightness"><i data-lucide="sun" aria-hidden="true"></i><input aria-label="Brightness" type="range" min="35" max="130" value="100" oninput="setPlayerBrightness(this.value)"></aside>
   <div class="player-center-group">
-   <button class="skip-button" aria-label="Rewind 10 seconds" onclick="skipEpisode(-10)"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5M12 8v8m-2-6 2-2 2 2"/></svg><small>10</small></button>
-   <button class="player-center" id="centerPlay" aria-label="Play" onclick="toggleEpisodePlayback()"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-   <button class="skip-button" aria-label="Forward 10 seconds" onclick="skipEpisode(10)"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.6-6.4L21 8"/><path d="M21 3v5h-5M12 8v8m-2-6 2-2 2 2"/></svg><small>10</small></button>
+   <button class="skip-button" aria-label="Rewind 10 seconds" onclick="skipEpisode(-10)"><i data-lucide="rewind" aria-hidden="true"></i><small>10</small></button>
+   <button class="player-center" id="centerPlay" aria-label="Play" onclick="toggleEpisodePlayback()"><i data-lucide="play" aria-hidden="true"></i></button>
+   <button class="skip-button" aria-label="Forward 10 seconds" onclick="skipEpisode(10)"><i data-lucide="fast-forward" aria-hidden="true"></i><small>10</small></button>
   </div>
-  <aside class="player-side player-volume"><svg viewBox="0 0 24 24"><path d="M3 10v4h4l5 4V6l-5 4H3Z"/><path d="M16 9a5 5 0 0 1 0 6m3-9a9 9 0 0 1 0 12"/></svg><input aria-label="Volume" id="playerVolume" type="range" min="0" max="1" step=".05" value="1" oninput="setEpisodeVolume(this.value)"></aside>
+  <aside class="player-side player-volume"><i data-lucide="volume-2" aria-hidden="true"></i><input aria-label="Volume" id="playerVolume" type="range" min="0" max="1" step=".05" value="1" oninput="setEpisodeVolume(this.value)"></aside>
   <footer class="player-bottom">
    <div class="player-timeline"><input id="playerSeek" aria-label="Seek video" type="range" min="0" max="100" value="0" oninput="seekEpisode(this.value)"><span id="playerCurrentTime">0:00</span><span class="timeline-divider">/</span><span id="playerDuration">0:00</span></div>
    <nav class="player-actions">
-    <button onclick="makeClip()"><svg viewBox="0 0 24 24"><path d="M7 3H5a2 2 0 0 0-2 2v2m14-4h2a2 2 0 0 1 2 2v2M3 17v2a2 2 0 0 0 2 2h2m14-4v2a2 2 0 0 1-2 2h-2M8 8h8v8H8z"/></svg><span>Clip</span></button>
-    <button onclick="cyclePlaybackSpeed()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Speed <b id="speedLabel">1×</b></span></button>
-    <button onclick="scrollToEpisodes()"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg><span>Episodes</span></button>
-    <button onclick="toggleSubtitles()"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 10h4m-4 4h3m4-4h3m-3 4h3"/></svg><span>Audio &amp; Subtitles</span></button>
-    <button onclick="nextEpisode()"><svg viewBox="0 0 24 24"><path d="M5 5v14l11-7zM19 5v14"/></svg><span>Next Episode</span></button>
+    <button onclick="makeClip()"><i data-lucide="scissors" aria-hidden="true"></i><span>Clip</span></button>
+    <button onclick="cyclePlaybackSpeed()"><i data-lucide="gauge" aria-hidden="true"></i><span>Speed <b id="speedLabel">1×</b></span></button>
+    <button onclick="scrollToEpisodes()"><i data-lucide="list-video" aria-hidden="true"></i><span>Episodes</span></button>
+    <button onclick="toggleSubtitles()"><i data-lucide="closed-caption" aria-hidden="true"></i><span>Audio &amp; Subtitles</span></button>
+    <button onclick="nextEpisode()"><i data-lucide="skip-forward" aria-hidden="true"></i><span>Next Episode</span></button>
    </nav>
    <div class="episode-rail" id="playerEpisodeRail">
     <button class="episode-thumb active" onclick="selectEpisode(1)"><span class="thumb-art">S7</span><span>1 · Common People</span></button>
@@ -261,7 +261,7 @@ let muted=true,paused=false;function playerCommand(func,args=[]){if(ytReady&&ytP
 const EPISODE_STREAM_URLS={1:"",2:"",3:"",4:"",5:"",6:""};
 let activeEpisode=1,playerLocked=false,playerSpeedIndex=0,episodeReaction="";
 const playerVideo=()=>document.getElementById('episodeVideo');
-function playEpisode(){app.classList.add('playing');document.getElementById('episodePlayer').setAttribute('aria-hidden','false');const v=playerVideo();const src=EPISODE_STREAM_URLS[activeEpisode];if(src&&v.src!==new URL(src,location.href).href){v.src=src;v.load()}if(src){v.play().then(()=>{document.getElementById('centerPlay').innerHTML='<svg viewBox="0 0 24 24"><path d="M7 5h4v14H7zM15 5h4v14h-4z"/></svg>'}).catch(()=>notify('Tap play to start the episode'))}else{document.getElementById('playerSourceNotice').classList.add('visible');document.getElementById('centerPlay').innerHTML='<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>'}try{if(screen.orientation?.lock)screen.orientation.lock('landscape').catch(()=>{})}catch(e){}}
+function playEpisode(){app.classList.add('playing');document.getElementById('episodePlayer').setAttribute('aria-hidden','false');const v=playerVideo();const src=EPISODE_STREAM_URLS[activeEpisode];if(src&&v.src!==new URL(src,location.href).href){v.src=src;v.load()}if(src){v.play().then(()=>{document.getElementById('centerPlay').innerHTML='<i data-lucide="pause" aria-hidden="true"></i>';if(window.lucide)lucide.createIcons()}).catch(()=>notify('Tap play to start the episode'))}else{document.getElementById('playerSourceNotice').classList.add('visible');document.getElementById('centerPlay').innerHTML='<i data-lucide="play" aria-hidden="true"></i>';if(window.lucide)lucide.createIcons()}try{if(screen.orientation?.lock)screen.orientation.lock('landscape').catch(()=>{})}catch(e){}}
 function closeEpisode(){const v=playerVideo();v.pause();app.classList.remove('playing');document.getElementById('episodePlayer').setAttribute('aria-hidden','true');try{if(screen.orientation?.unlock)screen.orientation.unlock()}catch(e){}}
 function toggleEpisodePlayback(){const v=playerVideo();if(!v.src){return}if(v.paused){v.play().then(()=>document.getElementById('centerPlay').textContent='Ⅱ').catch(()=>notify('Playback could not start'))}else{v.pause();document.getElementById('centerPlay').textContent='▶'}}
 function skipEpisode(seconds){const v=playerVideo();if(Number.isFinite(v.duration))v.currentTime=Math.max(0,Math.min(v.duration,v.currentTime+seconds))}
