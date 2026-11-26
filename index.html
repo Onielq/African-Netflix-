@@ -261,4 +261,176 @@ map.forEach(([sel,name])=>document.querySelectorAll(sel).forEach(el=>{const old=
 lucide.createIcons({attrs:{'stroke-width':1.8}});
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',hydrateLucideIcons);else hydrateLucideIcons();
-</script></body></html>
+</script>
+<style id="african-netflix-browse-styles">
+#an-browse{position:fixed;inset:0;z-index:60;background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif;overflow:hidden}
+#an-browse *{box-sizing:border-box}
+#an-browse button{font:inherit;color:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#an-profile{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 22px calc(env(safe-area-inset-bottom) + 38px);background:#080611}
+.an-profile-backdrop{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,2,12,.12) 0%,rgba(4,3,13,.08) 38%,rgba(5,4,13,.7) 68%,#080611 88%),url('https://cdn.mos.cms.futurecdn.net/TLvFoYVPXawr9iRsMwKnWh.jpg') center 28%/cover;filter:saturate(.9)}
+.an-profile-backdrop:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,transparent 12%,rgba(0,0,0,.3) 78%)}
+.an-profile-brand{position:absolute;z-index:1;top:42%;left:0;right:0;text-align:center;transform:translateY(-50%);text-shadow:0 3px 18px #000}
+.an-profile-brand small{display:block;color:#e50914;font-weight:800;font-size:17px;letter-spacing:.4px;margin-bottom:0}
+.an-profile-brand strong{display:block;font-family:Georgia,serif;font-size:clamp(66px,18vw,104px);line-height:.95;letter-spacing:-5px;font-weight:700}
+.an-profile-brand span{display:block;font-size:16px;font-weight:700;margin-top:23px}
+.an-profile-picker{position:relative;z-index:2;width:100%;max-width:560px}
+.an-profile-picker h2{text-align:center;font-size:27px;font-weight:500;color:#ddd;margin:0 0 22px}
+.an-profile-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:clamp(16px,9vw,54px);row-gap:27px;justify-items:center}
+.an-profile{background:transparent;display:flex;flex-direction:column;align-items:center;gap:9px;min-width:0}
+.an-avatar{width:min(19vw,112px);height:min(19vw,112px);min-width:78px;min-height:78px;border-radius:19px;display:grid;place-items:center;overflow:hidden;position:relative;font-size:48px;font-weight:800;box-shadow:0 3px 14px #0007}
+.an-avatar:before{content:"";position:absolute;inset:0;background:linear-gradient(145deg,#ffffff28,transparent 48%,#0003)}
+.an-avatar span{position:relative;text-shadow:0 2px 9px #0007}
+.an-profile:nth-child(1) .an-avatar{background:linear-gradient(140deg,#c99a2d,#442b2a 58%,#111)}
+.an-profile:nth-child(2) .an-avatar{background:linear-gradient(145deg,#7044a7,#211b49)}
+.an-profile:nth-child(3) .an-avatar{background:linear-gradient(145deg,#d7a56a,#6b3728)}
+.an-profile:nth-child(4) .an-avatar{background:linear-gradient(145deg,#d52b21,#7a1016)}
+.an-profile:nth-child(5) .an-avatar{background:linear-gradient(90deg,#3e8b54,#e2b64b,#d85cae,#5978d4)}
+.an-profile-name{font-size:16px;font-weight:600;white-space:nowrap}
+.an-profile-lock{position:absolute;left:8px;bottom:8px;font-size:18px;text-shadow:0 2px 4px #000}
+#an-home,#an-search{position:absolute;inset:0;display:none;background:#000;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;padding-bottom:calc(env(safe-area-inset-bottom) + 96px)}
+#an-home::-webkit-scrollbar,#an-search::-webkit-scrollbar{display:none}
+.an-home-header{position:sticky;top:0;z-index:10;padding:calc(env(safe-area-inset-top) + 9px) 22px 13px;background:linear-gradient(180deg,rgba(44,48,51,.96),rgba(37,39,42,.84));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.an-headline{display:flex;align-items:center;gap:8px;height:48px}
+.an-netflix-n{font-size:48px;line-height:1;color:#e50914;font-weight:900;font-family:Arial Black,Arial,sans-serif;transform:scaleX(.78);transform-origin:left}
+.an-headline strong{font-size:28px;letter-spacing:-.7px}
+.an-head-actions{margin-left:auto;display:flex;align-items:center;gap:26px}
+.an-head-actions button{background:none;padding:3px;display:grid;place-items:center}
+.an-head-actions svg{width:29px;height:29px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.an-categories{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;margin:12px -22px 0;padding:0 22px 1px}
+.an-categories::-webkit-scrollbar{display:none}
+.an-categories button{height:59px;flex:0 0 auto;padding:0 22px;border-radius:22px;background:rgba(190,194,197,.28);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 1px #ffffff28;font-size:16px;font-weight:700;white-space:nowrap}
+.an-feature{position:relative;margin:22px 6.2% 25px;height:min(128vw,780px);min-height:530px;max-height:780px;border:1px solid #ffffff30;border-radius:22px;overflow:hidden;background:#202020}
+.an-feature-art{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.12) 0%,rgba(0,0,0,.03) 35%,rgba(0,0,0,.4) 62%,rgba(0,0,0,.9) 100%),url('https://cdn.mos.cms.futurecdn.net/TLvFoYVPXawr9iRsMwKnWh.jpg') center 27%/cover}
+.an-feature-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0003,transparent 60%),linear-gradient(0deg,#000b,transparent 50%)}
+.an-feature-n{position:absolute;top:24px;left:27px;color:#e50914;font-size:48px;font-weight:900;line-height:1}
+.an-feature-copy{position:absolute;left:25px;right:25px;bottom:27px;text-align:center}
+.an-feature-title{font-size:clamp(35px,9vw,56px);line-height:1.02;font-weight:800;letter-spacing:-1.8px;text-shadow:0 2px 12px #000}
+.an-feature-date{font-size:17px;line-height:1.35;margin:22px 0 27px;font-weight:500}
+.an-remind{width:100%;height:68px;border-radius:38px;background:#fff!important;color:#080808!important;font-size:19px;font-weight:750;display:flex;align-items:center;justify-content:center;gap:12px}
+.an-remind svg{width:29px;height:29px;fill:none;stroke:#080808;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.an-row{margin:0 0 27px}
+.an-row h2{font-size:22px;line-height:1.2;font-weight:750;margin:0 22px 14px}
+.an-posters{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;padding:0 22px 3px;scroll-snap-type:x mandatory}
+.an-posters::-webkit-scrollbar{display:none}
+.an-poster{position:relative;flex:0 0 42vw;max-width:190px;min-width:136px;aspect-ratio:2/3;border-radius:8px;overflow:hidden;background:#29232c;scroll-snap-align:start}
+.an-poster-art{position:absolute;inset:0;background:linear-gradient(145deg,#617d8a,#17212c 52%,#08090d)}
+.an-poster:nth-child(2n) .an-poster-art{background:linear-gradient(145deg,#b1a58c,#44404a 48%,#0d0c12)}
+.an-poster:nth-child(3n) .an-poster-art{background:linear-gradient(145deg,#693a3b,#20202b 55%,#09090d)}
+.an-poster:nth-child(4n) .an-poster-art{background:linear-gradient(145deg,#657a54,#252c30 55%,#09090d)}
+.an-poster-art:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,#000b 100%)}
+.an-poster-title{position:absolute;left:10px;right:10px;bottom:31px;text-align:center;font-size:clamp(17px,4vw,24px);font-weight:900;letter-spacing:-.6px;text-shadow:0 2px 8px #000}
+.an-added{position:absolute;left:0;right:0;bottom:0;background:#e50914;color:#fff;text-align:center;font-size:12px;font-weight:750;padding:5px 3px}
+.an-trailer{position:relative;height:58vw;min-height:210px;max-height:360px;overflow:hidden;background:#14151b;margin:0 0 25px}
+.an-trailer-art{position:absolute;inset:0;background:linear-gradient(90deg,#0005,transparent 60%),linear-gradient(0deg,#000b,transparent 55%),url('https://cdn.mos.cms.futurecdn.net/TLvFoYVPXawr9iRsMwKnWh.jpg') center 28%/cover}
+.an-trailer-art:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,transparent 15%,#0004)}
+.an-trailer-play{position:absolute;right:20px;bottom:18px;width:45px;height:45px;border:1px solid #fff9!important;border-radius:50%;background:#0005!important;display:grid;place-items:center}
+.an-trailer-play svg{width:20px;height:20px;fill:#fff;stroke:#fff}
+.an-selected-info{padding:0 22px 25px}
+.an-selected-info h3{font-size:24px;margin:0 0 7px}
+.an-selected-info p{font-size:15px;color:#bcbcc2;margin:0;font-weight:600}
+.an-bottom-nav{position:fixed;z-index:20;left:8%;right:8%;bottom:calc(env(safe-area-inset-bottom) + 12px);height:78px;border-radius:42px;background:rgba(27,27,33,.78);border:1px solid #ffffff1a;box-shadow:0 8px 28px #0007;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:grid;grid-template-columns:repeat(4,1fr);align-items:center}
+.an-nav-item{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:transparent!important;color:#999!important;font-size:12px}
+.an-nav-item.active{color:#fff!important}
+.an-nav-item svg{width:29px;height:29px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.an-nav-avatar{width:31px;height:31px;border-radius:8px;background:linear-gradient(145deg,#d72b20,#7d1017);display:grid;place-items:center;font-size:17px;font-weight:900;color:#fff}
+#an-search{padding-top:calc(env(safe-area-inset-top) + 26px)}
+.an-search-head{display:flex;align-items:center;padding:0 30px 24px}
+.an-search-head h1{font-size:34px;margin:0;font-weight:750}
+.an-search-field{height:58px;border-radius:18px;background:#303033;margin:0 24px 39px;display:flex;align-items:center;gap:15px;padding:0 20px}
+.an-search-field svg{width:27px;height:27px;stroke:#bdbdc1;fill:none;stroke-width:2}
+.an-search-field input{width:100%;min-width:0;background:transparent;border:0;outline:0;color:#fff;font-size:18px}
+.an-search-field input::placeholder{color:#b9b9bd}
+.an-explore{padding:0 25px 32px}
+.an-explore h2,.an-recommended h2{font-size:20px;margin:0 0 18px}
+.an-chips{display:flex;flex-wrap:wrap;gap:15px}
+.an-chip{min-height:56px;border-radius:32px;border:1px solid #ffffff1c!important;background:#171719!important;padding:0 20px;display:flex;align-items:center;gap:11px;font-size:17px;white-space:nowrap}
+.an-chip svg{width:20px;height:20px;stroke:#999;fill:none;stroke-width:2}
+.an-recommended{padding:0 25px}
+.an-search-result{display:grid;grid-template-columns:38% 1fr 42px;align-items:center;gap:15px;margin:0 0 20px;min-height:96px}
+.an-search-thumb{height:92px;border-radius:8px;background:linear-gradient(145deg,#5a5d68,#17171e);display:flex;align-items:flex-end;justify-content:center;padding:8px;text-align:center;font-size:16px;font-weight:900;text-shadow:0 2px 6px #000}
+.an-search-result strong{font-size:16px;line-height:1.35}
+.an-result-play{width:40px;height:40px;border:2px solid #eee!important;border-radius:50%;background:transparent!important;display:grid;place-items:center}
+.an-result-play svg{width:18px;height:18px;fill:#fff;stroke:#fff}
+@media(min-width:700px){.an-feature{height:660px}.an-poster{flex-basis:190px}.an-home-header{padding-left:36px;padding-right:36px}.an-row h2{margin-left:36px}.an-posters{padding-left:36px}.an-feature{margin-left:6%;margin-right:6%}.an-search-result{grid-template-columns:220px 1fr 48px}.an-search-thumb{height:125px}}
+</style>
+<div id="an-browse">
+ <section id="an-profile">
+  <div class="an-profile-backdrop"></div>
+  <div class="an-profile-brand"><small>AFRICAN NETFLIX</small><strong>Stories</strong><span>Your next story is waiting</span></div>
+  <div class="an-profile-picker"><h2>Choose Your Profile</h2>
+   <div class="an-profile-grid">
+    <button class="an-profile" data-profile="Amir"><span class="an-avatar"><span>Ａ</span><i class="an-profile-lock">♙</i></span><span class="an-profile-name">Amir</span></button>
+    <button class="an-profile" data-profile="Bernisse"><span class="an-avatar"><span>✌</span></span><span class="an-profile-name">Bernisse</span></button>
+    <button class="an-profile" data-profile="Bohnuer"><span class="an-avatar"><span>🧢</span></span><span class="an-profile-name">Bohnuer</span></button>
+    <button class="an-profile" data-profile="Oniel"><span class="an-avatar"><span>😠</span></span><span class="an-profile-name">Oniel</span></button>
+    <button class="an-profile" data-profile="Kids"><span class="an-avatar"><span style="font-size:27px;background:#fff;color:#e33;padding:5px 8px;border-radius:10px">kids</span></span><span class="an-profile-name">Kids</span></button>
+    <button class="an-profile" data-profile="Edit"><span class="an-avatar" style="background:#393747"><span>✎</span></span><span class="an-profile-name">Edit</span></button>
+   </div>
+  </div>
+ </section>
+ <main id="an-home">
+  <header class="an-home-header">
+   <div class="an-headline"><span class="an-netflix-n">N</span><strong>Home</strong><div class="an-head-actions">
+    <button aria-label="Cast"><svg viewBox="0 0 24 24"><path d="M3 18a3 3 0 0 1 3 3M3 13a8 8 0 0 1 8 8M3 8a13 13 0 0 1 13 13"/><path d="M5 3h16v16h-5"/></svg></button>
+    <button aria-label="Downloads"><svg viewBox="0 0 24 24"><path d="M12 2v13m-5-5 5 5 5-5M4 20h16"/></svg></button>
+    <button aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button>
+   </div></div>
+   <nav class="an-categories"><button>Shows</button><button>Movies</button><button>New &amp; Hot</button><button>Categories</button></nav>
+  </header>
+  <section class="an-feature">
+   <div class="an-feature-art"></div><span class="an-feature-n">N</span>
+   <div class="an-feature-copy"><div class="an-feature-title">ALWAYS ON CALL</div><div class="an-feature-date">First Shift Starts November 26</div><button class="an-remind" id="an-remind"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>Remind Me</button></div>
+  </section>
+  <section class="an-row"><h2>Only on Netflix</h2><div class="an-posters">
+   <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">FROM</span><span class="an-added">Recently Added</span></article>
+   <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">GUARDING STARS</span><span class="an-added">Recently Added</span></article>
+   <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">MY DEAREST ASSASSIN</span></article>
+   <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">THE LAST PALACE</span></article>
+  </div></section>
+  <section class="an-row"><h2>New on Netflix</h2><div class="an-trailer"><div class="an-trailer-art"></div><button class="an-trailer-play" aria-label="Play trailer"><svg viewBox="0 0 24 24"><path d="M7 4v16l13-8z"/></svg></button></div>
+   <div class="an-selected-info"><h3>Steps</h3><p>Kids&nbsp; • &nbsp;1h 46m&nbsp; • &nbsp;7+</p></div>
+   <div class="an-posters"><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">STEPS</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">GUARDING STARS</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">CITY LIGHTS</span></article></div>
+  </section>
+  <section class="an-row"><h2>When You Want Scares but Not Nightmares</h2><div class="an-posters">
+   <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">FROM</span><span class="an-added">Recently Added</span></article>
+   <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">THE EAST PALACE</span></article>
+   <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">418</span><span class="an-added">Recently Added</span></article>
+   <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">LAST EXIT</span></article>
+  </div></section>
+  <section class="an-row"><h2>Today's Top Picks for You</h2><div class="an-posters"><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">RANABAALI</span><span class="an-added">Recently Added</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">THE BODY</span><span class="an-added">Recently Added</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">GOSPEL OF CHRISTMAS</span><span class="an-added">Recently Added</span></article></div></section>
+  <section class="an-row"><h2>Movies &amp; TV Shows set in Africa</h2><div class="an-posters"><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">KIGALI</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">THE JOURNEY</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">HOME AGAIN</span></article></div></section>
+  <section class="an-row"><h2>Continue Watching for <span id="an-profile-name">Oniel</span></h2><div class="an-posters"><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">Continue Watching</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">Your Series</span></article></div></section>
+ </main>
+ <main id="an-search">
+  <header class="an-search-head"><h1>Search</h1><div class="an-head-actions"><button aria-label="Cast"><svg viewBox="0 0 24 24"><path d="M3 18a3 3 0 0 1 3 3M3 13a8 8 0 0 1 8 8M3 8a13 13 0 0 1 13 13"/><path d="M5 3h16v16h-5"/></svg></button><button aria-label="Downloads"><svg viewBox="0 0 24 24"><path d="M12 2v13m-5-5 5 5 5-5M4 20h16"/></svg></button><button aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button></div></header>
+  <label class="an-search-field"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16 16 5 5"/></svg><input id="an-search-input" placeholder="Search shows, movies, games..." autocomplete="off"></label>
+  <section class="an-explore"><h2>More to Explore</h2><div class="an-chips"><button class="an-chip"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16 16 5 5"/></svg>conspiracies and cover-ups</button><button class="an-chip"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16 16 5 5"/></svg>sports podcasts</button><button class="an-chip"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16 16 5 5"/></svg>modern westerns</button><button class="an-chip"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16 16 5 5"/></svg>watch next</button></div></section>
+  <section class="an-recommended"><h2>Recommended TV Shows &amp; Movies</h2>
+   <article class="an-search-result"><div class="an-search-thumb">NFL<br>GAMEDAY</div><strong>NFL Netflix Gameday: Thanksgiving Eve, Packers vs. Rams</strong><span></span></article>
+   <article class="an-search-result"><div class="an-search-thumb">THE LAST AIRBENDER</div><strong>Avatar: The Last Airbender</strong><button class="an-result-play"><svg viewBox="0 0 24 24"><path d="M7 4v16l13-8z"/></svg></button></article>
+   <article class="an-search-result"><div class="an-search-thumb">STEPS</div><strong>Steps</strong><button class="an-result-play"><svg viewBox="0 0 24 24"><path d="M7 4v16l13-8z"/></svg></button></article>
+   <article class="an-search-result"><div class="an-search-thumb">THE BODY</div><strong>The Body</strong><button class="an-result-play"><svg viewBox="0 0 24 24"><path d="M7 4v16l13-8z"/></svg></button></article>
+   <article class="an-search-result"><div class="an-search-thumb">THE EAST PALACE</div><strong>The East Palace</strong><button class="an-result-play"><svg viewBox="0 0 24 24"><path d="M7 4v16l13-8z"/></svg></button></article>
+  </section>
+ </main>
+ <nav class="an-bottom-nav" id="an-bottom-nav" style="display:none">
+  <button class="an-nav-item active" data-tab="home"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-7h6v7"/></svg>Home</button>
+  <button class="an-nav-item" data-tab="clips"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="13" height="17" rx="2"/><path d="M4 7v14a2 2 0 0 0 2 2h11M12 8l5 3-5 3z"/></svg>Clips</button>
+  <button class="an-nav-item" data-tab="search"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16 16 5 5"/></svg>Search</button>
+  <button class="an-nav-item" data-tab="profile"><span class="an-nav-avatar">N</span>My Netflix</button>
+ </nav>
+</div>
+<script id="african-netflix-browse-script">
+(()=>{
+ const root=document.getElementById('an-browse'),profile=document.getElementById('an-profile'),home=document.getElementById('an-home'),search=document.getElementById('an-search'),nav=document.getElementById('an-bottom-nav');
+ if(!root||root.dataset.ready)return;root.dataset.ready='1';
+ const showHome=(name)=>{profile.style.display='none';home.style.display='block';search.style.display='none';nav.style.display='grid';document.getElementById('an-profile-name').textContent=name||'Oniel';};
+ root.querySelectorAll('[data-profile]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.profile==='Edit'){root.querySelector('.an-profile-picker h2').textContent='Manage Profiles';return;}showHome(b.dataset.profile)}));
+ nav.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{nav.querySelectorAll('.an-nav-item').forEach(x=>x.classList.toggle('active',x===b));if(b.dataset.tab==='search'){home.style.display='none';search.style.display='block';}else if(b.dataset.tab==='home'){search.style.display='none';home.style.display='block';}else if(b.dataset.tab==='profile'){search.style.display='none';home.style.display='none';profile.style.display='flex';nav.style.display='none';}}));
+ document.getElementById('an-remind').addEventListener('click',e=>{e.currentTarget.innerHTML='✓ Reminder Set';e.currentTarget.style.background='#d9d9d9';});
+ const input=document.getElementById('an-search-input');input.addEventListener('input',()=>{const q=input.value.trim().toLowerCase();root.querySelectorAll('.an-search-result').forEach(r=>r.style.display=!q||r.textContent.toLowerCase().includes(q)?'grid':'none');});
+ root.querySelectorAll('.an-chip').forEach(b=>b.addEventListener('click',()=>{input.value=b.textContent.trim();input.dispatchEvent(new Event('input'));}));
+})();
+</script>
+
+</body></html>
