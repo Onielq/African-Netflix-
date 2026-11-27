@@ -1039,44 +1039,63 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  if(!section||section.dataset.playerReady)return;
  section.dataset.playerReady='1';
  const frame=section.querySelector('#an-new-trailer-video');
- const player=section.querySelector('#an-new-trailer');
- const info=section.querySelector('.an-selected-info');
  const title=section.querySelector('#an-selected-title');
  const meta=section.querySelector('#an-selected-meta');
  const rail=section.querySelector('.an-new-rail');
  const track=section.querySelector('#an-new-track');
- const makeEmbed=(id)=>'https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist='+encodeURIComponent(id);
- let changing=false;
- const metaFor=card=>{
-  const parts=[card.dataset.genre,card.dataset.seasons||card.dataset.runtime,card.dataset.contentRating].filter(Boolean);
-  return parts.join('  •  ');
- };
+ const makeEmbed=id=>'https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist='+encodeURIComponent(id);
+ let changing=false,suppressClick=false,pointerStart=null;
  const cards=()=>[...track.querySelectorAll('.an-new-card')];
- cards().forEach(card=>card.addEventListener('click',()=>{
-  const list=cards(),index=list.indexOf(card),video=card.dataset.video;
-  if(!video||!frame||changing)return;
-  if(index===0&&frame.dataset.video===video)return;
+ const stepSize=()=>{const list=cards();if(!list.length)return 170;const a=list[0].getBoundingClientRect(),b=list[1]?.getBoundingClientRect();return a.width+(b?b.left-a.right:10)};
+ const metaFor=card=>[card.dataset.genre,card.dataset.seasons||card.dataset.runtime,card.dataset.contentRating].filter(Boolean).join('  •  ');
+ const activate=card=>{
+  if(!card)return;
+  cards().forEach(item=>{const active=item===card;item.classList.toggle('active',active);item.setAttribute('aria-pressed',active?'true':'false')});
+  const video=card.dataset.video;
+  if(video&&frame.dataset.video!==video){frame.dataset.video=video;frame.src=makeEmbed(video);frame.title=(card.dataset.title||'')+' official trailer'}
+  title.textContent=card.dataset.title||'';
+  meta.textContent=metaFor(card);
+ };
+ const finishMotion=fn=>window.setTimeout(()=>{fn();track.style.transition='none';track.style.transform='translate3d(0,0,0)';void track.offsetWidth;track.style.transition='';changing=false},440);
+ const advance=(count=1)=>{
+  if(changing||cards().length<2)return;
+  const list=cards(),n=Math.min(Math.max(count,1),list.length-1),step=stepSize();
   changing=true;
-  const step=list[0].getBoundingClientRect().width+(list[1]?list[1].getBoundingClientRect().left-list[0].getBoundingClientRect().right:10);
-  list.forEach(item=>{item.classList.remove('active');item.setAttribute('aria-pressed','false')});
-  card.classList.add('active');card.setAttribute('aria-pressed','true');
   track.style.transition='transform .42s cubic-bezier(.22,.72,.2,1)';
-  track.style.transform='translate3d('+(-index*step)+'px,0,0)';
-  window.setTimeout(()=>{
-   for(let n=0;n<index;n++)track.firstElementChild&&track.firstElementChild.remove();
-   track.style.transition='none';track.style.transform='translate3d(0,0,0)';
-   void track.offsetWidth;
-   track.style.transition='';
-   frame.dataset.video=video;
-   frame.src=makeEmbed(video);
-   frame.title=(card.dataset.title||'')+' official trailer';
-   title.textContent=card.dataset.title||'';
-   meta.textContent=metaFor(card);
-   card.classList.add('active');card.setAttribute('aria-pressed','true');
-   changing=false;
-  },440);
- }));
- if(frame)frame.dataset.video='Y0RW8EW08Dk';
+  track.style.transform='translate3d('+(-n*step)+'px,0,0)';
+  finishMotion(()=>{for(let i=0;i<n;i++)track.appendChild(track.firstElementChild);activate(track.firstElementChild)});
+ };
+ const goBack=()=>{
+  if(changing||cards().length<2)return;
+  const step=stepSize();changing=true;
+  track.style.transition='none';track.insertBefore(track.lastElementChild,track.firstElementChild);
+  track.style.transform='translate3d('+(-step)+'px,0,0)';void track.offsetWidth;
+  track.style.transition='transform .42s cubic-bezier(.22,.72,.2,1)';
+  track.style.transform='translate3d(0,0,0)';
+  window.setTimeout(()=>{activate(track.firstElementChild);track.style.transition='none';void track.offsetWidth;track.style.transition='';changing=false},440);
+ };
+ track.addEventListener('click',event=>{
+  const card=event.target.closest('.an-new-card');if(!card)return;
+  if(suppressClick){event.preventDefault();event.stopPropagation();return}
+  if(changing)return;
+  const index=cards().indexOf(card);if(index<0)return;
+  if(index===0){activate(card);return}
+  advance(index);
+ });
+ rail.addEventListener('pointerdown',event=>{
+  if(event.pointerType==='mouse'&&event.button!==0)return;
+  pointerStart={x:event.clientX,y:event.clientY};
+ });
+ rail.addEventListener('pointerup',event=>{
+  if(!pointerStart)return;
+  const dx=event.clientX-pointerStart.x,dy=event.clientY-pointerStart.y;pointerStart=null;
+  if(Math.abs(dx)<42||Math.abs(dx)<Math.abs(dy)*1.2)return;
+  suppressClick=true;window.setTimeout(()=>{suppressClick=false},500);
+  if(dx<0)advance(1);else goBack();
+ });
+ rail.addEventListener('pointercancel',()=>{pointerStart=null});
+ const first=track.querySelector('.an-new-card');
+ if(first){first.classList.add('active');first.setAttribute('aria-pressed','true');if(frame)frame.dataset.video=first.dataset.video||''}
 })();
 </script>
 
@@ -1120,6 +1139,22 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 }
 #an-home #an-new-on-netflix .an-new-card{flex-shrink:0!important}
 @media(min-width:700px){#an-home #an-new-on-netflix .an-new-track{gap:13px}}
+</style>
+
+
+<style id="an-new-on-netflix-swipe-support">
+#an-home #an-new-on-netflix .an-new-rail{
+ overflow:hidden!important;touch-action:pan-y!important;
+ cursor:grab!important;user-select:none;-webkit-user-select:none;
+}
+#an-home #an-new-on-netflix .an-new-rail:active{cursor:grabbing!important}
+#an-home #an-new-on-netflix .an-new-track{
+ display:flex!important;flex-wrap:nowrap!important;gap:10px!important;
+ width:max-content!important;min-width:100%!important;
+ transform:translate3d(0,0,0);will-change:transform;
+}
+#an-home #an-new-on-netflix .an-new-card{flex-shrink:0!important;touch-action:pan-y!important}
+@media(min-width:700px){#an-home #an-new-on-netflix .an-new-track{gap:13px!important}}
 </style>
 
 </body></html>
