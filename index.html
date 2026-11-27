@@ -209,7 +209,7 @@ function closeEpisode(){app.classList.remove('playing');try{if(screen.orientatio
 function closeApp(){showTrailer();if(ytReady)ytPlayer.pauseVideo()}
 let saved=false;function toggleList(){saved=!saved;['myListOne','myListTwo'].forEach(id=>{const b=document.getElementById(id);if(!b)return;b.style.background=saved?'#e50914':'rgba(22,22,25,.58)';b.setAttribute('aria-label',saved?'Remove from My List':'Add to My List');b.innerHTML='<i data-lucide="'+(saved?'check':'plus')+'"></i>'});if(window.lucide)lucide.createIcons();notify(saved?'Added to My List':'Removed from My List')}
 function notify(t){const old=document.getElementById('notice');if(old)old.remove();const n=document.createElement('div');n.id='notice';n.textContent=t;n.style.cssText='position:fixed;z-index:30;bottom:calc(env(safe-area-inset-bottom) + 24px);left:50%;transform:translateX(-50%);padding:12px 17px;border-radius:25px;background:#f5f5f5;color:#111;font-size:12px;font-weight:700;white-space:nowrap;box-shadow:0 6px 25px #0008';document.body.appendChild(n);setTimeout(()=>n.remove(),1900)}
-function shareShow(){if(navigator.share){navigator.share({title:'Black Mirror',text:'Watch Black Mirror Season 7'}).catch(()=>{})}else if(navigator.clipboard){navigator.clipboard.writeText(location.href);notify('Link copied')}}
+function shareShow(){const title=window.activeCatalogueProfile?.title||'Black Mirror';if(navigator.share){navigator.share({title,text:'Watch '+title}).catch(()=>{})}else if(navigator.clipboard){navigator.clipboard.writeText(location.href);notify('Link copied')}}
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tab-panel').forEach(x=>x.hidden=x.id!==b.dataset.tab)}));
 let startX=0,startY=0;const stage=document.getElementById('screenOne');
 app.addEventListener('touchstart',e=>{startX=e.changedTouches[0].clientX;startY=e.changedTouches[0].clientY;app.classList.remove('swiping-up')},{passive:true});app.addEventListener('touchmove',e=>{if(!app.classList.contains('details')&&startY-e.touches[0].clientY>10)app.classList.add('swiping-up')},{passive:true});
@@ -244,14 +244,16 @@ document.addEventListener('keydown',e=>{if(e.key==='ArrowUp'||e.key==='Escape')s
 <div class="season-backdrop" id="seasonBackdrop" onclick="if(event.target===this)closeSeasons()"><section class="season-sheet" id="seasonSheet" role="dialog" aria-modal="true" aria-label="Choose a season"><div class="sheet-grabber"></div><h3>Choose a season</h3><div id="seasonOptions"></div></section></div>
 <script>
 let ytPlayer=null,ytReady=false,trailerDuration=0,autoplayAttempted=false;
+let activeTrailerId='1iqra1ojEvM';
+window.setCatalogTrailer=function(videoId){activeTrailerId=videoId||'';if(ytReady&&ytPlayer){if(activeTrailerId){try{ytPlayer.loadVideoById(activeTrailerId);paused=false;document.getElementById('heroSlot').classList.remove('no-trailer')}catch(e){}}else{try{ytPlayer.pauseVideo();paused=true;document.getElementById('heroSlot').classList.add('no-trailer')}catch(e){}}}};
 function setTrailerProgress(t,d){if(Number.isFinite(d)&&d>0)trailerDuration=d;const p=trailerDuration?Math.max(0,Math.min(100,t/trailerDuration*100)):0;document.querySelectorAll('#screenOne>.progress-track i').forEach(x=>x.style.width=p+'%')}
 function startTrailer(){if(!ytReady||!ytPlayer)return;try{ytPlayer.mute();ytPlayer.setVolume(0);try{ytPlayer.setPlaybackQuality('hd1080')}catch(e){}ytPlayer.playVideo();autoplayAttempted=true;paused=false}catch(e){}}
-window.onYouTubeIframeAPIReady=function(){ytPlayer=new YT.Player('blackMirrorTrailer',{playerVars:{vq:'hd1080',playsinline:1,rel:0,modestbranding:1},events:{onReady:function(e){ytReady=true;e.target.mute();e.target.setVolume(0);try{e.target.setPlaybackQuality('hd1080')}catch(err){}e.target.playVideo();startTrailer()},onStateChange:function(e){if(e.data===YT.PlayerState.PLAYING){document.getElementById('heroSlot').classList.add('loaded');const d=ytPlayer.getDuration();setTrailerProgress(ytPlayer.getCurrentTime(),d)}if(e.data===YT.PlayerState.ENDED)setTrailerProgress(trailerDuration,trailerDuration);if(e.data===YT.PlayerState.PAUSED)paused=true;if(e.data===YT.PlayerState.PLAYING)paused=false},onAutoplayBlocked:function(){/* The browser may require the first user gesture; the first gesture retries muted playback. */},onError:function(){document.getElementById('heroSlot').classList.remove('loaded');notify('Trailer could not be loaded. Check the video availability.')}}})};
+window.onYouTubeIframeAPIReady=function(){ytPlayer=new YT.Player('blackMirrorTrailer',{playerVars:{vq:'hd1080',playsinline:1,rel:0,modestbranding:1},events:{onReady:function(e){ytReady=true;e.target.mute();e.target.setVolume(0);try{e.target.setPlaybackQuality('hd1080')}catch(err){}if(activeTrailerId){e.target.loadVideoById(activeTrailerId);startTrailer()}else{e.target.pauseVideo();document.getElementById('heroSlot').classList.add('no-trailer')}},onStateChange:function(e){if(e.data===YT.PlayerState.PLAYING){document.getElementById('heroSlot').classList.add('loaded');const d=ytPlayer.getDuration();setTrailerProgress(ytPlayer.getCurrentTime(),d)}if(e.data===YT.PlayerState.ENDED)setTrailerProgress(trailerDuration,trailerDuration);if(e.data===YT.PlayerState.PAUSED)paused=true;if(e.data===YT.PlayerState.PLAYING)paused=false},onAutoplayBlocked:function(){/* The browser may require the first user gesture; the first gesture retries muted playback. */},onError:function(){document.getElementById('heroSlot').classList.remove('loaded');notify('Trailer could not be loaded. Check the video availability.')}}})};
 const ytApi=document.createElement('script');ytApi.src='https://www.youtube.com/iframe_api';ytApi.async=true;document.head.appendChild(ytApi);
 setInterval(()=>{if(ytReady&&ytPlayer&&ytPlayer.getPlayerState&&ytPlayer.getPlayerState()===YT.PlayerState.PLAYING)setTrailerProgress(ytPlayer.getCurrentTime(),ytPlayer.getDuration())},200);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!paused)startTrailer()});document.addEventListener('touchstart',()=>{if(!paused)startTrailer()},{once:true,passive:true});document.addEventListener('click',()=>{if(!paused&&ytReady&&ytPlayer.getPlayerState()!==YT.PlayerState.PLAYING)startTrailer()},{once:true});
-let chosenSeason=7;
-function openSeasons(){const opts=document.getElementById('seasonOptions'),anchor=document.querySelector('.season-select'),pop=document.getElementById('seasonSheet');opts.innerHTML='';for(let s=7;s>=1;s--){const b=document.createElement('button');b.className='season-option'+(s===chosenSeason?' selected':'');b.innerHTML='<span>Season '+s+'</span>'+(s===chosenSeason?'<i data-lucide="check"></i>':'');b.onclick=()=>{chosenSeason=s;document.getElementById('seasonLabel').textContent='Season '+s;closeSeasons();if(s!==7)notify('Season '+s+' selected — episode data is not connected yet');if(window.lucide)lucide.createIcons()};opts.appendChild(b)}const r=anchor.getBoundingClientRect();pop.style.left=Math.max(12,Math.min(innerWidth-170,r.left+(r.width-158)/2))+'px';pop.style.top=Math.max(12,r.top-8)+'px';pop.style.transformOrigin='bottom center';document.getElementById('seasonBackdrop').classList.add('open');pop.classList.add('open');if(window.lucide)lucide.createIcons()}
+let chosenSeason=7,availableSeasons=7;
+function openSeasons(){const opts=document.getElementById('seasonOptions'),anchor=document.querySelector('.season-select'),pop=document.getElementById('seasonSheet');opts.innerHTML='';for(let s=availableSeasons;s>=1;s--){const b=document.createElement('button');b.className='season-option'+(s===chosenSeason?' selected':'');b.innerHTML='<span>Season '+s+'</span>'+(s===chosenSeason?'<i data-lucide="check"></i>':'');b.onclick=()=>{chosenSeason=s;document.getElementById('seasonLabel').textContent='Season '+s;closeSeasons();if(s!==7)notify('Season '+s+' selected — episode data is not connected yet');if(window.lucide)lucide.createIcons()};opts.appendChild(b)}const r=anchor.getBoundingClientRect();pop.style.left=Math.max(12,Math.min(innerWidth-170,r.left+(r.width-158)/2))+'px';pop.style.top=Math.max(12,r.top-8)+'px';pop.style.transformOrigin='bottom center';document.getElementById('seasonBackdrop').classList.add('open');pop.classList.add('open');if(window.lucide)lucide.createIcons()}
 function closeSeasons(){document.getElementById('seasonBackdrop').classList.remove('open');document.getElementById('seasonSheet').classList.remove('open')}
 </script><script src="https://unpkg.com/lucide@latest"></script><script>
 function hydrateLucideIcons(){if(!window.lucide)return;
@@ -814,29 +816,259 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  const legacyApp=document.getElementById('app');
  const legacyClose=document.querySelector('#screenOne .top-controls button[aria-label="Close"]');
  let openedFromBrowse=false;
+ const normalizeShowTitle=value=>(value||'').toUpperCase().replace(/[’']/g,'').replace(/[^A-Z0-9]+/g,' ').trim();
+ const titleProfiles={
+  'BLACK MIRROR':{
+   title:'Black Mirror',type:'series',platform:'Netflix',rating:'TV-MA',genre:'Sci-Fi • Thriller',
+   seasons:7,currentSeason:7,episodeCount:6,videoId:'1iqra1ojEvM',poster:'https://cdn.mos.cms.futurecdn.net/TLvFoYVPXawr9iRsMwKnWh.jpg',
+   synopsis:'Dystopian tales about the dark side of technology. Season 7 opens with Common People.',
+   starring:'Awkwafina, Peter Capaldi',creditLabel:'Created by',creditValue:'Charlie Brooker',useOriginalEpisodes:true
+  },
+  'FROM':{
+   title:'FROM',type:'series',platform:'MGM+',rating:'TV-MA',genre:'Horror • Sci-Fi',
+   seasons:4,currentSeason:4,episodeCount:10,videoId:'LTss4risHbE',poster:'https://static.tvmaze.com/uploads/images/original_untouched/618/1547007.jpg',
+   previewLabel:'SEASON 4 TRAILER',
+   synopsis:'The residents of a small town search for a way out when unknown forces keep them from leaving. In Season 4, the search for answers becomes even more terrifying.',
+   starring:'Harold Perrineau, Catalina Sandino Moreno, Eion Bailey',creditLabel:'Created by',creditValue:'John Griffin'
+  },
+  'GUARDING STARS':{
+   title:'Guarding Stars',type:'movie',platform:'Netflix',rating:'TV-14',genre:'Romance • Comedy',
+   runtime:'1h 50m',year:'2026',videoId:'mFvtVPMa5ak',poster:'https://i.ytimg.com/vi/mFvtVPMa5ak/hqdefault.jpg',
+   synopsis:'A no-nonsense bodyguard heads to a Montana ranch with the famous actor she is protecting. Pretending to be a couple for Christmas soon sparks a real romance.',
+   starring:'Leighton Meester, Jared Padalecki, Andie MacDowell',creditLabel:'Directed by',creditValue:'Elizabeth Allen Rosenbaum'
+  },
+  'MY DEAREST ASSASSIN':{
+   title:'My Dearest Assassin',type:'movie',platform:'Netflix',rating:'TV-MA',genre:'Action • Romance',
+   runtime:'2h 07m',year:'2026',videoId:'M7--LSAvW48',poster:'https://image.tmdb.org/t/p/w500/ul4dQcA68mtSx8J56N5gEcaCCtP.jpg',
+   synopsis:'A woman whose rare blood type makes her a target finds protection in the arms of the assassin she loves. Together, they fight to survive.',
+   starring:'Pimchanok Luevisadpaibul, Thanapob Leeratanakachorn, Sivakorn Adulsuttikul',creditLabel:'Directed by',creditValue:'Taweewat Wantha'
+  },
+  'THE EAST PALACE':{
+   title:'The East Palace',type:'series',platform:'Netflix',rating:'TV-MA',genre:'Horror • Mystery',
+   seasons:1,currentSeason:1,episodeCount:8,videoId:'wBUkNE1l9DU',poster:'https://www.impawards.com/intl/south_korea/tv/posters/donggung.jpg',
+   synopsis:'A man who walks the spirit world and a court lady who hears the dead enter the East Palace by the king’s orders. Together, they try to unravel its dark secrets.',
+   starring:'Nam Joo-hyuk, Roh Yoon-seo, Cho Seung-woo',creditLabel:'Created by',creditValue:'Kwon So-ra, Seo Jea-won'
+  },
+  '418':{
+   title:'418',type:'movie',platform:'Film',genre:'Horror • Thriller',year:'2026',
+   videoId:'teyF15t-8lQ',poster:'https://d2lnbwhcsmj8tp.cloudfront.net/ianslive_watermark/202607253877835.jpg',
+   synopsis:'A sealed building, a haunted room, and a secret that was never meant to come out. When the door to Room 418 opens, people are pulled into a chilling mystery.',
+   starring:'Chaithra J Achar, Ramesh Indira, Surya Raj Veerabathini',creditLabel:'Written and directed by',creditValue:'Kirtan Nadagouda'
+  },
+  'LAST EXIT':{
+   title:'Last Exit',type:'unknown',platform:'African Matrix',
+   synopsis:'This title is in the catalogue. Its verified trailer and full title information have not been connected yet.'
+  },
+  'THE LAST PALACE':{
+   title:'The Last Palace',type:'unknown',platform:'African Matrix',
+   synopsis:'This title is in the catalogue. Its verified trailer and full title information have not been connected yet.'
+  },
+  'RANABAALI':{
+   title:'Ranabaali',type:'movie',platform:'Film',genre:'Drama • Action • History',
+   runtime:'3h 05m',year:'2026',videoId:'A36nagDzugo',
+   poster:'https://www.easterneye.biz/media-library/vijay-deverakonda-ranabaali.jpg?id=63325280&width=980',
+   synopsis:'Set in 1870s South India, a rebellious warrior confronts a British commissioner during a severe famine. He fights to defend his people and protect his region from colonial rule.',
+   starring:'Vijay Deverakonda, Rashmika Mandanna, Arnold Vosloo',creditLabel:'Directed by',creditValue:'Rahul Sankrityan'
+  },
+  'THE BODY':{
+   title:'The Body',type:'series',platform:'Netflix',rating:'TV-MA',genre:'Drama • Horror',
+   seasons:1,currentSeason:1,episodeCount:8,videoId:'wl7uj7n7DoY',poster:'https://i.ytimg.com/vi/wl7uj7n7DoY/hqdefault.jpg',
+   synopsis:'On Halloween night, an all-girls dance squad tumbles into Catholic guilt, unholy desires and ghostly visions when an initiation goes wrong.',
+   starring:'Kristina Bogic, Geena Meszaros, Sara Boustany',creditLabel:'Created by',creditValue:'Quinn Shephard'
+  },
+  'GOSPEL OF CHRISTMAS':{
+   title:'The Gospel of Christmas',type:'movie',platform:'Netflix',rating:'TV-PG',genre:'Drama • Music',
+   year:'2026',videoId:'lXh2rNl2wdQ',poster:'https://i.ytimg.com/vi/lXh2rNl2wdQ/hqdefault.jpg',
+   synopsis:'A struggling pastor moves his family to a troubled New York neighborhood, where they must save a neglected church from foreclosure before Christmas.',
+   starring:'Fantasia Barrino Taylor, Durrell “Tank” Babbs, Ricco Ross',creditLabel:'Directed by',creditValue:'Tyler Perry'
+  },
+  'HAIKU':{
+   title:'Haiku',type:'movie',platform:'Netflix',rating:'U/A 13+',genre:'Romance • Drama',
+   runtime:'2h 23m',year:'2026',videoId:'gjyunMGD5rA',
+   poster:'https://m.media-amazon.com/images/M/MV5BNTlkNjliYzEtYmFiMi00YTI5LTg5OWYtZjZmNGUyNzk4ZWE1XkEyXkFqcGc%40._V1_.jpg',
+   synopsis:'Mano, the only male student at an all-women’s college, relies on poetry to navigate romance and the challenges of being outside his comfort zone.',
+   starring:'Aegan, Sridevi Apalla, Femina George',creditLabel:'Written and directed by',creditValue:'Yuvaraj Chinnasamy'
+  },
+  'THE PARADISE':{
+   title:'The Paradise',type:'movie',platform:'Film',genre:'Action • Drama',
+   runtime:'2h 49m',year:'2026',previewType:'teaser',videoId:'yX90gF4_EjI',
+   poster:'https://film.moviestory.in/the-paradise/assets/3.jpeg',
+   synopsis:'Set in the 1980s slums of Secunderabad, this action drama follows a community fighting to survive and protect its own.',
+   starring:'Nani, Mohan Babu, Kayadu Lohar, Raghav Juyal',creditLabel:'Directed by',creditValue:'Srikanth Odela'
+  },
+  'DONT TROUBLE THE TROUBLE':{
+   title:'Don’t Trouble the Trouble',type:'movie',platform:'Film',year:'2026',
+   poster:'https://m.media-amazon.com/images/M/MV5BZmY3YmNjMGUtMTliZS00NzUzLWFmMmItNjVkOTkwMDMxMDMwXkEyXkFqcGc%40._V1_FMjpg_UX1000_.jpg',
+   synopsis:'The verified trailer and full title information have not been connected yet.'
+  },
+  'FIRST KILL':{
+   title:'First Kill',type:'series',platform:'Netflix',rating:'TV-MA',genre:'Drama • Fantasy',
+   seasons:1,currentSeason:1,episodeCount:8,poster:'https://i.pinimg.com/736x/50/00/47/500047243dda44b82aa89c639eebc3fe.jpg',
+   synopsis:'Falling in love is tricky for teens Juliette and Calliope: one is a vampire, the other is a vampire hunter — and both are ready to make their first kill.',
+   starring:'Sarah Catherine Hook, Imani Lewis, Elizabeth Mitchell',creditLabel:'Created by',creditValue:'Victoria Schwab'
+  },
+  'BOO BITCH':{
+   title:'Boo, Bitch',type:'series',platform:'Netflix',rating:'TV-14',genre:'Comedy',
+   seasons:1,currentSeason:1,poster:'https://media.glamour.mx/photos/62ab4c9b051117934dd8e7d9/master/w_1600%2Cc_limit/Boo%2520bitch.jpg',
+   synopsis:'Two senior best friends make a last-ditch attempt to be seen. When one of them becomes a ghost, she needs to really live her best life while she can.',
+   starring:'Lana Condor, Zoe Colletti, Mason Versaw',creditLabel:'Created by',creditValue:'Lauren Iungerich, Erin Ehrlich, Tim Schauer'
+  },
+  'MR MIDNIGHT':{
+   title:'Mr. Midnight: Beware the Monsters',type:'series',platform:'Netflix',rating:'TV-PG',genre:'Horror',
+   seasons:1,currentSeason:1,episodeCount:13,poster:'https://pics.filmaffinity.com/Mr_Midnight_Beware_the_Monsters_TV_Series-484394182-large.jpg',
+   synopsis:'A once-average teen and his friends become paranormal detectives and document their adventures in an online blog under the pseudonym Mr. Midnight.',
+   starring:'Idan Aedan, Chen Yixin, Caleb Monk'
+  }
+ };
+ const posterCards=[...home.querySelectorAll('.an-poster')];
+ posterCards.forEach(card=>{
+  const title=card.querySelector('.an-poster-title')?.textContent.trim()||'';
+  const key=normalizeShowTitle(title);
+  const p=titleProfiles[key];
+  const art=card.querySelector('.an-poster-art');
+  const currentImage=art?.querySelector('img');
+  if(p?.poster&&art&&!currentImage){
+   const img=document.createElement('img');
+   img.src=p.poster;img.alt=(p.title||title)+' poster';img.loading='lazy';
+   art.appendChild(img);
+  }
+  card.dataset.openShow=key.toLowerCase().replace(/\s+/g,'-');
+  card.setAttribute('role','button');
+  card.setAttribute('tabindex','0');
+  card.setAttribute('aria-label','Open '+(p?.title||title)+' trailer and details');
+ });
  const returnToBrowse=()=>{
   openedFromBrowse=false;
-  /* Home and its bottom navigation stay mounted underneath Screen 1. */
   if(legacyApp)legacyApp.style.removeProperty('z-index');
+  if(typeof window.setCatalogTrailer==='function')window.setCatalogTrailer('');
  };
- const openCatalogueTitle=showId=>{
-  if(showId!=='black-mirror'||!legacyApp)return;
+ const updateRating=(container,rating)=>{
+  const pill=container?.querySelector('.pill.rating');
+  if(!pill)return;
+  pill.textContent=rating||'';
+  pill.hidden=!rating;
+  pill.style.display=rating?'':'none';
+ };
+ const renderTitleProfile=profile=>{
+  window.activeCatalogueProfile=profile;
+  const screenOne=document.getElementById('screenOne');
+  const screenTwo=document.getElementById('screenTwo');
+  const hero=document.getElementById('heroSlot');
+  const posterFallback=hero?.querySelector('.poster-fallback');
+  const poster=profile.poster||'';
+  const posterCss=poster?'url("'+poster.replace(/"/g,'%22')+'")':'linear-gradient(145deg,#25252d,#09090c)';
+  if(posterFallback)posterFallback.style.backgroundImage=posterCss;
+  if(hero)hero.classList.toggle('no-trailer',!profile.videoId);
+  if(screenTwo)screenTwo.style.setProperty('--catalogue-details-poster',posterCss);
+  const screenThreePoster=document.querySelector('#episodePlayer .player-backdrop img');
+  if(screenThreePoster)screenThreePoster.src=poster||'';
+  const screenOneTitle=screenOne?.querySelector('.show-title');
+  if(screenOneTitle)screenOneTitle.textContent=profile.title;
+  if(screenOne)screenOne.setAttribute('aria-label',profile.title+' trailer');
+  const screenTwoTitle=screenTwo?.querySelector('.intro-title');
+  if(screenTwoTitle)screenTwoTitle.textContent=profile.title;
+  if(screenTwo)screenTwo.setAttribute('aria-label',profile.title+' details');
+  const brand=profile.platform==='Netflix'
+   ? (profile.type==='series'?'Netflix series':'Netflix film')
+   : profile.platform==='MGM+'?'MGM+ original series'
+   : profile.platform==='Film'?'Film':'African Matrix title';
+  const label=screenOne?.querySelector('.netflix-label');
+  if(label)label.textContent=brand;
+  const synopsis=profile.synopsis||'Trailer and verified title information have not been connected yet.';
+  const screenOneSynopsis=screenOne?.querySelector('.description');
+  if(screenOneSynopsis)screenOneSynopsis.textContent=synopsis;
+  const screenTwoSynopsis=screenTwo?.querySelector('.synopsis');
+  if(screenTwoSynopsis)screenTwoSynopsis.textContent=synopsis;
+  updateRating(screenOne?.querySelector('.hero-copy .metadata'),profile.rating);
+  updateRating(screenTwo?.querySelector('.intro-info .metadata'),profile.rating);
+  const episodeLabel=screenOne?.querySelector('.play-episode');
+  const isSeries=profile.type==='series';
+  if(episodeLabel){
+   episodeLabel.textContent=isSeries?('S'+(profile.currentSeason||1)+' Episode 1'):'';
+   episodeLabel.style.display=isSeries?'':'none';
+  }
+  const playingLabel=screenTwo?.querySelector('.playing-label');
+  if(playingLabel){
+   const status=profile.videoId?(profile.previewType==='teaser'?'OFFICIAL TEASER':profile.previewLabel||'TRAILER PLAYING'):'TITLE PREVIEW';
+   playingLabel.innerHTML=profile.videoId
+    ? '<span class="equalizer"><i></i><i></i><i></i><i></i></span> '+status
+    : status;
+  }
+  const credits=screenTwo?.querySelectorAll('.credits>div');
+  if(credits&&credits.length>=2){
+   credits[0].querySelector('.credit-label').textContent='Starring';
+   credits[0].querySelector('.credit-value').textContent=profile.starring||'Cast information not connected';
+   credits[1].querySelector('.credit-label').textContent=profile.creditLabel||'Details';
+   credits[1].querySelector('.credit-value').textContent=profile.creditValue||profile.genre||'More information not connected';
+  }
+  const tabButtons=[...screenTwo.querySelectorAll('.tabs button')];
+  const episodesPanel=document.getElementById('episodes');
+  const heading=episodesPanel?.querySelector('.episode-heading h2');
+  const seasonButton=episodesPanel?.querySelector('.season-select');
+  const episodeRail=episodesPanel?.querySelector('.episode-rail');
+  let summary=episodesPanel?.querySelector('.catalogue-episode-summary');
+  if(episodesPanel&&!summary){
+   summary=document.createElement('p');
+   summary.className='ep-meta catalogue-episode-summary';
+   episodesPanel.appendChild(summary);
+  }
+  if(isSeries){
+   if(tabButtons[0])tabButtons[0].textContent='Episodes';
+   if(heading)heading.textContent='Episodes';
+   const seasons=Math.max(1,Number(profile.seasons)||1);
+   const current=Math.max(1,Math.min(seasons,Number(profile.currentSeason)||1));
+   availableSeasons=seasons;
+   chosenSeason=current;
+   if(seasonButton)seasonButton.style.display=seasons>1?'':'none';
+   const seasonLabel=document.getElementById('seasonLabel');
+   if(seasonLabel)seasonLabel.textContent='Season '+current;
+   if(episodeRail)episodeRail.hidden=!!profile.episodeCount&&!profile.useOriginalEpisodes;
+   if(summary){
+    summary.hidden=!profile.episodeCount||!!profile.useOriginalEpisodes;
+    summary.textContent=profile.episodeCount?('Season '+current+' · '+profile.episodeCount+' episodes'):'Episode guide not connected yet.';
+   }
+  }else{
+   if(tabButtons[0])tabButtons[0].textContent='About';
+   if(heading)heading.textContent='Movie details';
+   if(seasonButton)seasonButton.style.display='none';
+   if(episodeRail)episodeRail.hidden=true;
+   if(summary){
+    summary.hidden=false;
+    summary.textContent=[profile.year,profile.runtime,profile.genre].filter(Boolean).join(' · ')||'Movie';
+   }
+  }
+  const similarText=document.querySelector('#similar .ep-meta');
+  if(similarText)similarText.textContent=profile.genre?'Explore more '+profile.genre+' titles.':'Explore more titles from the catalogue.';
+  const trailerButton=document.querySelector('#trailers .season-select');
+  if(trailerButton)trailerButton.textContent=profile.videoId?(profile.previewType==='teaser'?'Official Teaser ↗':'Official Trailer ↗'):'Trailer not connected yet';
+  const playerTitle=document.querySelector('#episodePlayer .player-controls span');
+  if(playerTitle)playerTitle.textContent=profile.title.toUpperCase()+(isSeries?' · S'+(profile.currentSeason||1):' · MOVIE');
+  const playerCaption=document.querySelector('#episodePlayer .player-caption');
+  if(playerCaption&&playerCaption.childNodes[0])playerCaption.childNodes[0].textContent=profile.title+' ';
+  if(typeof window.setCatalogTrailer==='function')window.setCatalogTrailer(profile.videoId||'');
+ };
+ const openCatalogueTitle=card=>{
+  if(!legacyApp||!card)return;
+  const rawTitle=card.querySelector('.an-poster-title')?.textContent.trim()||'Untitled';
+  const key=normalizeShowTitle(rawTitle);
+  const base=titleProfiles[key]||{title:rawTitle,type:'unknown',platform:'African Matrix',synopsis:'This title is in the catalogue. Its verified trailer and full title information have not been connected yet.'};
+  const poster=card.querySelector('.an-poster-art img')?.currentSrc||card.querySelector('.an-poster-art img')?.src||base.poster||'';
+  const profile={...base,title:base.title||rawTitle,poster};
+  renderTitleProfile(profile);
   openedFromBrowse=true;
-  /* Raise the existing trailer experience above Home instead of hiding Home itself. */
   legacyApp.style.zIndex='70';
   legacyApp.classList.remove('details','playing');
-  if(typeof window.showTrailer==='function')window.showTrailer();
-  if(typeof window.startTrailer==='function')window.startTrailer();
+  if(profile.videoId&&typeof window.startTrailer==='function')window.startTrailer();
  };
  root.addEventListener('click',event=>{
-  const tile=event.target.closest('[data-open-show]');
-  if(tile&&root.contains(tile))openCatalogueTitle(tile.dataset.openShow);
+  const tile=event.target.closest('.an-poster');
+  if(tile&&home.contains(tile))openCatalogueTitle(tile);
  });
  root.addEventListener('keydown',event=>{
-  const tile=event.target.closest('[data-open-show]');
-  if(tile&&root.contains(tile)&&(event.key==='Enter'||event.key===' ')){
+  const tile=event.target.closest('.an-poster');
+  if(tile&&home.contains(tile)&&(event.key==='Enter'||event.key===' ')){
    event.preventDefault();
-   openCatalogueTitle(tile.dataset.openShow);
+   openCatalogueTitle(tile);
   }
  });
  document.addEventListener('click',event=>{
@@ -2546,6 +2778,20 @@ body.an-cw-profile-open{overflow:hidden!important}
   aspect-ratio:0.71!important;height:auto!important;
  }
 }
+</style>
+
+
+<style id="an-catalogue-title-routing-artwork">
+#an-home .an-poster{cursor:pointer}
+#an-home .an-poster:focus-visible{outline:2px solid #fff!important;outline-offset:3px!important}
+#an-home .an-poster-art>img{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ display:block!important;object-fit:cover!important;object-position:center!important;
+}
+#heroSlot.no-trailer iframe{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+#heroSlot.no-trailer .poster-fallback{opacity:1!important;display:block!important}
+.screen-two:before{background-image:var(--catalogue-details-poster,url(https://cdn.mos.cms.futurecdn.net/TLvFoYVPXawr9iRsMwKnWh.jpg))!important}
+.catalogue-episode-summary{margin:12px 0 4px!important;line-height:1.5!important}
 </style>
 
 </body></html>
