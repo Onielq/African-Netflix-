@@ -253,7 +253,7 @@ const ytApi=document.createElement('script');ytApi.src='https://www.youtube.com/
 setInterval(()=>{if(ytReady&&ytPlayer&&ytPlayer.getPlayerState&&ytPlayer.getPlayerState()===YT.PlayerState.PLAYING)setTrailerProgress(ytPlayer.getCurrentTime(),ytPlayer.getDuration())},200);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!paused)startTrailer()});document.addEventListener('touchstart',()=>{if(!paused)startTrailer()},{once:true,passive:true});document.addEventListener('click',()=>{if(!paused&&ytReady&&ytPlayer.getPlayerState()!==YT.PlayerState.PLAYING)startTrailer()},{once:true});
 let chosenSeason=7,availableSeasons=7;
-function openSeasons(){const opts=document.getElementById('seasonOptions'),anchor=document.querySelector('.season-select'),pop=document.getElementById('seasonSheet');opts.innerHTML='';for(let s=availableSeasons;s>=1;s--){const b=document.createElement('button');b.className='season-option'+(s===chosenSeason?' selected':'');b.innerHTML='<span>Season '+s+'</span>'+(s===chosenSeason?'<i data-lucide="check"></i>':'');b.onclick=()=>{chosenSeason=s;document.getElementById('seasonLabel').textContent='Season '+s;closeSeasons();if(s!==7)notify('Season '+s+' selected — episode data is not connected yet');if(window.lucide)lucide.createIcons()};opts.appendChild(b)}const r=anchor.getBoundingClientRect();pop.style.left=Math.max(12,Math.min(innerWidth-170,r.left+(r.width-158)/2))+'px';pop.style.top=Math.max(12,r.top-8)+'px';pop.style.transformOrigin='bottom center';document.getElementById('seasonBackdrop').classList.add('open');pop.classList.add('open');if(window.lucide)lucide.createIcons()}
+function openSeasons(){const opts=document.getElementById('seasonOptions'),anchor=document.querySelector('.season-select'),pop=document.getElementById('seasonSheet');opts.innerHTML='';for(let s=availableSeasons;s>=1;s--){const b=document.createElement('button');b.className='season-option'+(s===chosenSeason?' selected':'');b.innerHTML='<span>Season '+s+'</span>'+(s===chosenSeason?'<i data-lucide="check"></i>':'');b.onclick=()=>{chosenSeason=s;document.getElementById('seasonLabel').textContent='Season '+s;closeSeasons();if(s!==availableSeasons)notify('Season '+s+' selected — episode data is not connected yet');if(window.lucide)lucide.createIcons()};opts.appendChild(b)}const r=anchor.getBoundingClientRect();pop.style.left=Math.max(12,Math.min(innerWidth-170,r.left+(r.width-158)/2))+'px';pop.style.top=Math.max(12,r.top-8)+'px';pop.style.transformOrigin='bottom center';document.getElementById('seasonBackdrop').classList.add('open');pop.classList.add('open');if(window.lucide)lucide.createIcons()}
 function closeSeasons(){document.getElementById('seasonBackdrop').classList.remove('open');document.getElementById('seasonSheet').classList.remove('open')}
 </script><script src="https://unpkg.com/lucide@latest"></script><script>
 function hydrateLucideIcons(){if(!window.lucide)return;
@@ -839,20 +839,21 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   },
   'MY DEAREST ASSASSIN':{
    title:'My Dearest Assassin',type:'movie',platform:'Netflix',rating:'TV-MA',genre:'Action • Romance',
-   runtime:'2h 07m',year:'2026',videoId:'M7--LSAvW48',poster:'https://image.tmdb.org/t/p/w500/ul4dQcA68mtSx8J56N5gEcaCCtP.jpg',
+   runtime:'2h 07m',year:'2026',videoId:'M7--LSAvW48',poster:'https://images.justwatch.com/poster/344363802/s718/my-dearest-assassin.jpg',
    synopsis:'A woman whose rare blood type makes her a target finds protection in the arms of the assassin she loves. Together, they fight to survive.',
    starring:'Pimchanok Luevisadpaibul, Thanapob Leeratanakachorn, Sivakorn Adulsuttikul',creditLabel:'Directed by',creditValue:'Taweewat Wantha'
   },
   'THE EAST PALACE':{
    title:'The East Palace',type:'series',platform:'Netflix',rating:'TV-MA',genre:'Horror • Mystery',
-   seasons:1,currentSeason:1,episodeCount:8,videoId:'wBUkNE1l9DU',poster:'https://www.impawards.com/intl/south_korea/tv/posters/donggung.jpg',
+   seasons:1,currentSeason:1,episodeCount:8,videoId:'wBUkNE1l9DU',poster:'https://resource02.ulifestyle.com.hk/ulcms/content/article/image/w1280/2026/07/20260708133945_9bb24f8ac765abd9f4f0d9379784e0cde597cf1d.jpg',
    synopsis:'A man who walks the spirit world and a court lady who hears the dead enter the East Palace by the king’s orders. Together, they try to unravel its dark secrets.',
    starring:'Nam Joo-hyuk, Roh Yoon-seo, Cho Seung-woo',creditLabel:'Created by',creditValue:'Kwon So-ra, Seo Jea-won'
   },
   '418':{
-   title:'418',type:'movie',platform:'Film',genre:'Horror • Thriller',year:'2026',
-   videoId:'teyF15t-8lQ',poster:'https://d2lnbwhcsmj8tp.cloudfront.net/ianslive_watermark/202607253877835.jpg',
-   synopsis:'A sealed building, a haunted room, and a secret that was never meant to come out. When the door to Room 418 opens, people are pulled into a chilling mystery.',
+   title:'418',type:'movie',platform:'Netflix',rating:'A',genre:'Horror • Thriller',
+   runtime:'2h 28m',year:'2026',videoId:'FUbJ_jp50rY',
+   poster:'https://variety.blr1.cdn.digitaloceanspaces.com/2026/10/418.jpg',
+   synopsis:'Room 418 has been locked for fifteen years. When its door opens, terrifying rumours turn into a mystery that refuses to stay buried.',
    starring:'Chaithra J Achar, Ramesh Indira, Surya Raj Veerabathini',creditLabel:'Written and directed by',creditValue:'Kirtan Nadagouda'
   },
   'LAST EXIT':{
@@ -865,7 +866,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   },
   'RANABAALI':{
    title:'Ranabaali',type:'movie',platform:'Film',genre:'Drama • Action • History',
-   runtime:'3h 05m',year:'2026',videoId:'A36nagDzugo',
+   runtime:'2h 58m',year:'2026',videoId:'A36nagDzugo',
    poster:'https://www.easterneye.biz/media-library/vijay-deverakonda-ranabaali.jpg?id=63325280&width=980',
    synopsis:'Set in 1870s South India, a rebellious warrior confronts a British commissioner during a severe famine. He fights to defend his people and protect his region from colonial rule.',
    starring:'Vijay Deverakonda, Rashmika Mandanna, Arnold Vosloo',creditLabel:'Directed by',creditValue:'Rahul Sankrityan'
