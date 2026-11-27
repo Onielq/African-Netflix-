@@ -1044,7 +1044,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  const rail=section.querySelector('.an-new-rail');
  const track=section.querySelector('#an-new-track');
  const makeEmbed=id=>'https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist='+encodeURIComponent(id);
- let changing=false,suppressClick=false,pointerStart=null;
+ let changing=false;
  const cards=()=>[...track.querySelectorAll('.an-new-card')];
  const stepSize=()=>{const list=cards();if(!list.length)return 170;const a=list[0].getBoundingClientRect(),b=list[1]?.getBoundingClientRect();return a.width+(b?b.left-a.right:10)};
  const metaFor=card=>[card.dataset.genre,card.dataset.seasons||card.dataset.runtime,card.dataset.contentRating].filter(Boolean).join('  •  ');
@@ -1056,44 +1056,23 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   title.textContent=card.dataset.title||'';
   meta.textContent=metaFor(card);
  };
- const finishMotion=fn=>window.setTimeout(()=>{fn();track.style.transition='none';track.style.transform='translate3d(0,0,0)';void track.offsetWidth;track.style.transition='';changing=false},440);
- const advance=(count=1)=>{
-  if(changing||cards().length<2)return;
-  const list=cards(),n=Math.min(Math.max(count,1),list.length-1),step=stepSize();
-  changing=true;
-  track.style.transition='transform .42s cubic-bezier(.22,.72,.2,1)';
-  track.style.transform='translate3d('+(-n*step)+'px,0,0)';
-  finishMotion(()=>{for(let i=0;i<n;i++)track.appendChild(track.firstElementChild);activate(track.firstElementChild)});
- };
- const goBack=()=>{
-  if(changing||cards().length<2)return;
-  const step=stepSize();changing=true;
-  track.style.transition='none';track.insertBefore(track.lastElementChild,track.firstElementChild);
-  track.style.transform='translate3d('+(-step)+'px,0,0)';void track.offsetWidth;
-  track.style.transition='transform .42s cubic-bezier(.22,.72,.2,1)';
-  track.style.transform='translate3d(0,0,0)';
-  window.setTimeout(()=>{activate(track.firstElementChild);track.style.transition='none';void track.offsetWidth;track.style.transition='';changing=false},440);
+ const complete=(count,selected)=>{
+  for(let i=0;i<count;i++)track.appendChild(track.firstElementChild);
+  track.style.transition='none';track.style.transform='translate3d(0,0,0)';void track.offsetWidth;track.style.transition='';
+  activate(selected);changing=false;
  };
  track.addEventListener('click',event=>{
-  const card=event.target.closest('.an-new-card');if(!card)return;
-  if(suppressClick){event.preventDefault();event.stopPropagation();return}
-  if(changing)return;
-  const index=cards().indexOf(card);if(index<0)return;
+  const card=event.target.closest('.an-new-card');if(!card||changing)return;
+  const list=cards(),index=list.indexOf(card);
+  if(index<0)return;
+  if(index===list.length-1){activate(card);return}
   if(index===0){activate(card);return}
-  advance(index);
+  changing=true;
+  const step=stepSize();
+  track.style.transition='transform .42s cubic-bezier(.22,.72,.2,1)';
+  track.style.transform='translate3d('+(-index*step)+'px,0,0)';
+  window.setTimeout(()=>complete(index,card),440);
  });
- rail.addEventListener('pointerdown',event=>{
-  if(event.pointerType==='mouse'&&event.button!==0)return;
-  pointerStart={x:event.clientX,y:event.clientY};
- });
- rail.addEventListener('pointerup',event=>{
-  if(!pointerStart)return;
-  const dx=event.clientX-pointerStart.x,dy=event.clientY-pointerStart.y;pointerStart=null;
-  if(Math.abs(dx)<42||Math.abs(dx)<Math.abs(dy)*1.2)return;
-  suppressClick=true;window.setTimeout(()=>{suppressClick=false},500);
-  if(dx<0)advance(1);else goBack();
- });
- rail.addEventListener('pointercancel',()=>{pointerStart=null});
  const first=track.querySelector('.an-new-card');
  if(first){first.classList.add('active');first.setAttribute('aria-pressed','true');if(frame)frame.dataset.video=first.dataset.video||''}
 })();
@@ -1155,6 +1134,57 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 }
 #an-home #an-new-on-netflix .an-new-card{flex-shrink:0!important;touch-action:pan-y!important}
 @media(min-width:700px){#an-home #an-new-on-netflix .an-new-track{gap:13px!important}}
+</style>
+
+
+<style id="an-screen-five-reference-layout">
+/* Screen 5 catalogue rows: compact portrait artwork, horizontal rails, continue-watching landscape cards. */
+#an-home .an-row:not(#an-new-on-netflix){margin:0 0 18px!important}
+#an-home .an-row:not(#an-new-on-netflix) h2{
+ margin:0 20px 11px!important;font-size:19px!important;line-height:1.2!important;
+ font-weight:700!important;letter-spacing:-.3px!important;
+}
+#an-home .an-row:not(#an-new-on-netflix) .an-posters{
+ display:flex!important;flex-wrap:nowrap!important;gap:9px!important;
+ overflow-x:auto!important;overflow-y:hidden!important;
+ padding:0 20px 2px!important;scrollbar-width:none!important;
+ scroll-snap-type:x mandatory!important;-webkit-overflow-scrolling:touch!important;
+}
+#an-home .an-row:not(#an-new-on-netflix) .an-posters::-webkit-scrollbar{display:none!important}
+#an-home .an-row:not(#an-new-on-netflix) .an-poster{
+ flex:0 0 28.5vw!important;width:28.5vw!important;max-width:118px!important;
+ aspect-ratio:.71!important;height:auto!important;border-radius:5px!important;
+ overflow:hidden!important;scroll-snap-align:start!important;
+}
+#an-home .an-row:not(#an-new-on-netflix) .an-added{
+ bottom:0!important;left:10%!important;right:10%!important;
+ height:19px!important;padding:2px 1px!important;font-size:10px!important;
+ line-height:15px!important;white-space:nowrap!important;
+}
+#an-home .an-row:not(#an-new-on-netflix) .an-poster-title{
+ left:5px!important;right:5px!important;bottom:23px!important;
+ font-size:clamp(10px,2.8vw,13px)!important;line-height:1.05!important;
+}
+#an-home .an-row:last-of-type .an-poster{
+ flex:0 0 58vw!important;width:58vw!important;max-width:240px!important;
+ aspect-ratio:1.78!important;border-radius:6px!important;
+}
+#an-home .an-row:last-of-type .an-poster:after{
+ content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+ width:34px;height:34px;border:1.5px solid rgba(255,255,255,.85);
+ border-radius:50%;background:rgba(0,0,0,.38);
+}
+#an-home .an-row:last-of-type .an-poster:before{
+ content:"";position:absolute;z-index:2;left:50%;top:50%;
+ transform:translate(-35%,-50%);
+ border-left:12px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent;
+}
+#an-home .an-row:last-of-type .an-poster-title{display:none!important}
+@media(min-width:700px){
+ #an-home .an-row:not(#an-new-on-netflix) .an-posters{padding-left:32px!important;padding-right:32px!important;gap:13px!important}
+ #an-home .an-row:not(#an-new-on-netflix) .an-poster{flex-basis:150px!important;width:150px!important;max-width:150px!important}
+ #an-home .an-row:last-of-type .an-poster{flex-basis:260px!important;width:260px!important}
+}
 </style>
 
 </body></html>
