@@ -1037,13 +1037,13 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 (()=>{
  const section=document.getElementById("an-new-on-netflix");
  if(!section||section.dataset.playerReady)return;section.dataset.playerReady="1";
- const frame=section.querySelector("#an-new-trailer-video"),title=section.querySelector("#an-selected-title"),meta=section.querySelector("#an-selected-meta"),track=section.querySelector("#an-new-track");
+ const frame=section.querySelector("#an-new-trailer-video"),title=section.querySelector("#an-selected-title"),meta=section.querySelector("#an-selected-meta"),track=section.querySelector("#an-new-track"),rail=section.querySelector(".an-new-rail");
  const cards=()=>[...track.querySelectorAll(".an-new-card")];
  const step=()=>{const c=cards()[0];return c?c.getBoundingClientRect().width+(parseFloat(getComputedStyle(track).gap)||10):170};
  const makeEmbed=id=>"https://www.youtube.com/embed/"+encodeURIComponent(id)+"?autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist="+encodeURIComponent(id);
  const activate=c=>{if(!c)return;cards().forEach(x=>{const on=x===c;x.classList.toggle("active",on);x.setAttribute("aria-pressed",on?"true":"false")});const v=c.dataset.video;if(v&&frame.dataset.video!==v){frame.dataset.video=v;frame.src=makeEmbed(v);frame.title=(c.dataset.title||"")+" official trailer"}title.textContent=c.dataset.title||"";meta.textContent=[c.dataset.genre,c.dataset.seasons||c.dataset.runtime,c.dataset.contentRating].filter(Boolean).join("  •  ")};
  let busy=false;
- track.addEventListener("click",e=>{const card=e.target.closest(".an-new-card");if(!card||busy)return;const list=cards(),index=list.indexOf(card);if(index<0)return;activate(card);if(index===0||index===list.length-1)return;busy=true;track.style.transition="transform .46s cubic-bezier(.22,.72,.2,1)";track.style.transform="translate3d("+(-index*step())+"px,0,0)";setTimeout(()=>{for(let i=0;i<index;i++)track.firstElementChild&&track.firstElementChild.remove();track.style.transition="none";track.style.transform="translate3d(0,0,0)";void track.offsetWidth;track.style.transition="";busy=false},470)});
+ track.addEventListener("click",e=>{const card=e.target.closest(".an-new-card");if(!card||busy)return;const list=cards(),index=list.indexOf(card);if(index<0)return;activate(card);if(index===0||index===list.length-1)return;busy=true;track.style.transition="transform .46s cubic-bezier(.22,.72,.2,1)";track.style.transform="translate3d("+(-index*step())+"px,0,0)";setTimeout(()=>{for(let i=0;i<index;i++)track.firstElementChild&&track.firstElementChild.remove();rail.scrollLeft=0;track.style.transition="none";track.style.transform="translate3d(0,0,0)";void track.offsetWidth;track.style.transition="";busy=false},470)});
  const first=cards()[0];if(first){first.classList.add("active");first.setAttribute("aria-pressed","true");frame.dataset.video=first.dataset.video||""}
 })();
 </script>
