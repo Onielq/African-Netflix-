@@ -1074,37 +1074,47 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  const makeEmbed=id=>"https://www.youtube.com/embed/"+encodeURIComponent(id)+"?autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist="+encodeURIComponent(id);
  let activeCard=null;
  let frameQueued=false;
- const ringOffset=()=>ring.getBoundingClientRect().left-rail.getBoundingClientRect().left;
+ let drag=null;
+ let suppressClick=false;
+ const ringLeft=()=>ring.getBoundingClientRect().left-rail.getBoundingClientRect().left;
+ const maxScroll=()=>Math.max(0,rail.scrollWidth-rail.clientWidth);
+ const clampScroll=value=>Math.max(0,Math.min(maxScroll(),value));
  const activate=c=>{
-  if(!c||c===activeCard)return;
-  activeCard=c;
-  cards().forEach(x=>{
-   const on=x===c;
-   x.classList.toggle("active",on);
-   x.setAttribute("aria-pressed",on?"true":"false");
-  });
-  const video=c.dataset.video;
-  if(video&&frame.dataset.video!==video){
-   frame.dataset.video=video;
-   frame.src=makeEmbed(video);
-   frame.title=(c.dataset.title||"")+" official trailer";
+  if(!c)return;
+  if(c!==activeCard){
+   activeCard=c;
+   cards().forEach(x=>{
+    const on=x===c;
+    x.classList.toggle("active",on);
+    x.setAttribute("aria-pressed",on?"true":"false");
+    if(on)x.setAttribute("aria-current","true");else x.removeAttribute("aria-current");
+   });
+   const video=c.dataset.video;
+   if(video&&frame.dataset.video!==video){
+    frame.dataset.video=video;
+    frame.src=makeEmbed(video);
+    frame.title=(c.dataset.title||"")+" official trailer";
+   }
+   title.textContent=c.dataset.title||"";
+   const format=(c.dataset.format||"movie").toLowerCase();
+   let length="";
+   if(format==="series"){
+    const seasons=Number(c.dataset.seasons||0);
+    const episodes=Number(c.dataset.episodes||0);
+    length=seasons>1?seasons+" Seasons":episodes?episodes+" Episodes":seasons===1?"1 Season":"";
+   }else{
+    length=c.dataset.runtime||"";
+   }
+   const rating=c.dataset.contentRating||c.dataset.rating||"";
+   meta.textContent=[c.dataset.genre,length,rating].filter(Boolean).join("  •  ");
   }
-  title.textContent=c.dataset.title||"";
-  const format=(c.dataset.format||"movie").toLowerCase();
-  let length="";
-  if(format==="series"){
-   const seasons=Number(c.dataset.seasons||0);
-   const episodes=Number(c.dataset.episodes||0);
-   length=seasons>1?seasons+" Seasons":episodes?episodes+" Episodes":seasons===1?"1 Season":"";
-  }else{
-   length=c.dataset.runtime||"";
-  }
-  const rating=c.dataset.contentRating||c.dataset.rating||"";
-  meta.textContent=[c.dataset.genre,length,rating].filter(Boolean).join("  •  ");
+  /* The frame itself stays still; its selected-title identity changes with the show in it. */
+  ring.dataset.selectedTitle=c.dataset.title||"";
+  ring.setAttribute("aria-label","Selected show: "+(c.dataset.title||""));
  };
  const cardUnderWindow=()=>{
-  const ringRect=ring.getBoundingClientRect();
-  const center=ringRect.left+ringRect.width/2;
+  const rr=ring.getBoundingClientRect();
+  const center=rr.left+rr.width/2;
   const list=cards();
   let hit=list.find(c=>{
    const r=c.getBoundingClientRect();
@@ -1130,20 +1140,62 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  rail.addEventListener("scroll",updateFromScroll,{passive:true});
  rail.addEventListener("scrollend",updateFromScroll,{passive:true});
  const moveCardIntoWindow=card=>{
-  const target=rail.scrollLeft+(card.getBoundingClientRect().left-rail.getBoundingClientRect().left)-ringOffset();
-  const max=Math.max(0,rail.scrollWidth-rail.clientWidth);
-  const bounded=Math.max(0,Math.min(max,target));
-  rail.scrollTo({left:bounded,behavior:"smooth"});
-  if(Math.abs(bounded-rail.scrollLeft)<1)activate(card);
+  const delta=card.getBoundingClientRect().left-rail.getBoundingClientRect().left-ringLeft();
+  const target=clampScroll(rail.scrollLeft+delta);
+  rail.scrollTo({left:target,behavior:"smooth"});
+  if(Math.abs(target-rail.scrollLeft)<1)activate(card);
  };
  track.addEventListener("click",e=>{
+  if(suppressClick){e.preventDefault();e.stopPropagation();suppressClick=false;return;}
   const card=e.target.closest(".an-new-card");
   if(!card||!track.contains(card))return;
   moveCardIntoWindow(card);
  });
+ /* The app shell reserves native touch scrolling for vertical navigation.
+    Handle horizontal rail swipes directly so both directions always work on iPhone. */
+ const pointerDown=e=>{
+  if(e.pointerType==="mouse"&&e.button!==0)return;
+  drag={id:e.pointerId,x:e.clientX,y:e.clientY,scroll:rail.scrollLeft,moved:false};
+ };
+ const pointerMove=e=>{
+  if(!drag||e.pointerId!==drag.id)return;
+  const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+  if(!drag.moved&&Math.abs(dx)>5&&Math.abs(dx)>Math.abs(dy)){
+   drag.moved=true;
+   suppressClick=true;
+  }
+  if(drag.moved){
+   e.preventDefault();
+   rail.scrollLeft=clampScroll(drag.scroll-dx);
+  }
+ };
+ const snapNearest=()=>{
+  const list=cards();
+  if(!list.length)return;
+  const x=ring.getBoundingClientRect().left;
+  let chosen=list[0],distance=Infinity;
+  list.forEach(card=>{
+   const d=Math.abs(card.getBoundingClientRect().left-x);
+   if(d<distance){distance=d;chosen=card;}
+  });
+  moveCardIntoWindow(chosen);
+ };
+ const pointerUp=e=>{
+  if(!drag||e.pointerId!==drag.id)return;
+  const didMove=drag.moved;
+  drag=null;
+  if(didMove){
+   snapNearest();
+   updateFromScroll();
+   window.setTimeout(()=>{suppressClick=false;},350);
+  }
+ };
+ rail.addEventListener("pointerdown",pointerDown,{passive:true});
+ window.addEventListener("pointermove",pointerMove,{passive:false});
+ window.addEventListener("pointerup",pointerUp,{passive:true});
+ window.addEventListener("pointercancel",pointerUp,{passive:true});
  const onResize=()=>{
-  if(!activeCard)return;
-  moveCardIntoWindow(activeCard);
+  if(activeCard)moveCardIntoWindow(activeCard);
   updateFromScroll();
  };
  window.addEventListener("resize",onResize,{passive:true});
@@ -1341,7 +1393,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  box-sizing:border-box!important;margin:0!important;padding:0 0 8px 18px!important;
  overflow-x:auto!important;overflow-y:hidden!important;
  -webkit-overflow-scrolling:touch!important;overscroll-behavior-x:contain!important;
- touch-action:pan-x pan-y!important;scroll-snap-type:x mandatory!important;
+ touch-action:pan-y!important;scroll-snap-type:none!important;user-select:none!important;-webkit-user-select:none!important;
  scroll-padding-left:18px!important;scrollbar-width:none!important;cursor:grab!important;
 }
 #an-home #an-new-on-netflix .an-new-rail::-webkit-scrollbar{display:none!important}
@@ -1358,7 +1410,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  margin:0!important;padding:0!important;overflow:hidden!important;border:0!important;
  outline:0!important;border-radius:8px!important;background:#17171c!important;
  scroll-snap-align:start!important;scroll-snap-stop:normal!important;
- touch-action:pan-x pan-y!important;
+ touch-action:pan-y!important;
 }
 #an-home #an-new-on-netflix .an-new-card.active{border:0!important;outline:0!important}
 #an-home #an-new-on-netflix .an-new-card img{
