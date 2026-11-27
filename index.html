@@ -522,29 +522,64 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   </div></section>
   <section class="an-row" id="an-screen-five-picks"><h2>Today's Top Picks for You</h2><div class="an-posters"><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">RANABAALI</span><span class="an-added">Recently Added</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">THE BODY</span><span class="an-added">Recently Added</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">GOSPEL OF CHRISTMAS</span><span class="an-added">Recently Added</span></article></div></section>
   <section class="an-row" id="an-screen-five-india"><h2>Movies &amp; TV Shows set in India</h2><div class="an-posters"><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">HAIKU</span><span class="an-added">Recently Added</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">THE PARADISE</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">DON’T TROUBLE THE TROUBLE</span><span class="an-added">Recently Added</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">418</span></article></div></section>
-  <section class="an-row" id="an-screen-five-continue"><h2>Continue Watching for <span id="an-profile-name">Oniel</span></h2><div class="an-posters"><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">Continue Watching</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">Your Series</span></article></div></section>
- </main>
- <main id="an-search">
-  <header class="an-search-head">
-   <h1>Search</h1>
-   <div class="an-head-actions">
-    <button type="button" aria-label="Cast"><svg viewBox="0 0 24 24"><path d="M3 18a3 3 0 0 1 3 3M3 13a8 8 0 0 1 8 8M3 8a13 13 0 0 1 13 13"/><path d="M5 3h16v16h-5"/></svg></button>
-    <button type="button" aria-label="Downloads"><svg viewBox="0 0 24 24"><path d="M12 2v13m-5-5 5 5 5-5M4 20h16"/></svg></button>
-    <button type="button" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button>
-   </div>
-  </header>
-  <label class="an-search-field" for="an-search-input">
-   <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16 16 5 5"/></svg>
-   <input id="an-search-input" type="search" placeholder="Search shows, movies, games..." autocomplete="off" spellcheck="false">
-   <button class="an-search-clear" id="an-search-clear" type="button" aria-label="Clear search" hidden><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
-  </label>
-  <section class="an-explore">
-   <h2>More to Explore</h2>
-   <div class="an-chips">
-    <button class="an-chip" type="button"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16 16 5 5"/></svg>conspiracies and cover-ups</button>
-    <button class="an-chip" type="button"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16 16 5 5"/></svg>sports podcasts</button>
-    <button class="an-chip" type="button"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16 16 5 5"/></svg>modern westerns</button>
-    <button class="an-chip" type="button"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16 16 5 5"/></svg>watch next</button>
+  <section class="an-row an-continue-watching" id="an-screen-five-continue">
+   <h2>Continue Watching for <span id="an-profile-name">Oniel</span></h2>
+   <div class="an-cw-posters" id="an-cw-posters" aria-label="Continue watching titles">
+    <article class="an-cw-card" data-cw-id="dead-end-job" data-title="Dead-End Job" data-progress="9" data-kind="series" data-video-src="" data-download-src="">
+     <div class="an-cw-poster">
+      <img src="https://image.idntimes.com/post/20261001/1000338887_f1607d8e-a293-4f8a-9c71-2b6f07ba3c31.jpg" alt="Dead-End Job poster" loading="lazy">
+      <span class="an-cw-new">Recently Added</span>
+      <button class="an-cw-play" type="button" data-cw-action="play" aria-label="Resume Dead-End Job">
+       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5z"/></svg>
+      </button>
+     </div>
+     <div class="an-cw-progress" role="progressbar" aria-label="Dead-End Job watch progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="9"><span style="width:9%"></span></div>
+     <div class="an-cw-card-actions">
+      <button class="an-cw-info" type="button" data-cw-action="info" aria-label="Dead-End Job information">
+       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.25"/><path d="M12 11v5M12 7.5h.01"/></svg>
+      </button>
+      <span class="an-cw-action-divider" aria-hidden="true"></span>
+      <button class="an-cw-more" type="button" data-cw-action="menu" aria-label="More options for Dead-End Job">
+       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.15"/><circle cx="12" cy="12" r="1.15"/><circle cx="12" cy="19" r="1.15"/></svg>
+      </button>
+     </div>
+    </article>
+    <article class="an-cw-card" data-cw-id="avatar-last-airbender" data-title="Avatar: The Last Airbender" data-progress="0" data-kind="series" data-video-src="" data-download-src="">
+     <div class="an-cw-poster">
+      <img src="https://m.media-amazon.com/images/M/MV5BMGU0NmI3NTMtMjZmOS00NDY5LWEyZTUtNmYyNTUwMWYwZDNhXkEyXkFqcGc%40._V1_.jpg" alt="Avatar: The Last Airbender poster" loading="lazy">
+      <button class="an-cw-play" type="button" data-cw-action="play" aria-label="Resume Avatar: The Last Airbender">
+       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5z"/></svg>
+      </button>
+     </div>
+     <div class="an-cw-progress" role="progressbar" aria-label="Avatar: The Last Airbender watch progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span style="width:0%"></span></div>
+     <div class="an-cw-card-actions">
+      <button class="an-cw-info" type="button" data-cw-action="info" aria-label="Avatar: The Last Airbender information">
+       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.25"/><path d="M12 11v5M12 7.5h.01"/></svg>
+      </button>
+      <span class="an-cw-action-divider" aria-hidden="true"></span>
+      <button class="an-cw-more" type="button" data-cw-action="menu" aria-label="More options for Avatar: The Last Airbender">
+       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.15"/><circle cx="12" cy="12" r="1.15"/><circle cx="12" cy="19" r="1.15"/></svg>
+      </button>
+     </div>
+    </article>
+    <article class="an-cw-card" data-cw-id="seriously-single-too" data-title="Seriously Single Too" data-progress="18" data-kind="movie" data-video-src="" data-download-src="">
+     <div class="an-cw-poster">
+      <img src="https://cdn.bingebase.com/movies/233031/posters/hbApG0WSwgtaK7hXTZpwZDstDaR.webp" alt="Seriously Single Too poster" loading="lazy">
+      <button class="an-cw-play" type="button" data-cw-action="play" aria-label="Resume Seriously Single Too">
+       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5z"/></svg>
+      </button>
+     </div>
+     <div class="an-cw-progress" role="progressbar" aria-label="Seriously Single Too watch progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="18"><span style="width:18%"></span></div>
+     <div class="an-cw-card-actions">
+      <button class="an-cw-info" type="button" data-cw-action="info" aria-label="Seriously Single Too information">
+       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.25"/><path d="M12 11v5M12 7.5h.01"/></svg>
+      </button>
+      <span class="an-cw-action-divider" aria-hidden="true"></span>
+      <button class="an-cw-more" type="button" data-cw-action="menu" aria-label="More options for Seriously Single Too">
+       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.15"/><circle cx="12" cy="12" r="1.15"/><circle cx="12" cy="19" r="1.15"/></svg>
+      </button>
+     </div>
+    </article>
    </div>
   </section>
   <section class="an-recommended">
@@ -610,6 +645,71 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   <button class="an-nav-item" data-tab="search"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16 16 5 5"/></svg>Search</button>
   <button class="an-nav-item" data-tab="profile"><span class="an-nav-avatar">N</span>My Netflix</button>
  </nav>
+
+ <div class="an-cw-overlay" id="an-cw-overlay" hidden>
+  <button class="an-cw-scrim" type="button" data-cw-close aria-label="Close dialog"></button>
+  <section class="an-cw-sheet" role="dialog" aria-modal="true" aria-labelledby="an-cw-sheet-title">
+   <div class="an-cw-view an-cw-menu-view" data-cw-view="menu">
+    <header class="an-cw-sheet-head">
+     <h2 id="an-cw-sheet-title">Dead-End Job</h2>
+     <button class="an-cw-close" type="button" data-cw-close aria-label="Close menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+     </button>
+    </header>
+    <div class="an-cw-menu-list">
+     <button class="an-cw-menu-item" type="button" data-cw-menu-action="episodes-info">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.25"/><path d="M12 11v5M12 7.5h.01"/></svg><span>Episodes and Info</span>
+     </button>
+     <button class="an-cw-menu-item" type="button" data-cw-menu-action="download">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/></svg><span>Download Episode</span>
+     </button>
+     <button class="an-cw-menu-item" type="button" data-cw-menu-action="not-for-me">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 14V2H5.5L2 12.5A2.5 2.5 0 0 0 4.5 15H9l-.7 4.1a2.5 2.5 0 0 0 4.5 1.7L17 14Z"/><path d="M17 5h4v11h-4"/></svg><span>Not for me</span>
+     </button>
+     <button class="an-cw-menu-item" type="button" data-cw-menu-action="like">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10v12H3V10h4ZM7 10l4-7a3 3 0 0 1 3 3v4h5a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>I like it</span>
+     </button>
+     <button class="an-cw-menu-item" type="button" data-cw-menu-action="love">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v11H1V10h2Zm3 0 4-7a3 3 0 0 1 3 3v4h5a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H6"/><path d="M18 3h4v8h-4"/></svg><span>Love this!</span>
+     </button>
+     <button class="an-cw-menu-item" type="button" data-cw-menu-action="remove">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Remove From Row</span>
+     </button>
+    </div>
+   </div>
+   <div class="an-cw-view an-cw-info-view" data-cw-view="info" hidden>
+    <header class="an-cw-sheet-head">
+     <h2 class="an-cw-info-title">Dead-End Job</h2>
+     <button class="an-cw-close" type="button" data-cw-close aria-label="Close details">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+     </button>
+    </header>
+    <div class="an-cw-info-body">
+     <img class="an-cw-info-poster" src="" alt="">
+     <div class="an-cw-info-copy">
+      <p class="an-cw-info-kicker">CONTINUE WATCHING</p>
+      <p class="an-cw-info-progress">Your saved playback position is ready.</p>
+     </div>
+    </div>
+    <button class="an-cw-resume-button" type="button" data-cw-resume>
+     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5z"/></svg>Resume
+    </button>
+   </div>
+  </section>
+ </div>
+ <div class="an-cw-player" id="an-cw-player" hidden>
+  <button class="an-cw-player-close" type="button" data-cw-player-close aria-label="Close player">
+   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+  </button>
+  <video id="an-cw-video" controls playsinline preload="metadata" hidden></video>
+  <div class="an-cw-player-placeholder" id="an-cw-player-placeholder">
+   <div class="an-cw-player-mark">N</div>
+   <h2 id="an-cw-player-title">Dead-End Job</h2>
+   <p id="an-cw-player-status">Your video will resume here once its original video file is connected.</p>
+   <button type="button" class="an-cw-player-back" data-cw-player-close>Back to Home</button>
+  </div>
+ </div>
+ <div class="an-cw-toast" id="an-cw-toast" role="status" aria-live="polite"></div>
 </div>
 <script id="african-netflix-browse-script">
 (()=>{
@@ -674,7 +774,152 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
    });
   });
  });
-})();
+ 
+ /* Continue Watching — progress, title info, feedback and per-card action sheet. */
+ const cwRow=document.getElementById('an-cw-posters');
+ const cwOverlay=document.getElementById('an-cw-overlay');
+ const cwSheet=cwOverlay?.querySelector('.an-cw-sheet');
+ const cwPlayer=document.getElementById('an-cw-player');
+ const cwVideo=document.getElementById('an-cw-video');
+ const cwPlaceholder=document.getElementById('an-cw-player-placeholder');
+ const cwToast=document.getElementById('an-cw-toast');
+ let cwCurrentCard=null;
+ let cwToastTimer=null;
+ const cwStorage={
+  read(key,fallback){try{const value=JSON.parse(localStorage.getItem(key)||'null');return value??fallback;}catch{return fallback;}},
+  write(key,value){try{localStorage.setItem(key,JSON.stringify(value));}catch{}}
+ };
+ const cwCloseSheet=()=>{
+  if(cwOverlay)cwOverlay.hidden=true;
+  document.body.classList.remove('an-cw-modal-open');
+  cwCurrentCard=null;
+ };
+ const cwToastMessage=message=>{
+  if(!cwToast)return;
+  cwToast.textContent=message;
+  cwToast.classList.add('visible');
+  clearTimeout(cwToastTimer);
+  cwToastTimer=setTimeout(()=>cwToast.classList.remove('visible'),2400);
+ };
+ const cwProgress=card=>Math.max(0,Math.min(100,Number(card.dataset.progress||0)));
+ const cwOpenSheet=(card,view='menu')=>{
+  cwCurrentCard=card;
+  cwOverlay.hidden=false;
+  document.body.classList.add('an-cw-modal-open');
+  cwOverlay.querySelectorAll('[data-cw-view]').forEach(v=>v.hidden=v.dataset.cwView!==view);
+  const title=card.dataset.title||'';
+  cwOverlay.querySelector('#an-cw-sheet-title').textContent=title;
+  cwOverlay.querySelector('.an-cw-info-title').textContent=title;
+  const poster=card.querySelector('.an-cw-poster img');
+  const detailPoster=cwOverlay.querySelector('.an-cw-info-poster');
+  detailPoster.src=poster?.src||'';
+  detailPoster.alt=poster?.alt||title;
+  const percent=cwProgress(card);
+  cwOverlay.querySelector('.an-cw-info-progress').textContent=percent>0
+   ? 'Saved playback position: '+percent+'%. Resume from where you left off.'
+   : 'This title is in your Continue Watching row. Start watching whenever you are ready.';
+ };
+ const cwClosePlayer=()=>{
+  if(cwVideo){cwVideo.pause();cwVideo.removeAttribute('src');cwVideo.load();cwVideo.hidden=true;}
+  cwPlayer.hidden=true;
+  document.body.classList.remove('an-cw-player-open');
+ };
+ const cwOpenPlayer=card=>{
+  cwCurrentCard=card;
+  cwCloseSheet();
+  cwPlayer.hidden=false;
+  document.body.classList.add('an-cw-player-open');
+  const title=card.dataset.title||'';
+  document.getElementById('an-cw-player-title').textContent=title;
+  const source=card.dataset.videoSrc||'';
+  if(source){
+   cwPlaceholder.hidden=true;
+   cwVideo.hidden=false;
+   cwVideo.src=source;
+   cwVideo.onloadedmetadata=()=>{
+    const percent=cwProgress(card);
+    if(Number.isFinite(cwVideo.duration)&&cwVideo.duration>0)cwVideo.currentTime=cwVideo.duration*percent/100;
+    cwVideo.play().catch(()=>{});
+   };
+   cwVideo.ontimeupdate=()=>{
+    if(!Number.isFinite(cwVideo.duration)||cwVideo.duration<=0)return;
+    const percent=Math.min(100,Math.round(cwVideo.currentTime/cwVideo.duration*100));
+    card.dataset.progress=String(percent);
+    const bar=card.querySelector('.an-cw-progress');
+    bar?.querySelector('span')?.style.setProperty('width',percent+'%');
+    bar?.setAttribute('aria-valuenow',String(percent));
+    cwStorage.write('african-matrix-cw-progress',{...(cwStorage.read('african-matrix-cw-progress',{})),[card.dataset.cwId]:percent});
+   };
+  }else{
+   cwVideo.hidden=true;
+   cwPlaceholder.hidden=false;
+   document.getElementById('an-cw-player-status').textContent=
+    'The Continue Watching player is connected to saved progress, but this title’s original video file has not been added yet.';
+  }
+ };
+ if(cwRow){
+  const removed=cwStorage.read('african-matrix-cw-removed',[]);
+  const progress=cwStorage.read('african-matrix-cw-progress',{});
+  const feedback=cwStorage.read('african-matrix-cw-feedback',{});
+  cwRow.querySelectorAll('.an-cw-card').forEach(card=>{
+   const id=card.dataset.cwId;
+   if(removed.includes(id)){card.remove();return;}
+   if(Object.prototype.hasOwnProperty.call(progress,id)){
+    card.dataset.progress=String(progress[id]);
+    card.querySelector('.an-cw-progress span')?.style.setProperty('width',progress[id]+'%');
+    card.querySelector('.an-cw-progress')?.setAttribute('aria-valuenow',String(progress[id]));
+   }
+   if(feedback[id])card.dataset.feedback=feedback[id];
+   card.querySelector('[data-cw-action="play"]').addEventListener('click',()=>cwOpenPlayer(card));
+   card.querySelector('[data-cw-action="info"]').addEventListener('click',()=>cwOpenSheet(card,'info'));
+   card.querySelector('[data-cw-action="menu"]').addEventListener('click',()=>cwOpenSheet(card,'menu'));
+  });
+ }
+ cwOverlay?.querySelectorAll('[data-cw-close]').forEach(b=>b.addEventListener('click',cwCloseSheet));
+ cwPlayer?.querySelectorAll('[data-cw-player-close]').forEach(b=>b.addEventListener('click',cwClosePlayer));
+ cwOverlay?.querySelector('[data-cw-resume]')?.addEventListener('click',()=>{
+  if(cwCurrentCard)cwOpenPlayer(cwCurrentCard);
+ });
+ cwOverlay?.querySelectorAll('[data-cw-menu-action]').forEach(button=>button.addEventListener('click',()=>{
+  if(!cwCurrentCard)return;
+  const action=button.dataset.cwMenuAction;
+  const title=cwCurrentCard.dataset.title||'This title';
+  if(action==='episodes-info'){cwOpenSheet(cwCurrentCard,'info');return;}
+  if(action==='download'){
+   const source=cwCurrentCard.dataset.downloadSrc;
+   if(source){
+    const link=document.createElement('a');link.href=source;link.download='';document.body.appendChild(link);link.click();link.remove();
+    cwToastMessage('Download started.');
+   }else{
+    cwToastMessage('Episode download will be available when its video file is added.');
+   }
+   cwCloseSheet();return;
+  }
+  if(action==='remove'){
+   const id=cwCurrentCard.dataset.cwId;
+   const removed=cwStorage.read('african-matrix-cw-removed',[]);
+   if(!removed.includes(id))removed.push(id);
+   cwStorage.write('african-matrix-cw-removed',removed);
+   cwCurrentCard.remove();
+   cwCloseSheet();
+   cwToastMessage('Removed from Continue Watching.');
+   return;
+  }
+  const value=action==='not-for-me'?'not-for-me':action==='like'?'like':'love';
+  const values=cwStorage.read('african-matrix-cw-feedback',{});
+  values[cwCurrentCard.dataset.cwId]=value;
+  cwStorage.write('african-matrix-cw-feedback',values);
+  cwCurrentCard.dataset.feedback=value;
+  cwCloseSheet();
+  cwToastMessage(value==='not-for-me'?'Thanks. We’ll use this to improve your recommendations.':value==='like'?'Added to your liked titles.':'Marked as a favourite.');
+ }));
+ document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+   if(cwPlayer&&!cwPlayer.hidden)cwClosePlayer();
+   else if(cwOverlay&&!cwOverlay.hidden)cwCloseSheet();
+  }
+ });
+ })();
 </script>
 
 
@@ -1691,6 +1936,187 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  #an-search .an-chip{font-size:11px!important;padding:0 9px!important}
  #an-search .an-search-result{grid-template-columns:minmax(0,34%) minmax(0,1fr) 31px!important;column-gap:9px!important}
  #an-search .an-result-play{width:29px!important;height:29px!important}
+}
+</style>
+
+
+<style id="an-screen-five-continue-watching-final">
+/* Continue Watching cards — scoped to this row only. */
+#an-home #an-screen-five-continue{margin:0 0 27px!important}
+#an-home #an-screen-five-continue>h2{
+ margin:0 20px 13px!important;font-size:21px!important;line-height:1.2!important;
+ font-weight:750!important;letter-spacing:-.35px!important;color:#f5f5f5!important;
+}
+#an-home #an-screen-five-continue .an-cw-posters{
+ display:flex!important;align-items:flex-start!important;gap:12px!important;
+ width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;
+ padding:0 20px 5px!important;scrollbar-width:none!important;
+ -webkit-overflow-scrolling:touch!important;scroll-snap-type:x mandatory!important;
+}
+#an-home #an-screen-five-continue .an-cw-posters::-webkit-scrollbar{display:none!important}
+#an-home #an-screen-five-continue .an-cw-card{
+ position:relative!important;display:flex!important;flex:0 0 29vw!important;
+ flex-direction:column!important;min-width:108px!important;max-width:160px!important;
+ overflow:hidden!important;border-radius:7px!important;background:#171719!important;
+ scroll-snap-align:start!important;
+}
+#an-home #an-screen-five-continue .an-cw-poster{
+ position:relative!important;width:100%!important;aspect-ratio:.72!important;
+ overflow:hidden!important;background:#222!important;
+}
+#an-home #an-screen-five-continue .an-cw-poster>img{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ display:block!important;object-fit:cover!important;object-position:center!important;
+}
+#an-home #an-screen-five-continue .an-cw-play{
+ position:absolute!important;left:50%!important;top:50%!important;
+ width:58px!important;height:58px!important;transform:translate(-50%,-50%)!important;
+ display:grid!important;place-items:center!important;padding:0!important;
+ border:1.7px solid rgba(255,255,255,.95)!important;border-radius:50%!important;
+ background:rgba(0,0,0,.45)!important;color:#fff!important;
+}
+#an-home #an-screen-five-continue .an-cw-play svg{
+ width:28px!important;height:28px!important;margin-left:3px!important;
+ fill:#fff!important;stroke:#fff!important;stroke-width:1.2!important;
+}
+#an-home #an-screen-five-continue .an-cw-new{
+ position:absolute!important;left:8px!important;bottom:8px!important;
+ display:block!important;padding:4px 8px!important;border-radius:2px!important;
+ background:#e50914!important;color:#fff!important;font-size:11px!important;
+ line-height:1.15!important;font-weight:750!important;white-space:nowrap!important;
+}
+#an-home #an-screen-five-continue .an-cw-progress{
+ position:relative!important;width:calc(100% - 18px)!important;height:5px!important;
+ margin:9px 9px 8px!important;overflow:hidden!important;border-radius:99px!important;
+ background:#777!important;
+}
+#an-home #an-screen-five-continue .an-cw-progress span{
+ display:block!important;height:100%!important;border-radius:99px!important;
+ background:#e50914!important;transition:width .25s ease!important;
+}
+#an-home #an-screen-five-continue .an-cw-card-actions{
+ display:flex!important;align-items:center!important;justify-content:space-evenly!important;
+ width:100%!important;height:48px!important;margin:0!important;padding:0 5px 3px!important;
+ background:#171719!important;
+}
+#an-home #an-screen-five-continue .an-cw-card-actions button{
+ display:grid!important;place-items:center!important;width:42px!important;height:42px!important;
+ padding:0!important;border:0!important;background:transparent!important;color:#f5f5f5!important;
+}
+#an-home #an-screen-five-continue .an-cw-card-actions svg{
+ width:28px!important;height:28px!important;fill:none!important;stroke:currentColor!important;
+ stroke-width:1.85!important;stroke-linecap:round!important;stroke-linejoin:round!important;
+}
+#an-home #an-screen-five-continue .an-cw-action-divider{
+ display:block!important;width:1px!important;height:29px!important;background:#555!important;
+}
+@media(min-width:700px){
+ #an-home #an-screen-five-continue>h2{margin-left:32px!important}
+ #an-home #an-screen-five-continue .an-cw-posters{padding-left:32px!important;gap:15px!important}
+ #an-home #an-screen-five-continue .an-cw-card{flex-basis:170px!important;max-width:190px!important}
+}
+@media(max-width:360px){
+ #an-home #an-screen-five-continue .an-cw-card{flex-basis:30vw!important;min-width:102px!important}
+ #an-home #an-screen-five-continue .an-cw-play{width:50px!important;height:50px!important}
+}
+
+/* Netflix-style Continue Watching action sheet. */
+body.an-cw-modal-open,body.an-cw-player-open{overflow:hidden!important}
+.an-cw-overlay[hidden],.an-cw-player[hidden]{display:none!important}
+.an-cw-overlay{
+ position:fixed!important;inset:0!important;z-index:1200!important;
+ display:flex!important;align-items:flex-end!important;justify-content:center!important;
+}
+.an-cw-scrim{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ padding:0!important;border:0!important;border-radius:0!important;
+ background:rgba(0,0,0,.63)!important;
+}
+.an-cw-sheet{
+ position:relative!important;z-index:1!important;width:100%!important;
+ max-width:720px!important;max-height:78vh!important;min-height:475px!important;
+ overflow-y:auto!important;padding:22px 22px calc(env(safe-area-inset-bottom) + 24px)!important;
+ border-radius:17px 17px 0 0!important;background:#292929!important;color:#f6f6f6!important;
+ box-shadow:0 -10px 36px rgba(0,0,0,.25)!important;
+}
+.an-cw-view[hidden]{display:none!important}
+.an-cw-sheet-head{
+ display:flex!important;align-items:center!important;justify-content:space-between!important;
+ gap:16px!important;margin:0 0 21px!important;
+}
+.an-cw-sheet-head h2{
+ flex:1!important;min-width:0!important;margin:0!important;
+ color:#f5f5f5!important;font-size:27px!important;line-height:1.15!important;
+ font-weight:750!important;letter-spacing:-.6px!important;
+}
+.an-cw-close{
+ flex:0 0 42px!important;width:42px!important;height:42px!important;
+ display:grid!important;place-items:center!important;padding:0!important;
+ border:0!important;border-radius:50%!important;background:#505050!important;color:#eee!important;
+}
+.an-cw-close svg{width:24px!important;height:24px!important;stroke:currentColor!important;stroke-width:1.8!important;fill:none!important}
+.an-cw-menu-list{display:flex!important;flex-direction:column!important;gap:0!important}
+.an-cw-menu-item{
+ display:flex!important;align-items:center!important;gap:20px!important;width:100%!important;
+ min-height:66px!important;padding:8px 2px!important;border:0!important;
+ background:transparent!important;color:#eee!important;text-align:left!important;
+ font-size:18px!important;font-weight:600!important;letter-spacing:-.2px!important;
+}
+.an-cw-menu-item svg{
+ flex:0 0 34px!important;width:34px!important;height:34px!important;
+ fill:none!important;stroke:currentColor!important;stroke-width:1.9!important;
+ stroke-linecap:round!important;stroke-linejoin:round!important;
+}
+.an-cw-menu-item:active{opacity:.7}
+.an-cw-info-body{
+ display:flex!important;align-items:center!important;gap:16px!important;margin:4px 0 22px!important;
+}
+.an-cw-info-poster{
+ flex:0 0 100px!important;width:100px!important;height:140px!important;
+ object-fit:cover!important;border-radius:5px!important;background:#151515!important;
+}
+.an-cw-info-copy{min-width:0!important}
+.an-cw-info-kicker{margin:0 0 8px!important;color:#aaa!important;font-size:11px!important;font-weight:800!important;letter-spacing:1.1px!important}
+.an-cw-info-progress{margin:0!important;color:#e6e6e6!important;font-size:15px!important;line-height:1.4!important}
+.an-cw-resume-button{
+ display:flex!important;align-items:center!important;justify-content:center!important;gap:10px!important;
+ width:100%!important;height:52px!important;padding:0 16px!important;border:0!important;
+ border-radius:5px!important;background:#f5f5f5!important;color:#111!important;
+ font-size:16px!important;font-weight:750!important;
+}
+.an-cw-resume-button svg{width:20px!important;height:20px!important;fill:currentColor!important;stroke:currentColor!important}
+.an-cw-player{
+ position:fixed!important;inset:0!important;z-index:1300!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ flex-direction:column!important;background:#050505!important;color:#fff!important;
+ padding:calc(env(safe-area-inset-top) + 24px) 20px calc(env(safe-area-inset-bottom) + 24px)!important;
+}
+.an-cw-player-close{
+ position:absolute!important;top:calc(env(safe-area-inset-top) + 16px)!important;right:18px!important;
+ width:44px!important;height:44px!important;display:grid!important;place-items:center!important;
+ padding:0!important;border:0!important;border-radius:50%!important;
+ background:#303030!important;color:#fff!important;
+}
+.an-cw-player-close svg{width:24px!important;height:24px!important;stroke:currentColor!important;fill:none!important;stroke-width:1.8!important}
+.an-cw-player video{width:100%!important;max-height:70vh!important;background:#000!important}
+.an-cw-player video[hidden]{display:none!important}
+.an-cw-player-placeholder{max-width:360px!important;text-align:center!important}
+.an-cw-player-placeholder[hidden]{display:none!important}
+.an-cw-player-mark{margin-bottom:16px!important;color:#e50914!important;font-size:60px!important;font-family:Arial Black,Arial,sans-serif!important;font-weight:900!important}
+.an-cw-player-placeholder h2{margin:0 0 12px!important;font-size:25px!important;color:#fff!important}
+.an-cw-player-placeholder p{margin:0 auto 24px!important;color:#bcbcc2!important;font-size:14px!important;line-height:1.5!important}
+.an-cw-player-back{height:44px!important;padding:0 22px!important;border:0!important;border-radius:5px!important;background:#f4f4f4!important;color:#111!important;font-size:15px!important;font-weight:700!important}
+.an-cw-toast{
+ position:fixed!important;left:50%!important;bottom:calc(env(safe-area-inset-bottom) + 104px)!important;
+ z-index:1400!important;max-width:calc(100vw - 36px)!important;
+ padding:11px 16px!important;border-radius:6px!important;background:#f4f4f4!important;color:#171717!important;
+ font-size:13px!important;font-weight:650!important;text-align:center!important;
+ opacity:0!important;pointer-events:none!important;transform:translate(-50%,12px)!important;
+ transition:opacity .18s ease,transform .18s ease!important;
+}
+.an-cw-toast.visible{opacity:1!important;transform:translate(-50%,0)!important}
+@media(min-width:700px){
+ .an-cw-sheet{border-radius:18px 18px 0 0!important}
 }
 </style>
 
