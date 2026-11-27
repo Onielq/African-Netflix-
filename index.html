@@ -651,4 +651,84 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 }
 </style>
 
-</body></html>
+
+<style id="an-home-screenshot-match">
+/* Screenshot-led Home pass: inset hero card and compact Netflix header. */
+#an-home{
+  background:
+    radial-gradient(ellipse at 78% 2%,rgba(115,125,126,.48),transparent 35%),
+    linear-gradient(180deg,#343b3d 0%,#171b1d 35%,#080909 70%);
+  padding-bottom:calc(100px + env(safe-area-inset-bottom));
+}
+#an-home .an-home-header{
+  padding:calc(env(safe-area-inset-top) + 7px) 17px 0;
+}
+#an-home .an-headline{min-height:48px;gap:12px}
+#an-home .an-netflix-n{font-size:46px;line-height:1}
+#an-home .an-headline strong{font-size:25px;line-height:1}
+#an-home .an-head-actions{gap:20px}
+#an-home .an-head-actions button{width:48px;height:42px}
+#an-home .an-head-actions svg{width:25px;height:25px}
+#an-home .an-categories{
+  margin:9px -17px 0;
+  padding:0 12px;
+  gap:8px;
+  height:42px;
+}
+#an-home .an-categories button{
+  height:42px;
+  padding:0 16px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;
+  background:rgba(255,255,255,.19);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.12);
+  font-size:14px;
+  font-weight:650;
+}
+#an-home .an-feature{
+  width:auto;
+  height:clamp(330px,90vw,390px);
+  min-height:330px;
+  max-height:390px;
+  margin:20px 17px 14px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.18);
+  overflow:hidden;
+  background:#111513;
+  box-shadow:0 0 0 1px rgba(255,255,255,.035);
+}
+#an-home .an-feature-art{inset:0;background-position:center 24%;background-size:cover}
+#an-home .an-feature-art:after{
+  background:linear-gradient(180deg,rgba(0,0,0,.16) 0%,rgba(0,0,0,.02) 38%,rgba(0,0,0,.42) 63%,rgba(0,0,0,.94) 100%);
+}
+#an-home .an-feature-n{top:13px;left:15px;font-size:31px}
+#an-home .an-feature-copy{left:15px;right:15px;bottom:10px}
+#an-home .an-feature-title{
+  font-size:clamp(27px,7.6vw,34px);
+  line-height:1.08;
+  letter-spacing:1.2px;
+  font-weight:400;
+}
+#an-home .an-feature-date{font-size:15px;margin:17px 0 17px}
+#an-home .an-remind{
+  width:100%;height:42px;border-radius:28px;
+  background:#fff;color:#090909;font-size:16px;font-weight:700;
+}
+#an-home .an-remind svg{width:22px;height:22px}
+#an-home .an-row{margin-bottom:24px}
+#an-home .an-row h2{font-size:19px;line-height:1.2;font-weight:700;margin:0 10px 11px}
+#an-home .an-posters{gap:8px;padding-left:10px;padding-right:10px}
+#an-home .an-poster{flex:0 0 42vw;max-width:168px;min-width:132px;border-radius:5px}
+#an-home .an-bottom-nav{
+  background:rgba(18,19,21,.84);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(18px);
+  border-radius:18px;
+}
+@media(min-width:700px){
+ #an-home .an-feature{height:390px;max-height:390px;margin-left:24px;margin-right:24px}
+ #an-home .an-row h2{margin-left:24px}
+ #an-home .an-posters{padding-left:24px;padding-right:24px}
+}
+</style>
+\n</body></html>
