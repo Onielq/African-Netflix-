@@ -687,11 +687,11 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 }
 #an-home .an-feature{
   width:auto;
-  height:clamp(330px,90vw,390px);
-  min-height:330px;
-  max-height:390px;
-  margin:20px 17px 14px;
-  border-radius:16px;
+  height:clamp(470px,127.5vw,520px);
+  min-height:470px;
+  max-height:520px;
+  margin:20px 23px 18px;
+  border-radius:17px;
   border:1px solid rgba(255,255,255,.18);
   overflow:hidden;
   background:#111513;
@@ -731,4 +731,14 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  #an-home .an-posters{padding-left:24px;padding-right:24px}
 }
 </style>
-\n</body></html>
+\n
+<style id="an-home-hero-size-fix">
+/* Restore the reference hero's tall, dominant portrait-card proportions. */
+#an-home .an-feature{height:clamp(470px,127.5vw,520px)!important;min-height:470px!important;max-height:520px!important;margin-left:23px!important;margin-right:23px!important}
+#an-home .an-feature-copy{left:16px!important;right:16px!important;bottom:13px!important}
+#an-home .an-feature-date{margin:15px 0 16px!important}
+#an-home .an-remind{height:46px!important}
+@media(min-width:700px){#an-home .an-feature{height:520px!important;max-height:520px!important;margin-left:32px!important;margin-right:32px!important}}
+</style>
+
+</body></html>
