@@ -1037,27 +1037,72 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  if(!section||section.dataset.playerReady)return;
  section.dataset.playerReady='1';
  const frame=section.querySelector('#an-new-trailer-video');
+ const player=section.querySelector('#an-new-trailer');
+ const info=section.querySelector('.an-selected-info');
  const title=section.querySelector('#an-selected-title');
  const meta=section.querySelector('#an-selected-meta');
  const cards=[...section.querySelectorAll('.an-new-card')];
  const makeEmbed=(id)=>'https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist='+encodeURIComponent(id);
+ let changing=false;
  cards.forEach(card=>card.addEventListener('click',()=>{
   const video=card.dataset.video;
-  if(!video||!frame)return;
+  if(!video||!frame||video===frame.dataset.video||changing)return;
+  changing=true;
   cards.forEach(item=>{
    const active=item===card;
    item.classList.toggle('active',active);
    item.setAttribute('aria-pressed',active?'true':'false');
   });
-  title.textContent=card.dataset.title||'';
-  meta.textContent=card.dataset.meta||'';
-  if(frame.dataset.video!==video){
+  [player,info].forEach(el=>{
+   if(el){el.classList.remove('an-slide-enter-right','an-slide-exit-left');void el.offsetWidth;el.classList.add('an-slide-exit-left');}
+  });
+  window.setTimeout(()=>{
    frame.dataset.video=video;
    frame.src=makeEmbed(video);
-  }
+   title.textContent=card.dataset.title||'';
+   meta.textContent=card.dataset.meta||'';
+   [player,info].forEach(el=>{
+    if(el){el.classList.remove('an-slide-exit-left');void el.offsetWidth;el.classList.add('an-slide-enter-right');}
+   });
+   window.setTimeout(()=>{
+    [player,info].forEach(el=>el&&el.classList.remove('an-slide-enter-right'));
+    changing=false;
+   },310);
+  },220);
  }));
  if(frame)frame.dataset.video='Y0RW8EW08Dk';
 })();
 </script>
+
+
+<style id="an-new-on-netflix-horizontal-slide-transition">
+#an-home #an-new-trailer,
+#an-home #an-new-on-netflix .an-selected-info{
+ will-change:transform,opacity;
+ backface-visibility:hidden;
+}
+#an-home #an-new-trailer.an-slide-exit-left,
+#an-home #an-new-on-netflix .an-selected-info.an-slide-exit-left{
+ animation:anTrailerExitLeft .22s cubic-bezier(.4,0,.8,.4) both!important;
+}
+#an-home #an-new-trailer.an-slide-enter-right,
+#an-home #an-new-on-netflix .an-selected-info.an-slide-enter-right{
+ animation:anTrailerEnterRight .30s cubic-bezier(.2,.75,.25,1) both!important;
+}
+@keyframes anTrailerExitLeft{
+ from{transform:translateX(0);opacity:1}
+ to{transform:translateX(-34%);opacity:0}
+}
+@keyframes anTrailerEnterRight{
+ from{transform:translateX(34%);opacity:0}
+ to{transform:translateX(0);opacity:1}
+}
+@media(prefers-reduced-motion:reduce){
+ #an-home #an-new-trailer.an-slide-exit-left,
+ #an-home #an-new-on-netflix .an-selected-info.an-slide-exit-left,
+ #an-home #an-new-trailer.an-slide-enter-right,
+ #an-home #an-new-on-netflix .an-selected-info.an-slide-enter-right{animation:none!important}
+}
+</style>
 
 </body></html>
