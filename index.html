@@ -791,7 +791,10 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  }));
  nav.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{
   nav.querySelectorAll('.an-nav-item').forEach(x=>x.classList.toggle('active',x===b));
-  if(b.dataset.tab==='search'){home.style.display='none';search.style.display='block';search.scrollTop=0;}
+  if(b.dataset.tab==='search'){
+   if(!search)return;
+   home.style.display='none';search.style.display='block';search.scrollTop=0;
+  }
   else if(b.dataset.tab==='home'){search.style.display='none';home.style.display='block';}
   else if(b.dataset.tab==='profile'){search.style.display='none';home.style.display='none';profile.style.display='flex';nav.style.display='none';}
  }));
@@ -801,41 +804,43 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  const clear=document.getElementById('an-search-clear');
  const resultNodes=[...root.querySelectorAll('.an-search-result')];
  const empty=document.getElementById('an-search-empty');
- const filterResults=()=>{
-  const q=input.value.trim().toLowerCase();
-  let visible=0;
-  resultNodes.forEach(r=>{
-   const hay=(r.dataset.searchTitle+' '+(r.dataset.searchTerms||'')).toLowerCase();
-   const match=!q||hay.includes(q);
-   r.hidden=!match;
-   if(match)visible++;
-  });
-  clear.hidden=!q;
-  empty.hidden=visible!==0;
- };
- input.addEventListener('input',filterResults);
- clear.addEventListener('click',()=>{input.value='';filterResults();input.focus();});
- root.querySelectorAll('.an-chip').forEach(b=>b.addEventListener('click',()=>{
-  input.value=b.textContent.trim();filterResults();input.focus();
- }));
- resultNodes.forEach(row=>{
-  const title=row.dataset.searchTitle;
-  row.querySelector('strong').addEventListener('click',()=>{
-   input.value=title;filterResults();input.focus();
-  });
-  row.querySelector('.an-result-play').addEventListener('click',()=>{
-   const card=[...home.querySelectorAll('.an-new-card')].find(c=>c.dataset.title===title);
-   if(!card)return;
-   nav.querySelectorAll('.an-nav-item').forEach(x=>x.classList.toggle('active',x.dataset.tab==='home'));
-   search.style.display='none';home.style.display='block';nav.style.display='grid';
-   requestAnimationFrame(()=>{
-    card.click();
-    const section=document.getElementById('an-new-on-netflix');
-    if(section)section.scrollIntoView({behavior:'smooth',block:'center'});
+ if(input&&clear){
+  const filterResults=()=>{
+   const q=input.value.trim().toLowerCase();
+   let visible=0;
+   resultNodes.forEach(r=>{
+    const hay=(r.dataset.searchTitle+' '+(r.dataset.searchTerms||'')).toLowerCase();
+    const match=!q||hay.includes(q);
+    r.hidden=!match;
+    if(match)visible++;
+   });
+   clear.hidden=!q;
+   if(empty)empty.hidden=visible!==0;
+  };
+  input.addEventListener('input',filterResults);
+  clear.addEventListener('click',()=>{input.value='';filterResults();input.focus();});
+  root.querySelectorAll('.an-chip').forEach(b=>b.addEventListener('click',()=>{
+   input.value=b.textContent.trim();filterResults();input.focus();
+  }));
+  resultNodes.forEach(row=>{
+   const title=row.dataset.searchTitle;
+   row.querySelector('strong')?.addEventListener('click',()=>{
+    input.value=title;filterResults();input.focus();
+   });
+   row.querySelector('.an-result-play')?.addEventListener('click',()=>{
+    const card=[...home.querySelectorAll('.an-new-card')].find(c=>c.dataset.title===title);
+    if(!card)return;
+    nav.querySelectorAll('.an-nav-item').forEach(x=>x.classList.toggle('active',x.dataset.tab==='home'));
+    if(search)search.style.display='none';
+    home.style.display='block';nav.style.display='grid';
+    requestAnimationFrame(()=>{
+     card.click();
+     const section=document.getElementById('an-new-on-netflix');
+     if(section)section.scrollIntoView({behavior:'smooth',block:'center'});
+    });
    });
   });
- });
- 
+ }
  /* Continue Watching — title profile, resume positions, feedback and action sheet. */
  const cwRow=document.getElementById('an-cw-posters');
  const cwOverlay=document.getElementById('an-cw-overlay');
@@ -846,6 +851,10 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  const cwToast=document.getElementById('an-cw-toast');
  let cwCurrentCard=null;
  let cwToastTimer=null;
+ /* Keep dialogs above the app shell and its stacking contexts. */
+ [cwOverlay,cwTitleProfile,cwPlayer,cwToast].filter(Boolean).forEach(node=>{
+  if(node.parentElement!==document.body)document.body.appendChild(node);
+ });
  const cwStorage={
   read(key,fallback){try{const value=JSON.parse(localStorage.getItem(key)||'null');return value??fallback;}catch{return fallback;}},
   write(key,value){try{localStorage.setItem(key,JSON.stringify(value));}catch{}}
@@ -962,9 +971,17 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     card.querySelector('.an-cw-progress')?.setAttribute('aria-valuenow',String(percent));
    }
    if(feedback[id])card.dataset.feedback=feedback[id];
-   card.querySelector('[data-cw-action="play"]').addEventListener('click',()=>cwOpenPlayer(card));
-   card.querySelector('[data-cw-action="info"]').addEventListener('click',()=>cwOpenDetails(card));
-   card.querySelector('[data-cw-action="menu"]').addEventListener('click',()=>cwOpenSheet(card));
+  });
+  /* Delegated click handling: every present or subsequently added card uses the same controls. */
+  cwRow.addEventListener('click',event=>{
+   const control=event.target.closest('[data-cw-action]');
+   if(!control||!cwRow.contains(control))return;
+   const card=control.closest('.an-cw-card');
+   if(!card)return;
+   const action=control.dataset.cwAction;
+   if(action==='play')cwOpenPlayer(card);
+   else if(action==='info')cwOpenDetails(card);
+   else if(action==='menu')cwOpenSheet(card);
   });
  }
  cwOverlay?.querySelectorAll('[data-cw-close]').forEach(b=>b.addEventListener('click',cwCloseSheet));
