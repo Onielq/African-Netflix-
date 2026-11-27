@@ -475,7 +475,9 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     <h3><span id="an-selected-title">Steps</span><span class="an-title-chevron" aria-hidden="true">›</span></h3>
     <p id="an-selected-meta">Kids&nbsp; • &nbsp;1h 47m&nbsp; • &nbsp;7+</p>
    </div>
-   <div class="an-new-rail" aria-label="New on Netflix trailers">
+   <div class="an-new-window">
+    <div class="an-new-rail" aria-label="New on Netflix trailers">
+
     <div class="an-new-track" id="an-new-track">
      <button class="an-new-card active" type="button" data-title="Steps" data-genre="Kids" data-format="movie" data-runtime="1h 46m" data-content-rating="7+" data-video="Y0RW8EW08Dk" aria-pressed="true" aria-label="Play Steps trailer">
       <img src="https://i.ytimg.com/vi/Y0RW8EW08Dk/hqdefault.jpg" alt="Steps trailer thumbnail" loading="lazy"><span>STEPS</span>
@@ -508,6 +510,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       <img src="https://i.ytimg.com/vi/Wk5OxqtpBR4/hqdefault.jpg" alt="Adolescence trailer thumbnail" loading="lazy"><span>ADOLESCENCE</span>
      </button>
     </div>
+    <div class="an-selection-window" aria-hidden="true"></div>
    </div>
   </section>
   <section class="an-row" id="an-screen-five-scares"><h2>When You Want Scares but Not Nightmares</h2><div class="an-posters">
@@ -1064,14 +1067,13 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  const meta=section.querySelector("#an-selected-meta");
  const track=section.querySelector("#an-new-track");
  const rail=section.querySelector(".an-new-rail");
- if(!frame||!title||!meta||!track||!rail)return;
+ const ring=section.querySelector(".an-selection-window");
+ if(!frame||!title||!meta||!track||!rail||!ring)return;
  const cards=()=>Array.from(track.querySelectorAll(".an-new-card"));
- const isDesktop=()=>window.matchMedia("(min-width:700px)").matches;
- const ringLeft=()=>isDesktop()?32:18;
- const cardWidth=()=>isDesktop()?190:160;
  const makeEmbed=id=>"https://www.youtube.com/embed/"+encodeURIComponent(id)+"?autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist="+encodeURIComponent(id);
  let activeCard=null;
  let frameQueued=false;
+ const ringOffset=()=>ring.getBoundingClientRect().left-rail.getBoundingClientRect().left;
  const activate=c=>{
   if(!c||c===activeCard)return;
   activeCard=c;
@@ -1100,7 +1102,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   meta.textContent=[c.dataset.genre,length,rating].filter(Boolean).join("  •  ");
  };
  const cardUnderWindow=()=>{
-  const center=rail.getBoundingClientRect().left+ringLeft()+cardWidth()/2;
+  const ringRect=ring.getBoundingClientRect();
+  const center=ringRect.left+ringRect.width/2;
   const list=cards();
   let hit=list.find(c=>{
    const r=c.getBoundingClientRect();
@@ -1124,23 +1127,22 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   });
  };
  rail.addEventListener("scroll",updateFromScroll,{passive:true});
+ rail.addEventListener("scrollend",updateFromScroll,{passive:true});
+ const moveCardIntoWindow=card=>{
+  const target=rail.scrollLeft+(card.getBoundingClientRect().left-rail.getBoundingClientRect().left)-ringOffset();
+  const max=Math.max(0,rail.scrollWidth-rail.clientWidth);
+  const bounded=Math.max(0,Math.min(max,target));
+  rail.scrollTo({left:bounded,behavior:"smooth"});
+  if(Math.abs(bounded-rail.scrollLeft)<1)activate(card);
+ };
  track.addEventListener("click",e=>{
   const card=e.target.closest(".an-new-card");
   if(!card||!track.contains(card))return;
-  const railRect=rail.getBoundingClientRect();
-  const cardRect=card.getBoundingClientRect();
-  const target=rail.scrollLeft+(cardRect.left-railRect.left)-ringLeft();
-  const max=Math.max(0,rail.scrollWidth-rail.clientWidth);
-  rail.scrollTo({left:Math.min(max,Math.max(0,target)),behavior:"smooth"});
-  if(Math.abs(target-rail.scrollLeft)<1)activate(card);
+  moveCardIntoWindow(card);
  });
  const onResize=()=>{
-  const current=activeCard||cards()[0];
-  if(!current)return;
-  const railRect=rail.getBoundingClientRect();
-  const cardRect=current.getBoundingClientRect();
-  const target=rail.scrollLeft+(cardRect.left-railRect.left)-ringLeft();
-  rail.scrollTo({left:Math.max(0,Math.min(rail.scrollWidth-rail.clientWidth,target)),behavior:"auto"});
+  if(!activeCard)return;
+  moveCardIntoWindow(activeCard);
   updateFromScroll();
  };
  window.addEventListener("resize",onResize,{passive:true});
@@ -1323,6 +1325,75 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 }
 @media(prefers-reduced-motion:reduce){
  #an-home #an-new-on-netflix .an-new-rail{scroll-behavior:auto!important}
+}
+</style>
+
+
+<style id="an-screen-four-stationary-window-and-full-rail">
+/* The window is a sibling of the scroller, never a pseudo-element of the moving rail. */
+#an-home #an-new-on-netflix .an-new-window{
+ position:relative!important;display:block!important;width:100%!important;
+ height:98px!important;margin:0!important;padding:0!important;overflow:visible!important;
+}
+#an-home #an-new-on-netflix .an-new-rail{
+ position:relative!important;display:block!important;width:100%!important;height:98px!important;
+ box-sizing:border-box!important;margin:0!important;padding:0 0 8px 18px!important;
+ overflow-x:auto!important;overflow-y:hidden!important;
+ -webkit-overflow-scrolling:touch!important;overscroll-behavior-x:contain!important;
+ touch-action:pan-x pan-y!important;scroll-snap-type:x mandatory!important;
+ scroll-padding-left:18px!important;scrollbar-width:none!important;cursor:grab!important;
+}
+#an-home #an-new-on-netflix .an-new-rail::-webkit-scrollbar{display:none!important}
+#an-home #an-new-on-netflix .an-new-rail::after{content:none!important;display:none!important}
+#an-home #an-new-on-netflix .an-new-track{
+ display:flex!important;flex-wrap:nowrap!important;align-items:flex-start!important;
+ gap:10px!important;width:max-content!important;min-width:0!important;
+ height:89px!important;margin:0!important;padding:0!important;
+ transform:none!important;transition:none!important;will-change:auto!important;
+}
+#an-home #an-new-on-netflix .an-new-card{
+ position:relative!important;display:block!important;box-sizing:border-box!important;
+ flex:0 0 160px!important;width:160px!important;min-width:160px!important;height:89px!important;
+ margin:0!important;padding:0!important;overflow:hidden!important;border:0!important;
+ outline:0!important;border-radius:8px!important;background:#17171c!important;
+ scroll-snap-align:start!important;scroll-snap-stop:normal!important;
+ touch-action:pan-x pan-y!important;
+}
+#an-home #an-new-on-netflix .an-new-card.active{border:0!important;outline:0!important}
+#an-home #an-new-on-netflix .an-new-card img{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ display:block!important;object-fit:cover!important;
+}
+#an-home #an-new-on-netflix .an-new-card span{
+ position:absolute!important;left:5px!important;right:5px!important;bottom:4px!important;
+ z-index:2!important;color:#fff!important;font-size:11px!important;font-weight:800!important;
+ line-height:1.1!important;text-align:center!important;text-shadow:0 1px 5px #000!important;
+ pointer-events:none!important;
+}
+#an-home #an-new-on-netflix .an-selection-window{
+ position:absolute!important;left:18px!important;top:0!important;
+ display:block!important;width:160px!important;height:89px!important;
+ box-sizing:border-box!important;margin:0!important;padding:0!important;
+ z-index:30!important;border:2.5px solid #fff!important;border-radius:8px!important;
+ pointer-events:none!important;transform:none!important;
+}
+/* Tail space lets the final thumbnail reach the same fixed selection window. */
+#an-home #an-new-on-netflix .an-new-rail{
+ padding-right:calc(100% - 178px)!important;
+}
+@media(min-width:700px){
+ #an-home #an-new-on-netflix .an-new-window{height:115px!important}
+ #an-home #an-new-on-netflix .an-new-rail{
+  height:115px!important;padding-left:32px!important;padding-right:calc(100% - 222px)!important;
+  padding-bottom:9px!important;scroll-padding-left:32px!important;
+ }
+ #an-home #an-new-on-netflix .an-new-track{height:106px!important;gap:13px!important}
+ #an-home #an-new-on-netflix .an-new-card{
+  flex-basis:190px!important;width:190px!important;min-width:190px!important;height:106px!important;
+ }
+ #an-home #an-new-on-netflix .an-selection-window{
+  left:32px!important;width:190px!important;height:106px!important;
+ }
 }
 </style>
 
