@@ -453,7 +453,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     <button aria-label="Downloads"><svg viewBox="0 0 24 24"><path d="M12 2v13m-5-5 5 5 5-5M4 20h16"/></svg></button>
     <button aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button>
    </div></div>
-   <nav class="an-categories"><button>Shows</button><button>Movies</button><button>New &amp; Hot</button><button>Categories</button></nav>
+   <nav class="an-categories"><button>Shows</button><button>Movies</button><button type="button" data-open-new-hot>New &amp; Hot</button><button>Categories</button></nav>
   </header>
   <section class="an-feature">
    <div class="an-feature-art"></div><span class="an-feature-n"><img src="https://thesvg.org/icons/netflix/default.svg" alt="Netflix" loading="eager"></span>
@@ -689,6 +689,41 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   </section>
 
  </main>
+ <main id="an-new-hot-page" aria-label="New and Hot">
+  <header class="nh-page-header">
+   <button class="nh-circle-btn" type="button" data-nh-back aria-label="Back to Home"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+   <h1>New &amp; Hot</h1>
+   <button class="nh-circle-btn" type="button" aria-label="Cast"><svg viewBox="0 0 24 24"><path d="M3 18a3 3 0 0 1 3 3M3 13a8 8 0 0 1 8 8M3 8a13 13 0 0 1 13 13"/><path d="M5 3h16v16h-5"/></svg></button>
+  </header>
+  <div class="nh-tabs" role="tablist" aria-label="New and Hot categories">
+   <button class="nh-tab active" type="button" role="tab" aria-selected="true" data-nh-tab="coming"><svg viewBox="0 0 24 24"><path d="M7 21h10M8 17h8M6.5 14.5c-1.5-1.1-2.3-2.7-2.3-4.5a7.8 7.8 0 0 1 15.6 0c0 1.8-.8 3.4-2.3 4.5-.8.6-1.5 1.4-1.5 2.5H8c0-1.1-.7-1.9-1.5-2.5Z"/><path d="M9 3 7.8 1.7M15 3l1.2-1.3M4.2 6.2 2.5 5.5M19.8 6.2l1.7-.7"/></svg><span>Coming Soon</span></button>
+   <button class="nh-tab" type="button" role="tab" aria-selected="false" data-nh-tab="watching"><svg viewBox="0 0 24 24"><path d="M12.8 2.5c.7 3.3-1.2 4.4-2.7 6.2-1.1 1.3-1.5 2.4-1.1 3.8.5-.8 1.3-1.3 2.1-1.6-.1 2.2 1.5 3.3 2.6 4.2 1.2-1.2 1.7-2.7 1.4-4.7 2.6 2.1 4 4.3 3.5 7.2-.6 3.5-3.3 5.8-6.8 5.8-4.1 0-7-2.8-7-6.8 0-3.4 1.9-5.5 4.2-7.9 1.4-1.5 2.6-3.2 3.8-6.2Z"/></svg><span>Everyone's Watching</span></button>
+  </div>
+  <section class="nh-list" id="nh-coming-list" aria-label="Coming Soon">
+   <article class="nh-card" data-nh-key="BAD DAY">
+    <div class="nh-video"><img class="nh-video-poster" src="https://i.ytimg.com/vi/zHSYXDLH4io/hqdefault.jpg" alt="Bad Day trailer still" loading="eager"><iframe title="Bad Day official trailer" data-nh-video="zHSYXDLH4io" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe><span class="nh-netflix-mark"><img src="https://thesvg.org/icons/netflix/default.svg" alt="Netflix"></span><span class="nh-rating">13+</span><button class="nh-mute" type="button" aria-label="Unmute Bad Day trailer" aria-pressed="true"><svg class="nh-sound-on" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M16 9a5 5 0 0 1 0 6M18.5 6.5a8.5 8.5 0 0 1 0 11"/></svg><svg class="nh-sound-off" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="m17 9 5 6m0-6-5 6"/></svg></button></div>
+    <div class="nh-card-body"><div class="nh-title nh-title-bad-day">BAD DAY</div><p class="nh-release">Coming December 11</p><p class="nh-description">On one of the worst and wildest days of her life, single mom Joy fights to keep one little promise to her daughter in this comedy starring Cameron Diaz.</p><button class="nh-remind" type="button" data-nh-remind="BAD DAY" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span>Remind Me</span></button></div>
+   </article>
+   <article class="nh-card" data-nh-key="GIVE ME SOME SUGAH">
+    <div class="nh-video"><img class="nh-video-poster" src="https://i.ytimg.com/vi/tLdpJLVaVRQ/hqdefault.jpg" alt="Give Me Some Sugah trailer still" loading="lazy"><iframe title="Give Me Some Sugah official trailer" data-nh-video="tLdpJLVaVRQ" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe><span class="nh-netflix-mark"><img src="https://thesvg.org/icons/netflix/default.svg" alt="Netflix"></span><span class="nh-rating">13+</span><button class="nh-mute" type="button" aria-label="Unmute Give Me Some Sugah trailer" aria-pressed="true"><svg class="nh-sound-on" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M16 9a5 5 0 0 1 0 6M18.5 6.5a8.5 8.5 0 0 1 0 11"/></svg><svg class="nh-sound-off" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="m17 9 5 6m0-6-5 6"/></svg></button></div>
+    <div class="nh-card-body"><div class="nh-title nh-title-sugah">Give me<br>Some Sugah</div><p class="nh-release">Coming December 16</p><p class="nh-description">When a Chicago woman risks it all to open her dream bakery, a fateful encounter rewards her leap of faith. Inspired by the true story of Lenore Lindsey.</p><button class="nh-remind" type="button" data-nh-remind="GIVE ME SOME SUGAH" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span>Remind Me</span></button></div>
+   </article>
+   <article class="nh-card" data-nh-key="RAY GUNN">
+    <div class="nh-video"><img class="nh-video-poster" src="https://i.ytimg.com/vi/VL-xjzQFWsY/hqdefault.jpg" alt="Ray Gunn trailer still" loading="lazy"><iframe title="Ray Gunn official trailer" data-nh-video="VL-xjzQFWsY" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe><span class="nh-netflix-mark"><img src="https://thesvg.org/icons/netflix/default.svg" alt="Netflix"></span><span class="nh-rating">10+</span><button class="nh-mute" type="button" aria-label="Unmute Ray Gunn trailer" aria-pressed="true"><svg class="nh-sound-on" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M16 9a5 5 0 0 1 0 6M18.5 6.5a8.5 8.5 0 0 1 0 11"/></svg><svg class="nh-sound-off" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="m17 9 5 6m0-6-5 6"/></svg></button></div>
+    <div class="nh-card-body"><div class="nh-title nh-title-ray">RAY GUNN</div><p class="nh-release">Coming December 18</p><p class="nh-description">In the retrofuturistic city of Metropia, private eye Raymond Gunn is drawn into a case involving aliens, murder and a multimedia star named Venus Nova.</p><button class="nh-remind" type="button" data-nh-remind="RAY GUNN" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span>Remind Me</span></button></div>
+   </article>
+  </section>
+  <section class="nh-list" id="nh-watching-list" aria-label="Everyone's Watching" hidden>
+   <article class="nh-card" data-nh-key="THE BODY">
+    <div class="nh-video"><img class="nh-video-poster" src="https://i.ytimg.com/vi/wl7uj7n7DoY/hqdefault.jpg" alt="The Body trailer still" loading="lazy"><iframe title="The Body official trailer" data-nh-video="wl7uj7n7DoY" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe><span class="nh-netflix-mark"><img src="https://thesvg.org/icons/netflix/default.svg" alt="Netflix"></span><span class="nh-rating">16+</span><button class="nh-mute" type="button" aria-label="Unmute The Body trailer" aria-pressed="true"><svg class="nh-sound-on" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M16 9a5 5 0 0 1 0 6M18.5 6.5a8.5 8.5 0 0 1 0 11"/></svg><svg class="nh-sound-off" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="m17 9 5 6m0-6-5 6"/></svg></button></div>
+    <div class="nh-card-body nh-body-watching"><div class="nh-title nh-title-body">The Body</div><p class="nh-description">On Halloween night, an all-girls dance squad tumbles into Catholic guilt, unholy desires and ghostly visions when an initiation goes to hell.</p><div class="nh-actions"><button class="nh-play" type="button" data-nh-play="THE BODY"><svg viewBox="0 0 24 24"><path d="M7 4v16l13-8z"/></svg>Play</button><button class="nh-my-list" type="button" data-nh-list="THE BODY" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>My List</span></button></div></div>
+   </article>
+   <article class="nh-card" data-nh-key="GUARDING STARS">
+    <div class="nh-video"><img class="nh-video-poster" src="https://i.ytimg.com/vi/mFvtVPMa5ak/hqdefault.jpg" alt="Guarding Stars trailer still" loading="lazy"><iframe title="Guarding Stars official trailer" data-nh-video="mFvtVPMa5ak" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe><span class="nh-netflix-mark"><img src="https://thesvg.org/icons/netflix/default.svg" alt="Netflix"></span><span class="nh-rating">13+</span><button class="nh-mute" type="button" aria-label="Unmute Guarding Stars trailer" aria-pressed="true"><svg class="nh-sound-on" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M16 9a5 5 0 0 1 0 6M18.5 6.5a8.5 8.5 0 0 1 0 11"/></svg><svg class="nh-sound-off" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="m17 9 5 6m0-6-5 6"/></svg></button></div>
+    <div class="nh-card-body nh-body-watching"><div class="nh-title nh-title-guarding">Guarding Stars</div><p class="nh-description">A no-nonsense bodyguard heads to a Montana ranch with the famous actor she's protecting. But posing as a couple for Christmas soon sparks a real romance.</p><div class="nh-actions"><button class="nh-play" type="button" data-nh-play="GUARDING STARS"><svg viewBox="0 0 24 24"><path d="M7 4v16l13-8z"/></svg>Play</button><button class="nh-my-list" type="button" data-nh-list="GUARDING STARS" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>My List</span></button></div></div>
+   </article>
+  </section>
+ </main>
  <main id="an-search">
   <header class="an-search-head">
    <h1>Search</h1>
@@ -853,6 +888,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  const profile=document.getElementById('an-profile');
  const home=document.getElementById('an-home');
  const search=document.getElementById('an-search');
+ const newHot=document.getElementById('an-new-hot-page');
  const nav=document.getElementById('an-bottom-nav');
  if(!root||root.dataset.ready)return;
 
@@ -1228,6 +1264,11 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
    synopsis:'Pushpa Raj’s rise through the red-sandalwood smuggling world brings him into a fierce showdown with rivals and law enforcement.',
    starring:'Allu Arjun, Rashmika Mandanna, Fahadh Faasil',creditLabel:'Directed by',creditValue:'Sukumar'
   },
+
+  'BAD DAY':{title:'Bad Day',type:'movie',platform:'Netflix',rating:'PG-13',genre:'Comedy • Action',runtime:'1h 43m',year:'2026',videoId:'zHSYXDLH4io',poster:'https://i.ytimg.com/vi/zHSYXDLH4io/hqdefault.jpg',synopsis:'On one of the worst and wildest days of her life, single mom Joy fights to keep one little promise to her daughter in this comedy starring Cameron Diaz.',starring:'Cameron Diaz, Danielle Brooks, Rhenzy Feliz, Ed O’Neill, Mark Duplass',creditLabel:'Directed by',creditValue:'Jake Szymanski'},
+  'GIVE ME SOME SUGAH':{title:'Give Me Some Sugah',type:'movie',platform:'Netflix',rating:'TV-14',genre:'Drama • Biography',year:'2026',videoId:'tLdpJLVaVRQ',poster:'https://i.ytimg.com/vi/tLdpJLVaVRQ/hqdefault.jpg',synopsis:'When a Chicago woman risks it all to open her dream bakery, a fateful encounter rewards her leap of faith. Inspired by the true story of Lenore Lindsey.',starring:'Taraji P. Henson, Joey Bada$',creditLabel:'Directed by',creditValue:'Tasha Smith'},
+  'RAY GUNN':{title:'Ray Gunn',type:'movie',platform:'Netflix',rating:'PG',genre:'Sci-Fi • Mystery',runtime:'1h 59m',year:'2026',videoId:'VL-xjzQFWsY',poster:'https://i.ytimg.com/vi/VL-xjzQFWsY/hqdefault.jpg',synopsis:'In the retrofuturistic city of Metropia, private eye Raymond Gunn is drawn into a case involving aliens, murder and a multimedia star named Venus Nova.',starring:'Sam Rockwell, Scarlett Johansson, Tom Waits, Bobby Cannavale, Alan Tudyk',creditLabel:'Directed by',creditValue:'Brad Bird'},
+
  };
  const profileBackdrop=root.querySelector('.an-profile-backdrop');
  const profileHeroPosters=Object.values(titleProfiles).filter(item=>item.poster).map(item=>item.poster);
@@ -1380,6 +1421,60 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   legacyApp.classList.remove('details','playing');
   if(profile.videoId&&typeof window.startTrailer==='function')window.startTrailer();
  };
+ const syncHotButtons=()=>{
+  newHot?.querySelectorAll('[data-nh-remind]').forEach(btn=>{
+   const key='african-matrix-reminder-'+btn.dataset.nhRemind,label=btn.querySelector('span');
+   let saved=false;try{saved=localStorage.getItem(key)==='1';}catch(e){}
+   btn.classList.toggle('is-set',saved);btn.setAttribute('aria-pressed',saved?'true':'false');
+   if(label)label.textContent=saved?'Reminder Set':'Remind Me';
+  });
+  newHot?.querySelectorAll('[data-nh-list]').forEach(btn=>{
+   const key='african-matrix-my-list-'+btn.dataset.nhList,label=btn.querySelector('span');
+   let saved=false;try{saved=localStorage.getItem(key)==='1';}catch(e){}
+   btn.classList.toggle('is-added',saved);btn.setAttribute('aria-pressed',saved?'true':'false');
+   if(label)label.textContent=saved?'Added':'My List';
+  });
+ };
+ syncHotButtons();
+ newHot?.querySelectorAll('.nh-tab').forEach(btn=>btn.addEventListener('click',()=>setNewHotTab(btn.dataset.nhTab)));
+ newHot?.querySelectorAll('[data-nh-remind]').forEach(btn=>btn.addEventListener('click',()=>{
+  const key='african-matrix-reminder-'+btn.dataset.nhRemind,next=btn.getAttribute('aria-pressed')!=='true';
+  try{localStorage.setItem(key,next?'1':'0');}catch(e){}syncHotButtons();
+ }));
+ newHot?.querySelectorAll('[data-nh-list]').forEach(btn=>btn.addEventListener('click',()=>{
+  const key='african-matrix-my-list-'+btn.dataset.nhList,next=btn.getAttribute('aria-pressed')!=='true';
+  try{localStorage.setItem(key,next?'1':'0');}catch(e){}syncHotButtons();
+ }));
+ newHot?.querySelectorAll('.nh-mute').forEach(btn=>btn.addEventListener('click',()=>{
+  const frame=btn.closest('.nh-video')?.querySelector('iframe');if(!frame||frame.dataset.nhLoaded!=='1')return;
+  const wasMuted=btn.getAttribute('aria-pressed')==='true';
+  frame.contentWindow?.postMessage(JSON.stringify({event:'command',func:wasMuted?'unMute':'mute',args:[]}), '*');
+  btn.setAttribute('aria-pressed',wasMuted?'false':'true');btn.classList.toggle('is-unmuted',wasMuted);
+ }));
+ const loadHotFrame=frame=>{
+  if(!frame||frame.dataset.nhLoaded==='1')return;
+  const id=frame.dataset.nhVideo;if(!id)return;
+  frame.src='https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist='+encodeURIComponent(id)+'&cc_load_policy=1&enablejsapi=1';
+  frame.dataset.nhLoaded='1';frame.closest('.nh-video')?.classList.add('nh-video-loaded');
+ };
+ if(newHot){
+  const frames=[...newHot.querySelectorAll('.nh-video iframe')];
+  if('IntersectionObserver' in window){
+   const hotObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+    const frame=entry.target;
+    if(entry.isIntersecting&&entry.intersectionRatio>=.25)loadHotFrame(frame);
+    else if(frame.dataset.nhLoaded==='1')frame.contentWindow?.postMessage(JSON.stringify({event:'command',func:'pauseVideo',args:[]}), '*');
+   }),{root:newHot,threshold:[0,.25,.5]});
+   frames.forEach(frame=>hotObserver.observe(frame));
+  }else if(frames[0])loadHotFrame(frames[0]);
+ }
+ const openHotTitle=key=>{
+  const base=titleProfiles[key];if(!base||!legacyApp)return;
+  renderTitleProfile({...base,title:base.title||key});
+  openedFromBrowse=true;legacyApp.style.zIndex='70';legacyApp.classList.remove('details','playing');
+  if(base.videoId&&typeof window.startTrailer==='function')window.startTrailer();
+ };
+ newHot?.querySelectorAll('[data-nh-play]').forEach(btn=>btn.addEventListener('click',()=>openHotTitle(btn.dataset.nhPlay)));
  root.addEventListener('click',event=>{
   const tile=event.target.closest('.an-poster');
   if(tile&&home.contains(tile))openCatalogueTitle(tile);
@@ -1402,28 +1497,38 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  },true);
 
  const ACTIVE_PROFILE_KEY='african-matrix-active-profile';
+ const closeNewHot=()=>{if(newHot)newHot.style.display='none';};
+ const setNewHotTab=(tab)=>{
+  if(!newHot)return;
+  const isComing=tab==='coming';
+  newHot.querySelectorAll('.nh-tab').forEach(btn=>{
+   const selected=btn.dataset.nhTab===tab;btn.classList.toggle('active',selected);btn.setAttribute('aria-selected',selected?'true':'false');
+  });
+  newHot.querySelector('#nh-coming-list').hidden=!isComing;
+  newHot.querySelector('#nh-watching-list').hidden=isComing;
+  newHot.querySelectorAll('.nh-video iframe[data-nh-loaded="1"]').forEach(frame=>{
+   const visible=!frame.closest('.nh-list')?.hidden;
+   frame.contentWindow?.postMessage(JSON.stringify({event:'command',func:visible?'playVideo':'pauseVideo',args:[]}), '*');
+  });
+ };
+ const openNewHot=()=>{
+  if(!newHot)return;
+  home.style.display='none';search.style.display='none';newHot.style.display='block';newHot.scrollTop=0;
+  nav.style.display='grid';nav.querySelectorAll('.an-nav-item').forEach(x=>x.classList.toggle('active',x.dataset.tab==='home'));
+  setNewHotTab('coming');
+ };
  const showHome=(name)=>{
   const selected=(name||'Oniel').trim();
   try{localStorage.setItem(ACTIVE_PROFILE_KEY,selected);}catch(e){}
-  window.activeProfileName=selected;
-  root.dataset.activeProfile=selected;
-  const activeLabel=root.querySelector('#an-profile-name');
-  if(activeLabel)activeLabel.textContent=selected;
-  profile.hidden=true;
-  profile.setAttribute('aria-hidden','true');
-  profile.style.removeProperty('display');
-  home.style.display='block';
-  search.style.display='none';
-  nav.style.display='grid';
+  window.activeProfileName=selected;root.dataset.activeProfile=selected;
+  const activeLabel=root.querySelector('#an-profile-name');if(activeLabel)activeLabel.textContent=selected;
+  profile.hidden=true;profile.setAttribute('aria-hidden','true');profile.style.removeProperty('display');
+  closeNewHot();home.style.display='block';search.style.display='none';nav.style.display='grid';
   nav.querySelectorAll('.an-nav-item').forEach(x=>x.classList.toggle('active',x.dataset.tab==='home'));
  };
  const showProfilePicker=()=>{
-  profile.hidden=false;
-  profile.removeAttribute('aria-hidden');
-  profile.style.removeProperty('display');
-  home.style.display='none';
-  search.style.display='none';
-  nav.style.display='none';
+  profile.hidden=false;profile.removeAttribute('aria-hidden');profile.style.removeProperty('display');
+  closeNewHot();home.style.display='none';search.style.display='none';nav.style.display='none';
  };
  root.querySelectorAll('[data-profile]').forEach(b=>b.addEventListener('click',()=>{
   if(b.dataset.profile==='Edit'){root.querySelector('.an-profile-picker h2').textContent='Manage Profiles';return;}
@@ -1431,13 +1536,16 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  }));
  nav.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{
   nav.querySelectorAll('.an-nav-item').forEach(x=>x.classList.toggle('active',x===b));
-  if(b.dataset.tab==='search'){
-   if(!search)return;
-   home.style.display='none';search.style.display='block';search.scrollTop=0;
-  }
+  closeNewHot();
+  if(b.dataset.tab==='search'){if(!search)return;home.style.display='none';search.style.display='block';search.scrollTop=0;}
   else if(b.dataset.tab==='home'){search.style.display='none';home.style.display='block';}
   else if(b.dataset.tab==='profile'){showProfilePicker();}
  }));
+ home.querySelector('[data-open-new-hot]')?.addEventListener('click',openNewHot);
+ newHot?.querySelector('[data-nh-back]')?.addEventListener('click',()=>{
+  closeNewHot();home.style.display='block';search.style.display='none';nav.style.display='grid';
+  nav.querySelectorAll('.an-nav-item').forEach(x=>x.classList.toggle('active',x.dataset.tab==='home'));
+ });
  try{
   const remembered=localStorage.getItem(ACTIVE_PROFILE_KEY);
   if(remembered&&root.querySelector('[data-profile="'+CSS.escape(remembered)+'"]'))showHome(remembered);
@@ -3311,4 +3419,49 @@ body.an-cw-profile-open{overflow:hidden!important}
 #an-profile .an-edit-avatar{background-image:none!important;background:#3b394d!important;display:grid!important;place-items:center!important}
 #an-profile .an-profile-grid{row-gap:16px!important}
 @media(max-width:360px){#an-profile .an-avatar{width:66px!important;height:66px!important;min-width:66px!important;min-height:66px!important;max-width:66px!important;max-height:66px!important}}
+</style><style id="an-new-hot-reference-match">
+#an-new-hot-page{position:absolute!important;inset:0!important;z-index:5!important;display:none;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;scrollbar-width:none!important;background:#000!important;color:#f7f7f7!important;padding:0 0 calc(106px + env(safe-area-inset-bottom))!important}
+#an-new-hot-page::-webkit-scrollbar{display:none!important}#an-new-hot-page [hidden]{display:none!important}
+#an-new-hot-page .nh-page-header{display:grid!important;grid-template-columns:44px 1fr 44px!important;align-items:center!important;gap:12px!important;padding:calc(env(safe-area-inset-top) + 4px) 16px 8px!important;min-height:calc(env(safe-area-inset-top) + 58px)!important;background:#000!important}
+#an-new-hot-page .nh-page-header h1{margin:0!important;text-align:center!important;font-size:20px!important;line-height:1.1!important;font-weight:700!important;letter-spacing:-.25px!important;white-space:nowrap!important}
+#an-new-hot-page .nh-circle-btn{display:grid!important;place-items:center!important;width:44px!important;height:44px!important;border-radius:50%!important;background:#242426!important;border:1px solid #ffffff38!important;box-shadow:0 2px 8px #0007!important}
+#an-new-hot-page .nh-circle-btn svg{width:24px!important;height:24px!important;fill:none!important;stroke:#fff!important;stroke-width:2.1!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+#an-new-hot-page .nh-tabs{position:sticky!important;top:0!important;z-index:14!important;display:flex!important;gap:8px!important;padding:8px 16px 9px!important;margin:0!important;background:rgba(0,0,0,.96)!important;backdrop-filter:blur(16px)!important;-webkit-backdrop-filter:blur(16px)!important}
+#an-new-hot-page .nh-tab{display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;flex:1 1 0!important;min-width:0!important;height:34px!important;padding:0 10px!important;border-radius:9px!important;background:transparent!important;border:1px solid #555!important;color:#f4f4f4!important;font-size:14px!important;line-height:1!important;font-weight:700!important;white-space:nowrap!important;transition:background .18s ease,border-color .18s ease!important}
+#an-new-hot-page .nh-tab.active{background:#5c5658!important;border-color:#5c5658!important}
+#an-new-hot-page .nh-tab svg{width:19px!important;height:19px!important;flex:0 0 19px!important;fill:none!important;stroke:#f2a09a!important;stroke-width:2!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+#an-new-hot-page .nh-list{display:grid!important;gap:12px!important;padding:22px 12px 0!important}
+#an-new-hot-page .nh-card{overflow:hidden!important;border:1px solid #393939!important;border-radius:14px!important;background:#000!important;box-shadow:0 1px 4px #0008!important;min-width:0!important}
+#an-new-hot-page .nh-video{position:relative!important;width:100%!important;aspect-ratio:16/9!important;overflow:hidden!important;background:#171717!important}
+#an-new-hot-page .nh-video-poster,#an-new-hot-page .nh-video iframe{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;border:0!important;object-fit:cover!important;display:block!important}
+#an-new-hot-page .nh-video iframe{z-index:2!important;background:transparent!important}
+#an-new-hot-page .nh-video-poster{z-index:1!important;transition:opacity .35s ease!important}
+#an-new-hot-page .nh-video-loaded .nh-video-poster{opacity:0!important;pointer-events:none!important}
+#an-new-hot-page .nh-netflix-mark{position:absolute!important;z-index:4!important;left:11px!important;top:13px!important;display:block!important;width:16px!important;height:27px!important;filter:drop-shadow(0 1px 2px #0009)!important}
+#an-new-hot-page .nh-netflix-mark img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important}
+#an-new-hot-page .nh-rating{position:absolute!important;z-index:4!important;right:11px!important;top:13px!important;min-width:29px!important;height:18px!important;padding:2px 5px!important;border-radius:3px!important;background:#080808e8!important;color:#fff!important;font-size:12px!important;line-height:14px!important;font-weight:800!important;text-align:center!important}
+#an-new-hot-page .nh-mute{position:absolute!important;z-index:5!important;right:11px!important;bottom:10px!important;width:29px!important;height:29px!important;border-radius:50%!important;display:grid!important;place-items:center!important;background:#090909b8!important;color:#fff!important;border:1px solid #ffffff22!important}
+#an-new-hot-page .nh-mute svg{width:17px!important;height:17px!important;fill:none!important;stroke:#fff!important;stroke-width:2!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+#an-new-hot-page .nh-mute .nh-sound-off{display:none!important}#an-new-hot-page .nh-mute.is-unmuted .nh-sound-on{display:none!important}#an-new-hot-page .nh-mute.is-unmuted .nh-sound-off{display:block!important}
+#an-new-hot-page .nh-card-body{padding:12px 12px 11px!important;background:#000!important}
+#an-new-hot-page .nh-title{margin:0!important;color:#fff!important;font-weight:900!important;line-height:.95!important}
+#an-new-hot-page .nh-title-bad-day{font-family:Impact,"Arial Narrow",Haettenschweiler,sans-serif!important;font-size:48px!important;letter-spacing:-1.2px!important;transform:scaleX(.86)!important;transform-origin:left center!important}
+#an-new-hot-page .nh-title-sugah{display:block!important;width:max-content!important;color:#edc34b!important;font-family:"Brush Script MT","Segoe Script",Georgia,serif!important;font-size:30px!important;line-height:.78!important;font-weight:500!important;font-style:italic!important;letter-spacing:-1.8px!important;text-shadow:0 1px 2px #a06c08!important}
+#an-new-hot-page .nh-title-ray{font-family:"Arial Black",Impact,sans-serif!important;font-size:37px!important;letter-spacing:2px!important;font-weight:900!important}
+#an-new-hot-page .nh-title-body{font-family:Georgia,"Times New Roman",serif!important;font-size:34px!important;font-weight:800!important;letter-spacing:-1.5px!important;color:#e48bb5!important;text-shadow:0 1px 1px #6b2445!important}
+#an-new-hot-page .nh-title-guarding{font-family:"Brush Script MT","Segoe Script",Georgia,serif!important;font-size:34px!important;font-style:italic!important;font-weight:500!important;color:#eac65c!important;letter-spacing:-1.2px!important}
+#an-new-hot-page .nh-release{margin:5px 0 8px!important;font-size:14px!important;line-height:1.2!important;color:#f4f4f4!important;font-weight:500!important}
+#an-new-hot-page .nh-description{margin:0 0 15px!important;color:#b8b8b8!important;font-size:13.5px!important;line-height:1.56!important;font-weight:400!important;letter-spacing:0!important}
+#an-new-hot-page .nh-remind{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;min-width:130px!important;height:33px!important;padding:0 18px!important;border-radius:22px!important;background:#fff!important;color:#090909!important;font-size:14px!important;font-weight:750!important}
+#an-new-hot-page .nh-remind svg{width:17px!important;height:17px!important;fill:none!important;stroke:#090909!important;stroke-width:2!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+#an-new-hot-page .nh-remind.is-set{background:#d0d0d0!important}
+#an-new-hot-page .nh-body-watching{padding-top:12px!important;padding-bottom:11px!important}
+#an-new-hot-page .nh-body-watching .nh-description{margin-top:8px!important;margin-bottom:14px!important}
+#an-new-hot-page .nh-actions{display:flex!important;align-items:center!important;gap:10px!important}
+#an-new-hot-page .nh-actions button{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;height:33px!important;padding:0 16px!important;border-radius:21px!important;font-size:14px!important;font-weight:750!important}
+#an-new-hot-page .nh-play{background:#fff!important;color:#090909!important;min-width:84px!important}#an-new-hot-page .nh-play svg{width:17px!important;height:17px!important;fill:#090909!important;stroke:#090909!important;stroke-width:1.4!important}
+#an-new-hot-page .nh-my-list{background:#333336!important;color:#fff!important;min-width:104px!important}#an-new-hot-page .nh-my-list svg{width:17px!important;height:17px!important;fill:none!important;stroke:#fff!important;stroke-width:2!important;stroke-linecap:round!important}#an-new-hot-page .nh-my-list.is-added{background:#5a5a5e!important}
+@media(max-width:360px){#an-new-hot-page .nh-page-header{grid-template-columns:42px 1fr 42px!important;padding-left:13px!important;padding-right:13px!important}#an-new-hot-page .nh-circle-btn{width:42px!important;height:42px!important}#an-new-hot-page .nh-tab{font-size:12px!important;gap:6px!important;padding:0 7px!important}#an-new-hot-page .nh-list{padding-left:10px!important;padding-right:10px!important}#an-new-hot-page .nh-title-bad-day{font-size:44px!important}#an-new-hot-page .nh-description{font-size:13px!important}}
+@media(min-width:700px){#an-new-hot-page .nh-page-header{padding-left:32px!important;padding-right:32px!important}#an-new-hot-page .nh-list{max-width:760px!important;margin:0 auto!important;padding-top:28px!important}#an-new-hot-page .nh-card{border-radius:16px!important}#an-new-hot-page .nh-card-body{padding:18px 22px 18px!important}#an-new-hot-page .nh-description{font-size:15px!important}#an-new-hot-page .nh-title-bad-day{font-size:58px!important}}
+@media(prefers-reduced-motion:reduce){#an-new-hot-page .nh-tab,#an-new-hot-page .nh-video-poster{transition:none!important}}
 </style></body></html>
