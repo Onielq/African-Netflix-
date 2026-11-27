@@ -459,7 +459,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
    <div class="an-feature-art"></div><span class="an-feature-n">N</span>
    <div class="an-feature-copy"><div class="an-feature-title">ALWAYS ON CALL</div><div class="an-feature-date">First Shift Starts November 26</div><button class="an-remind" id="an-remind"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>Remind Me</button></div>
   </section>
-  <section class="an-row"><h2>Only on Netflix</h2><div class="an-posters">
+  <section class="an-row" id="an-only-netflix-row"><h2>Only on Netflix</h2><div class="an-posters">
    <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">FROM</span><span class="an-added">Recently Added</span></article>
    <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">GUARDING STARS</span><span class="an-added">Recently Added</span></article>
    <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">MY DEAREST ASSASSIN</span></article>
@@ -792,21 +792,14 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  let openedFromBrowse=false;
  const returnToBrowse=()=>{
   openedFromBrowse=false;
-  if(legacyApp){
-   legacyApp.classList.remove('details','playing');
-   legacyApp.style.display='none';
-  }
-  root.style.display='block';
-  profile.style.display='none';
-  home.style.display='block';
-  if(search)search.style.display='none';
-  nav.style.display='grid';
+  /* Home and its bottom navigation stay mounted underneath Screen 1. */
+  if(legacyApp)legacyApp.style.removeProperty('z-index');
  };
  const openCatalogueTitle=showId=>{
   if(showId!=='black-mirror'||!legacyApp)return;
   openedFromBrowse=true;
-  root.style.display='none';
-  legacyApp.style.display='block';
+  /* Raise the existing trailer experience above Home instead of hiding Home itself. */
+  legacyApp.style.zIndex='70';
   legacyApp.classList.remove('details','playing');
   if(typeof window.showTrailer==='function')window.showTrailer();
   if(typeof window.startTrailer==='function')window.startTrailer();
@@ -2454,6 +2447,21 @@ body.an-cw-profile-open{overflow:hidden!important}
  display:block!important;object-fit:cover!important;object-position:center!important;
 }
 #an-home .an-black-mirror-poster:focus-visible{outline:2px solid #fff!important;outline-offset:3px!important}
+</style>
+
+<style id="an-black-mirror-navigation-and-poster-preservation">
+/* Preserve the Home shell, fixed bottom navigation, and original poster geometry. */
+#an-home #an-only-netflix-row .an-posters{
+ display:flex!important;flex-flow:row nowrap!important;align-items:stretch!important;
+ width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;
+}
+#an-home #an-only-netflix-row .an-posters>.an-poster{
+ flex:0 0 42.3vw!important;flex-shrink:0!important;
+ width:42.3vw!important;max-width:175px!important;min-width:0!important;
+ aspect-ratio:.495!important;height:auto!important;
+}
+#an-browse .an-bottom-nav{pointer-events:auto!important}
+#app{transition:z-index 0s}
 </style>
 
 </body></html>
