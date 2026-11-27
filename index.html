@@ -2474,18 +2474,35 @@ body.an-cw-profile-open{overflow:hidden!important}
 </style>
 
 <style id="an-black-mirror-navigation-and-poster-preservation">
-/* Preserve the Home shell, fixed bottom navigation, and original poster geometry. */
+/* Preserve the Home shell, fixed bottom navigation, and shared catalogue poster dimensions. */
 #an-home #an-only-netflix-row .an-posters{
- display:flex!important;flex-flow:row nowrap!important;align-items:stretch!important;
- width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;
+ display:flex!important;flex-flow:row nowrap!important;align-items:flex-start!important;
+ width:100%!important;min-width:0!important;max-width:100%!important;
+ gap:10px!important;margin:0!important;padding:0 20px 5px!important;
+ overflow-x:auto!important;overflow-y:hidden!important;
+ scroll-snap-type:x mandatory!important;scroll-padding-left:20px!important;
+ -webkit-overflow-scrolling:touch!important;scrollbar-width:none!important;
 }
+#an-home #an-only-netflix-row .an-posters::-webkit-scrollbar{display:none!important}
 #an-home #an-only-netflix-row .an-posters>.an-poster{
- flex:0 0 42.3vw!important;flex-shrink:0!important;
- width:42.3vw!important;max-width:175px!important;min-width:0!important;
- aspect-ratio:.495!important;height:auto!important;
+ display:block!important;position:relative!important;
+ flex:0 0 38vw!important;flex-shrink:0!important;
+ width:38vw!important;min-width:0!important;max-width:168px!important;
+ height:auto!important;aspect-ratio:.71!important;margin:0!important;
+ overflow:hidden!important;border-radius:6px!important;scroll-snap-align:start!important;
+}
+#an-home #an-only-netflix-row .an-poster-art{position:absolute!important;inset:0!important;width:100%!important;height:100%!important}
+#an-home #an-only-netflix-row .an-poster-art:after{content:""!important;position:absolute!important;inset:0!important;pointer-events:none!important}
+#an-home #an-only-netflix-row .an-black-mirror-poster .an-poster-art img{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ display:block!important;object-fit:cover!important;object-position:center!important;
 }
 #an-browse .an-bottom-nav{pointer-events:auto!important}
 #app{transition:z-index 0s}
+@media(min-width:700px){
+ #an-home #an-only-netflix-row .an-posters{padding-left:32px!important;padding-right:32px!important;gap:13px!important}
+ #an-home #an-only-netflix-row .an-posters>.an-poster{flex-basis:150px!important;width:150px!important;max-width:150px!important}
+}
 </style>
 
 </body></html>
