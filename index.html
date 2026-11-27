@@ -464,7 +464,12 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
    <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">GUARDING STARS</span><span class="an-added">Recently Added</span></article>
    <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">MY DEAREST ASSASSIN</span></article>
    <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">THE LAST PALACE</span></article>
-  </div></section>
+  
+   <article class="an-poster an-black-mirror-poster" data-open-show="black-mirror" role="button" tabindex="0" aria-label="Open Black Mirror trailer">
+    <div class="an-poster-art"><img src="https://cdn.mos.cms.futurecdn.net/TLvFoYVPXawr9iRsMwKnWh.jpg" alt="Black Mirror" loading="lazy"></div>
+    <span class="an-poster-title">BLACK MIRROR</span>
+    <span class="an-added">Recently Added</span>
+   </article></div></section>
   <section class="an-row an-new-on-netflix" id="an-new-on-netflix">
    <h2>New on Netflix</h2>
    <div class="an-trailer" id="an-new-trailer">
@@ -781,6 +786,52 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  const nav=document.getElementById('an-bottom-nav');
  if(!root||root.dataset.ready)return;
  root.dataset.ready='1';
+
+ const legacyApp=document.getElementById('app');
+ const legacyClose=document.querySelector('#screenOne .top-controls button[aria-label="Close"]');
+ let openedFromBrowse=false;
+ const returnToBrowse=()=>{
+  openedFromBrowse=false;
+  if(legacyApp){
+   legacyApp.classList.remove('details','playing');
+   legacyApp.style.display='none';
+  }
+  root.style.display='block';
+  profile.style.display='none';
+  home.style.display='block';
+  if(search)search.style.display='none';
+  nav.style.display='grid';
+ };
+ const openCatalogueTitle=showId=>{
+  if(showId!=='black-mirror'||!legacyApp)return;
+  openedFromBrowse=true;
+  root.style.display='none';
+  legacyApp.style.display='block';
+  legacyApp.classList.remove('details','playing');
+  if(typeof window.showTrailer==='function')window.showTrailer();
+  if(typeof window.startTrailer==='function')window.startTrailer();
+ };
+ root.addEventListener('click',event=>{
+  const tile=event.target.closest('[data-open-show]');
+  if(tile&&root.contains(tile))openCatalogueTitle(tile.dataset.openShow);
+ });
+ root.addEventListener('keydown',event=>{
+  const tile=event.target.closest('[data-open-show]');
+  if(tile&&root.contains(tile)&&(event.key==='Enter'||event.key===' ')){
+   event.preventDefault();
+   openCatalogueTitle(tile.dataset.openShow);
+  }
+ });
+ document.addEventListener('click',event=>{
+  if(!openedFromBrowse||!legacyClose)return;
+  const close=event.target.closest('#screenOne .top-controls button[aria-label="Close"]');
+  if(close){
+   event.preventDefault();
+   event.stopImmediatePropagation();
+   returnToBrowse();
+  }
+ },true);
+
  const showHome=(name)=>{
   profile.style.display='none';home.style.display='block';search.style.display='none';nav.style.display='grid';
   document.getElementById('an-profile-name').textContent=name||'Oniel';
@@ -2393,6 +2444,16 @@ body.an-cw-profile-open{overflow:hidden!important}
  #an-home #an-screen-seven-teen-supernatural>.an-posters{padding-left:32px!important;padding-right:32px!important;gap:13px!important}
  #an-home #an-screen-seven-teen-supernatural .an-poster{flex-basis:150px!important;width:150px!important;max-width:150px!important}
 }
+</style>
+
+
+<style id="an-black-mirror-home-navigation">
+#an-home .an-black-mirror-poster{cursor:pointer;outline:none}
+#an-home .an-black-mirror-poster .an-poster-art img{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ display:block!important;object-fit:cover!important;object-position:center!important;
+}
+#an-home .an-black-mirror-poster:focus-visible{outline:2px solid #fff!important;outline-offset:3px!important}
 </style>
 
 </body></html>
