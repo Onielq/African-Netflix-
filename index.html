@@ -819,4 +819,77 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 }
 </style>
 
+
+<style id="an-screen-three-reference-match-v2">
+/* Screen 3 reference: tall portrait catalogue cards and full-width trailer still. */
+#an-home .an-row{
+  margin:0 0 28px!important;
+}
+#an-home .an-row h2{
+  margin:0 20px 11px!important;
+  font-size:19px!important;
+  line-height:1.22!important;
+  font-weight:700!important;
+  letter-spacing:-.35px!important;
+}
+#an-home .an-posters{
+  gap:8px!important;
+  padding:0 0 4px!important;
+  scroll-padding-left:0!important;
+}
+#an-home .an-poster{
+  flex:0 0 42.3vw!important;
+  width:42.3vw!important;
+  max-width:175px!important;
+  min-width:0!important;
+  aspect-ratio:0.45!important;
+  height:auto!important;
+  border-radius:5px!important;
+}
+#an-home .an-poster-title{
+  left:7px!important;right:7px!important;bottom:19px!important;
+  font-size:clamp(14px,3.8vw,18px)!important;
+  line-height:1.02!important;
+}
+#an-home .an-added{
+  height:14px!important;
+  padding:1px 2px!important;
+  font-size:10px!important;
+  line-height:12px!important;
+}
+#an-home .an-trailer{
+  width:100%!important;
+  height:56.25vw!important;
+  min-height:210px!important;
+  max-height:360px!important;
+  margin:0 0 18px!important;
+}
+#an-home .an-selected-info{
+  padding:0 20px 22px!important;
+}
+#an-home .an-selected-info h3{font-size:22px!important;margin:0 0 6px!important}
+#an-home .an-selected-info p{font-size:13px!important}
+#an-home .an-bottom-nav{
+  left:8%!important;right:8%!important;
+  bottom:calc(env(safe-area-inset-bottom) + 12px)!important;
+  height:78px!important;
+  border-radius:42px!important;
+  background:rgba(25,26,31,.78)!important;
+  border:1px solid rgba(255,255,255,.15)!important;
+  backdrop-filter:blur(20px)!important;
+  -webkit-backdrop-filter:blur(20px)!important;
+}
+@media(min-width:700px){
+ #an-home .an-row h2{margin-left:32px!important}
+ #an-home .an-posters{padding-left:32px!important;padding-right:32px!important;gap:13px!important}
+ #an-home .an-poster{flex-basis:190px!important;width:190px!important;max-width:190px!important}
+ #an-home .an-trailer{height:360px!important}
+}
+@media(max-width:360px){
+ #an-home .an-posters{gap:8px!important}
+ #an-home .an-poster{flex-basis:42vw!important;width:42vw!important}
+ #an-home .an-row h2{margin-left:16px!important}
+}
+</style>
+
 </body></html>
