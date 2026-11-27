@@ -602,4 +602,53 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  #an-profile{padding-bottom:10px}
 }
 </style>
-\n</body></html>
+\n
+<style id="an-home-reference-pass">
+/* Screen 2 — home landing screen refinement. Scoped to Home only. */
+#an-home{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
+#an-home .an-home-header{padding-top:calc(env(safe-area-inset-top) + 10px);padding-bottom:4px}
+#an-home .an-headline{display:flex;align-items:center;justify-content:space-between}
+#an-home .an-headline strong{font-size:25px;line-height:1}
+#an-home .an-head-actions{display:flex;align-items:center}
+#an-home .an-categories{display:flex;align-items:center;overflow-x:auto;scrollbar-width:none}
+#an-home .an-categories::-webkit-scrollbar{display:none}
+#an-home .an-categories button{flex:0 0 auto;white-space:nowrap}
+#an-home .an-feature{
+  position:relative;
+  width:100%;
+  height:clamp(470px,128vw,620px);
+  min-height:470px;
+  max-height:620px;
+  margin:12px 0 27px;
+  border-radius:0;
+  overflow:hidden;
+  background:#101018;
+  border:0;
+}
+#an-home .an-feature-art{
+  position:absolute;inset:0;
+  background-position:center 28%;
+  background-size:cover;
+}
+#an-home .an-feature-art:after{
+  background:linear-gradient(180deg,rgba(0,0,0,.04) 0%,rgba(0,0,0,0) 38%,rgba(0,0,0,.18) 58%,rgba(0,0,0,.88) 100%);
+}
+#an-home .an-feature-n{top:20px;left:22px;font-size:39px}
+#an-home .an-feature-copy{left:22px;right:22px;bottom:24px}
+#an-home .an-feature-title{font-size:clamp(31px,8.4vw,47px);line-height:1.04;letter-spacing:-.65px}
+#an-home .an-feature-date{font-size:14px;margin:12px 0 17px}
+#an-home .an-remind{height:50px;border-radius:7px;font-size:15px}
+#an-home .an-row{margin-bottom:26px}
+#an-home .an-row h2{font-size:19px;line-height:1.25;font-weight:650;margin:0 20px 12px}
+#an-home .an-posters{gap:10px;padding-left:20px;padding-right:20px}
+#an-home .an-poster{flex:0 0 38vw;max-width:168px;min-width:126px;border-radius:5px}
+@media(min-width:700px){
+ #an-home .an-feature{height:610px;max-height:610px;margin-top:16px}
+ #an-home .an-home-header{padding-left:32px;padding-right:32px}
+ #an-home .an-feature-copy{left:40px;right:40px}
+ #an-home .an-row h2{margin-left:32px}
+ #an-home .an-posters{padding-left:32px;padding-right:32px}
+}
+</style>
+
+</body></html>
