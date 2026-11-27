@@ -489,15 +489,15 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     </div>
    </div>
   </section>
-  <section class="an-row"><h2>When You Want Scares but Not Nightmares</h2><div class="an-posters">
+  <section class="an-row" id="an-screen-five-scares"><h2>When You Want Scares but Not Nightmares</h2><div class="an-posters">
    <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">FROM</span><span class="an-added">Recently Added</span></article>
    <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">THE EAST PALACE</span></article>
    <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">418</span><span class="an-added">Recently Added</span></article>
    <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">LAST EXIT</span></article>
   </div></section>
-  <section class="an-row"><h2>Today's Top Picks for You</h2><div class="an-posters"><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">RANABAALI</span><span class="an-added">Recently Added</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">THE BODY</span><span class="an-added">Recently Added</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">GOSPEL OF CHRISTMAS</span><span class="an-added">Recently Added</span></article></div></section>
-  <section class="an-row"><h2>Movies &amp; TV Shows set in India</h2><div class="an-posters"><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">HAIKU</span><span class="an-added">Recently Added</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">THE PARADISE</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">DON’T TROUBLE THE TROUBLE</span><span class="an-added">Recently Added</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">418</span></article></div></section>
-  <section class="an-row"><h2>Continue Watching for <span id="an-profile-name">Oniel</span></h2><div class="an-posters"><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">Continue Watching</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">Your Series</span></article></div></section>
+  <section class="an-row" id="an-screen-five-picks"><h2>Today's Top Picks for You</h2><div class="an-posters"><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">RANABAALI</span><span class="an-added">Recently Added</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">THE BODY</span><span class="an-added">Recently Added</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">GOSPEL OF CHRISTMAS</span><span class="an-added">Recently Added</span></article></div></section>
+  <section class="an-row" id="an-screen-five-india"><h2>Movies &amp; TV Shows set in India</h2><div class="an-posters"><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">HAIKU</span><span class="an-added">Recently Added</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">THE PARADISE</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">DON’T TROUBLE THE TROUBLE</span><span class="an-added">Recently Added</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">418</span></article></div></section>
+  <section class="an-row" id="an-screen-five-continue"><h2>Continue Watching for <span id="an-profile-name">Oniel</span></h2><div class="an-posters"><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">Continue Watching</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">Your Series</span></article></div></section>
  </main>
  <main id="an-search">
   <header class="an-search-head"><h1>Search</h1><div class="an-head-actions"><button aria-label="Cast"><svg viewBox="0 0 24 24"><path d="M3 18a3 3 0 0 1 3 3M3 13a8 8 0 0 1 8 8M3 8a13 13 0 0 1 13 13"/><path d="M5 3h16v16h-5"/></svg></button><button aria-label="Downloads"><svg viewBox="0 0 24 24"><path d="M12 2v13m-5-5 5 5 5-5M4 20h16"/></svg></button><button aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button></div></header>
@@ -1034,47 +1034,17 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 }
 </style>
 <script id="an-new-on-netflix-player-script">
-(()=> {
- const section=document.getElementById('an-new-on-netflix');
- if(!section||section.dataset.playerReady)return;
- section.dataset.playerReady='1';
- const frame=section.querySelector('#an-new-trailer-video');
- const title=section.querySelector('#an-selected-title');
- const meta=section.querySelector('#an-selected-meta');
- const rail=section.querySelector('.an-new-rail');
- const track=section.querySelector('#an-new-track');
- const makeEmbed=id=>'https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist='+encodeURIComponent(id);
- let changing=false;
- const cards=()=>[...track.querySelectorAll('.an-new-card')];
- const stepSize=()=>{const list=cards();if(!list.length)return 170;const a=list[0].getBoundingClientRect(),b=list[1]?.getBoundingClientRect();return a.width+(b?b.left-a.right:10)};
- const metaFor=card=>[card.dataset.genre,card.dataset.seasons||card.dataset.runtime,card.dataset.contentRating].filter(Boolean).join('  •  ');
- const activate=card=>{
-  if(!card)return;
-  cards().forEach(item=>{const active=item===card;item.classList.toggle('active',active);item.setAttribute('aria-pressed',active?'true':'false')});
-  const video=card.dataset.video;
-  if(video&&frame.dataset.video!==video){frame.dataset.video=video;frame.src=makeEmbed(video);frame.title=(card.dataset.title||'')+' official trailer'}
-  title.textContent=card.dataset.title||'';
-  meta.textContent=metaFor(card);
- };
- const complete=(count,selected)=>{
-  for(let i=0;i<count;i++)track.appendChild(track.firstElementChild);
-  track.style.transition='none';track.style.transform='translate3d(0,0,0)';void track.offsetWidth;track.style.transition='';
-  activate(selected);changing=false;
- };
- track.addEventListener('click',event=>{
-  const card=event.target.closest('.an-new-card');if(!card||changing)return;
-  const list=cards(),index=list.indexOf(card);
-  if(index<0)return;
-  if(index===list.length-1){activate(card);return}
-  if(index===0){activate(card);return}
-  changing=true;
-  const step=stepSize();
-  track.style.transition='transform .42s cubic-bezier(.22,.72,.2,1)';
-  track.style.transform='translate3d('+(-index*step)+'px,0,0)';
-  window.setTimeout(()=>complete(index,card),440);
- });
- const first=track.querySelector('.an-new-card');
- if(first){first.classList.add('active');first.setAttribute('aria-pressed','true');if(frame)frame.dataset.video=first.dataset.video||''}
+(()=>{
+ const section=document.getElementById("an-new-on-netflix");
+ if(!section||section.dataset.playerReady)return;section.dataset.playerReady="1";
+ const frame=section.querySelector("#an-new-trailer-video"),title=section.querySelector("#an-selected-title"),meta=section.querySelector("#an-selected-meta"),track=section.querySelector("#an-new-track");
+ const cards=()=>[...track.querySelectorAll(".an-new-card")];
+ const step=()=>{const c=cards()[0];return c?c.getBoundingClientRect().width+(parseFloat(getComputedStyle(track).gap)||10):170};
+ const makeEmbed=id=>"https://www.youtube.com/embed/"+encodeURIComponent(id)+"?autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist="+encodeURIComponent(id);
+ const activate=c=>{if(!c)return;cards().forEach(x=>{const on=x===c;x.classList.toggle("active",on);x.setAttribute("aria-pressed",on?"true":"false")});const v=c.dataset.video;if(v&&frame.dataset.video!==v){frame.dataset.video=v;frame.src=makeEmbed(v);frame.title=(c.dataset.title||"")+" official trailer"}title.textContent=c.dataset.title||"";meta.textContent=[c.dataset.genre,c.dataset.seasons||c.dataset.runtime,c.dataset.contentRating].filter(Boolean).join("  •  ")};
+ let busy=false;
+ track.addEventListener("click",e=>{const card=e.target.closest(".an-new-card");if(!card||busy)return;const list=cards(),index=list.indexOf(card);if(index<0)return;activate(card);if(index===0||index===list.length-1)return;busy=true;track.style.transition="transform .46s cubic-bezier(.22,.72,.2,1)";track.style.transform="translate3d("+(-index*step())+"px,0,0)";setTimeout(()=>{for(let i=0;i<index;i++)track.firstElementChild&&track.firstElementChild.remove();track.style.transition="none";track.style.transform="translate3d(0,0,0)";void track.offsetWidth;track.style.transition="";busy=false},470)});
+ const first=cards()[0];if(first){first.classList.add("active");first.setAttribute("aria-pressed","true");frame.dataset.video=first.dataset.video||""}
 })();
 </script>
 
@@ -1137,54 +1107,20 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 </style>
 
 
-<style id="an-screen-five-reference-layout">
-/* Screen 5 catalogue rows: compact portrait artwork, horizontal rails, continue-watching landscape cards. */
-#an-home .an-row:not(#an-new-on-netflix){margin:0 0 18px!important}
-#an-home .an-row:not(#an-new-on-netflix) h2{
- margin:0 20px 11px!important;font-size:19px!important;line-height:1.2!important;
- font-weight:700!important;letter-spacing:-.3px!important;
-}
-#an-home .an-row:not(#an-new-on-netflix) .an-posters{
- display:flex!important;flex-wrap:nowrap!important;gap:9px!important;
- overflow-x:auto!important;overflow-y:hidden!important;
- padding:0 20px 2px!important;scrollbar-width:none!important;
- scroll-snap-type:x mandatory!important;-webkit-overflow-scrolling:touch!important;
-}
-#an-home .an-row:not(#an-new-on-netflix) .an-posters::-webkit-scrollbar{display:none!important}
-#an-home .an-row:not(#an-new-on-netflix) .an-poster{
- flex:0 0 28.5vw!important;width:28.5vw!important;max-width:118px!important;
- aspect-ratio:.71!important;height:auto!important;border-radius:5px!important;
- overflow:hidden!important;scroll-snap-align:start!important;
-}
-#an-home .an-row:not(#an-new-on-netflix) .an-added{
- bottom:0!important;left:10%!important;right:10%!important;
- height:19px!important;padding:2px 1px!important;font-size:10px!important;
- line-height:15px!important;white-space:nowrap!important;
-}
-#an-home .an-row:not(#an-new-on-netflix) .an-poster-title{
- left:5px!important;right:5px!important;bottom:23px!important;
- font-size:clamp(10px,2.8vw,13px)!important;line-height:1.05!important;
-}
-#an-home .an-row:last-of-type .an-poster{
- flex:0 0 58vw!important;width:58vw!important;max-width:240px!important;
- aspect-ratio:1.78!important;border-radius:6px!important;
-}
-#an-home .an-row:last-of-type .an-poster:after{
- content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
- width:34px;height:34px;border:1.5px solid rgba(255,255,255,.85);
- border-radius:50%;background:rgba(0,0,0,.38);
-}
-#an-home .an-row:last-of-type .an-poster:before{
- content:"";position:absolute;z-index:2;left:50%;top:50%;
- transform:translate(-35%,-50%);
- border-left:12px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent;
-}
-#an-home .an-row:last-of-type .an-poster-title{display:none!important}
-@media(min-width:700px){
- #an-home .an-row:not(#an-new-on-netflix) .an-posters{padding-left:32px!important;padding-right:32px!important;gap:13px!important}
- #an-home .an-row:not(#an-new-on-netflix) .an-poster{flex-basis:150px!important;width:150px!important;max-width:150px!important}
- #an-home .an-row:last-of-type .an-poster{flex-basis:260px!important;width:260px!important}
-}
-</style>
 
+
+<style id="an-screen-five-reference-layout">
+#an-home #an-screen-five-scares,#an-home #an-screen-five-picks,#an-home #an-screen-five-india,#an-home #an-screen-five-continue{margin:0 0 18px!important}
+#an-home #an-screen-five-scares h2,#an-home #an-screen-five-picks h2,#an-home #an-screen-five-india h2,#an-home #an-screen-five-continue h2{margin:0 20px 11px!important;font-size:19px!important;line-height:1.2!important;font-weight:700!important;letter-spacing:-.3px!important}
+#an-home #an-screen-five-scares .an-posters,#an-home #an-screen-five-picks .an-posters,#an-home #an-screen-five-india .an-posters,#an-home #an-screen-five-continue .an-posters{display:flex!important;flex-wrap:nowrap!important;gap:9px!important;overflow-x:auto!important;overflow-y:hidden!important;padding:0 20px 2px!important;scrollbar-width:none!important;scroll-snap-type:x mandatory!important;-webkit-overflow-scrolling:touch!important}
+#an-home #an-screen-five-scares .an-posters::-webkit-scrollbar,#an-home #an-screen-five-picks .an-posters::-webkit-scrollbar,#an-home #an-screen-five-india .an-posters::-webkit-scrollbar,#an-home #an-screen-five-continue .an-posters::-webkit-scrollbar{display:none!important}
+#an-home #an-screen-five-scares .an-poster,#an-home #an-screen-five-picks .an-poster,#an-home #an-screen-five-india .an-poster{flex:0 0 28.5vw!important;width:28.5vw!important;max-width:118px!important;aspect-ratio:.71!important;height:auto!important;border-radius:5px!important;overflow:hidden!important;scroll-snap-align:start!important}
+#an-home #an-screen-five-scares .an-added,#an-home #an-screen-five-picks .an-added,#an-home #an-screen-five-india .an-added{bottom:0!important;left:10%!important;right:10%!important;height:19px!important;padding:2px 1px!important;font-size:10px!important;line-height:15px!important;white-space:nowrap!important}
+#an-home #an-screen-five-scares .an-poster-title,#an-home #an-screen-five-picks .an-poster-title,#an-home #an-screen-five-india .an-poster-title{left:5px!important;right:5px!important;bottom:23px!important;font-size:clamp(10px,2.8vw,13px)!important;line-height:1.05!important}
+#an-home #an-screen-five-continue .an-poster{flex:0 0 58vw!important;width:58vw!important;max-width:240px!important;aspect-ratio:1.78!important;height:auto!important;border-radius:6px!important}
+#an-home #an-screen-five-continue .an-poster:after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:34px;height:34px;border:1.5px solid rgba(255,255,255,.85);border-radius:50%;background:rgba(0,0,0,.38)}
+#an-home #an-screen-five-continue .an-poster:before{content:"";position:absolute;z-index:2;left:50%;top:50%;transform:translate(-35%,-50%);border-left:12px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent}
+#an-home #an-screen-five-continue .an-poster-title{display:none!important}
+@media(min-width:700px){#an-home #an-screen-five-scares .an-posters,#an-home #an-screen-five-picks .an-posters,#an-home #an-screen-five-india .an-posters,#an-home #an-screen-five-continue .an-posters{padding-left:32px!important;padding-right:32px!important;gap:13px!important}#an-home #an-screen-five-scares .an-poster,#an-home #an-screen-five-picks .an-poster,#an-home #an-screen-five-india .an-poster{flex-basis:150px!important;width:150px!important;max-width:150px!important}#an-home #an-screen-five-continue .an-poster{flex-basis:260px!important;width:260px!important}}
+</style>
 </body></html>
