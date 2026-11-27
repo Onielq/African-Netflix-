@@ -2515,4 +2515,37 @@ body.an-cw-profile-open{overflow:hidden!important}
 }
 </style>
 
+
+<style id="an-exact-home-poster-dimensions">
+/* Exact responsive measurements supplied by the user.
+   At a 390px viewport: 42.3vw = 164.97px; 164.97 / 0.495 = 333.27px.
+   At a 390px viewport: 28.5vw = 111.15px; 111.15 / 0.71 = 156.55px. */
+/* Only on Netflix — the larger portrait card. */
+#an-home #an-only-netflix-row .an-posters>.an-poster{
+ position:relative!important;display:block!important;
+ flex:0 0 42.3vw!important;flex-shrink:0!important;
+ width:42.3vw!important;min-width:0!important;max-width:175px!important;
+ height:auto!important;aspect-ratio:0.495!important;
+ overflow:hidden!important;scroll-snap-align:start!important;
+}
+/* All the other standard movie/show poster shelves — smaller cards. */
+#an-home .an-row:not(#an-only-netflix-row):not(#an-screen-five-continue):not(.an-new-on-netflix) .an-posters>.an-poster{
+ position:relative!important;display:block!important;
+ flex:0 0 28.5vw!important;flex-shrink:0!important;
+ width:28.5vw!important;min-width:0!important;max-width:118px!important;
+ height:auto!important;aspect-ratio:0.71!important;
+ overflow:hidden!important;scroll-snap-align:start!important;
+}
+@media(min-width:700px){
+ #an-home #an-only-netflix-row .an-posters>.an-poster{
+  flex-basis:190px!important;width:190px!important;max-width:190px!important;
+  aspect-ratio:0.495!important;height:auto!important;
+ }
+ #an-home .an-row:not(#an-only-netflix-row):not(#an-screen-five-continue):not(.an-new-on-netflix) .an-posters>.an-poster{
+  flex-basis:150px!important;width:150px!important;max-width:150px!important;
+  aspect-ratio:0.71!important;height:auto!important;
+ }
+}
+</style>
+
 </body></html>
