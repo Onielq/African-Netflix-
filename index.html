@@ -546,7 +546,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     </article>
     <article class="an-cw-card" data-cw-id="avatar-last-airbender" data-title="Avatar: The Last Airbender" data-progress="0" data-kind="series" data-video-src="" data-download-src="">
      <div class="an-cw-poster">
-      <img src="https://m.media-amazon.com/images/M/MV5BMGU0NmI3NTMtMjZmOS00NDY5LWEyZTUtNmYyNTUwMWYwZDNhXkEyXkFqcGc%40._V1_.jpg" alt="Avatar: The Last Airbender poster" loading="lazy">
+      <img src="https://www.impawards.com/tv/posters/avatar_the_last_airbender_ver18_xxlg.jpg" alt="Avatar: The Last Airbender poster" loading="lazy">
       <button class="an-cw-play" type="button" data-cw-action="play" aria-label="Resume Avatar: The Last Airbender">
        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5z"/></svg>
       </button>
@@ -664,48 +664,54 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/></svg><span>Download Episode</span>
      </button>
      <button class="an-cw-menu-item" type="button" data-cw-menu-action="not-for-me">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 14V2H5.5L2 12.5A2.5 2.5 0 0 0 4.5 15H9l-.7 4.1a2.5 2.5 0 0 0 4.5 1.7L17 14Z"/><path d="M17 5h4v11h-4"/></svg><span>Not for me</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 14V2"/><path d="M9 18.12 10 14H5.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 7.5 2H20v12h-3.76a2 2 0 0 0-1.85 1.23l-1.7 4.25a1.8 1.8 0 0 1-3.44-.6v-.75Z"/></svg><span>Not for me</span>
      </button>
      <button class="an-cw-menu-item" type="button" data-cw-menu-action="like">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10v12H3V10h4ZM7 10l4-7a3 3 0 0 1 3 3v4h5a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H7"/></svg><span>I like it</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.88 14 10h4.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 16.5 22H7"/></svg><span>I like it</span>
      </button>
      <button class="an-cw-menu-item" type="button" data-cw-menu-action="love">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v11H1V10h2Zm3 0 4-7a3 3 0 0 1 3 3v4h5a2 2 0 0 1 2 2l-2 8a2 2 0 0 1-2 2H6"/><path d="M18 3h4v8h-4"/></svg><span>Love this!</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.88 14 10h4.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 16.5 22H7"/><path d="M2 10h5v12H2z"/></svg><span>Love this!</span>
      </button>
      <button class="an-cw-menu-item" type="button" data-cw-menu-action="remove">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Remove From Row</span>
      </button>
     </div>
    </div>
-   <div class="an-cw-view an-cw-info-view" data-cw-view="info" hidden>
-    <header class="an-cw-sheet-head">
-     <h2 class="an-cw-info-title">Dead-End Job</h2>
-     <button class="an-cw-close" type="button" data-cw-close aria-label="Close details">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
-     </button>
-    </header>
-    <div class="an-cw-info-body">
-     <img class="an-cw-info-poster" src="" alt="">
-     <div class="an-cw-info-copy">
-      <p class="an-cw-info-kicker">CONTINUE WATCHING</p>
-      <p class="an-cw-info-progress">Your saved playback position is ready.</p>
-     </div>
-    </div>
-    <button class="an-cw-resume-button" type="button" data-cw-resume>
+
+  </section>
+ </div>
+ <section class="an-cw-title-profile" id="an-cw-title-profile" hidden aria-label="Title profile">
+  <div class="an-cw-profile-hero">
+   <img id="an-cw-profile-poster" src="" alt="">
+   <div class="an-cw-profile-shade"></div>
+   <button class="an-cw-profile-close" type="button" data-cw-profile-close aria-label="Back">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+   </button>
+   <div class="an-cw-profile-copy">
+    <p class="an-cw-profile-eyebrow">CONTINUE WATCHING</p>
+    <h1 id="an-cw-profile-title">Dead-End Job</h1>
+    <p id="an-cw-profile-progress">9% watched</p>
+    <div class="an-cw-profile-progress"><span id="an-cw-profile-progress-fill"></span></div>
+    <button class="an-cw-profile-resume" type="button" data-cw-profile-resume>
      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5z"/></svg>Resume
     </button>
    </div>
-  </section>
- </div>
+  </div>
+  <div class="an-cw-profile-lower">
+   <p>Continue from your saved place in this title.</p>
+   <button type="button" data-cw-profile-close>Back to Home</button>
+  </div>
+ </section>
  <div class="an-cw-player" id="an-cw-player" hidden>
   <button class="an-cw-player-close" type="button" data-cw-player-close aria-label="Close player">
    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
   </button>
   <video id="an-cw-video" controls playsinline preload="metadata" hidden></video>
   <div class="an-cw-player-placeholder" id="an-cw-player-placeholder">
+   <img class="an-cw-player-poster" id="an-cw-player-poster" src="" alt="">
    <div class="an-cw-player-mark">N</div>
    <h2 id="an-cw-player-title">Dead-End Job</h2>
-   <p id="an-cw-player-status">Your video will resume here once its original video file is connected.</p>
+   <p id="an-cw-player-status">The original episode file has not been added yet.</p>
    <button type="button" class="an-cw-player-back" data-cw-player-close>Back to Home</button>
   </div>
  </div>
@@ -775,11 +781,11 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   });
  });
  
- /* Continue Watching — progress, title info, feedback and per-card action sheet. */
+ /* Continue Watching — title profile, resume positions, feedback and action sheet. */
  const cwRow=document.getElementById('an-cw-posters');
  const cwOverlay=document.getElementById('an-cw-overlay');
- const cwSheet=cwOverlay?.querySelector('.an-cw-sheet');
  const cwPlayer=document.getElementById('an-cw-player');
+ const cwTitleProfile=document.getElementById('an-cw-title-profile');
  const cwVideo=document.getElementById('an-cw-video');
  const cwPlaceholder=document.getElementById('an-cw-player-placeholder');
  const cwToast=document.getElementById('an-cw-toast');
@@ -789,11 +795,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   read(key,fallback){try{const value=JSON.parse(localStorage.getItem(key)||'null');return value??fallback;}catch{return fallback;}},
   write(key,value){try{localStorage.setItem(key,JSON.stringify(value));}catch{}}
  };
- const cwCloseSheet=()=>{
-  if(cwOverlay)cwOverlay.hidden=true;
-  document.body.classList.remove('an-cw-modal-open');
-  cwCurrentCard=null;
- };
  const cwToastMessage=message=>{
   if(!cwToast)return;
   cwToast.textContent=message;
@@ -802,43 +803,77 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   cwToastTimer=setTimeout(()=>cwToast.classList.remove('visible'),2400);
  };
  const cwProgress=card=>Math.max(0,Math.min(100,Number(card.dataset.progress||0)));
- const cwOpenSheet=(card,view='menu')=>{
+ const cwCloseSheet=()=>{
+  if(cwOverlay)cwOverlay.hidden=true;
+  document.body.classList.remove('an-cw-modal-open');
+  cwCurrentCard=null;
+ };
+ const cwCloseDetails=()=>{
+  if(cwTitleProfile)cwTitleProfile.hidden=true;
+  document.body.classList.remove('an-cw-profile-open');
+  cwCurrentCard=null;
+ };
+ const cwOpenDetails=card=>{
+  cwCloseSheet();
+  cwCurrentCard=card;
+  const poster=card.querySelector('.an-cw-poster img');
+  const percent=cwProgress(card);
+  const image=document.getElementById('an-cw-profile-poster');
+  image.src=poster?.currentSrc||poster?.src||'';
+  image.alt=poster?.alt||card.dataset.title||'';
+  document.getElementById('an-cw-profile-title').textContent=card.dataset.title||'';
+  document.getElementById('an-cw-profile-progress').textContent=percent+'% watched';
+  document.getElementById('an-cw-profile-progress-fill').style.width=percent+'%';
+  cwTitleProfile.hidden=false;
+  document.body.classList.add('an-cw-profile-open');
+ };
+ const cwOpenSheet=card=>{
   cwCurrentCard=card;
   cwOverlay.hidden=false;
   document.body.classList.add('an-cw-modal-open');
-  cwOverlay.querySelectorAll('[data-cw-view]').forEach(v=>v.hidden=v.dataset.cwView!==view);
-  const title=card.dataset.title||'';
-  cwOverlay.querySelector('#an-cw-sheet-title').textContent=title;
-  cwOverlay.querySelector('.an-cw-info-title').textContent=title;
-  const poster=card.querySelector('.an-cw-poster img');
-  const detailPoster=cwOverlay.querySelector('.an-cw-info-poster');
-  detailPoster.src=poster?.src||'';
-  detailPoster.alt=poster?.alt||title;
-  const percent=cwProgress(card);
-  cwOverlay.querySelector('.an-cw-info-progress').textContent=percent>0
-   ? 'Saved playback position: '+percent+'%. Resume from where you left off.'
-   : 'This title is in your Continue Watching row. Start watching whenever you are ready.';
+  cwOverlay.querySelector('[data-cw-view="menu"]').hidden=false;
+  cwOverlay.querySelector('#an-cw-sheet-title').textContent=card.dataset.title||'';
  };
  const cwClosePlayer=()=>{
-  if(cwVideo){cwVideo.pause();cwVideo.removeAttribute('src');cwVideo.load();cwVideo.hidden=true;}
+  if(cwVideo){
+   cwVideo.pause();
+   cwVideo.onloadedmetadata=null;
+   cwVideo.ontimeupdate=null;
+   cwVideo.removeAttribute('src');
+   cwVideo.load();
+   cwVideo.hidden=true;
+  }
   cwPlayer.hidden=true;
   document.body.classList.remove('an-cw-player-open');
+  cwCurrentCard=null;
  };
  const cwOpenPlayer=card=>{
-  cwCurrentCard=card;
   cwCloseSheet();
+  cwCloseDetails();
+  cwCurrentCard=card;
   cwPlayer.hidden=false;
   document.body.classList.add('an-cw-player-open');
   const title=card.dataset.title||'';
   document.getElementById('an-cw-player-title').textContent=title;
+  const poster=card.querySelector('.an-cw-poster img');
+  const playerPoster=document.getElementById('an-cw-player-poster');
+  playerPoster.src=poster?.currentSrc||poster?.src||'';
+  playerPoster.alt=poster?.alt||title;
   const source=card.dataset.videoSrc||'';
   if(source){
    cwPlaceholder.hidden=true;
    cwVideo.hidden=false;
    cwVideo.src=source;
+   cwVideo.load();
    cwVideo.onloadedmetadata=()=>{
+    const positions=cwStorage.read('african-matrix-cw-positions',{});
+    const saved=positions[card.dataset.cwId];
+    const savedTime=Number(saved?.time);
     const percent=cwProgress(card);
-    if(Number.isFinite(cwVideo.duration)&&cwVideo.duration>0)cwVideo.currentTime=cwVideo.duration*percent/100;
+    const start=Number.isFinite(savedTime)&&savedTime>0?savedTime:(cwVideo.duration*percent/100);
+    if(Number.isFinite(cwVideo.duration)&&cwVideo.duration>0){
+     cwVideo.currentTime=Math.max(0,Math.min(start,Math.max(0,cwVideo.duration-1)));
+    }
     cwVideo.play().catch(()=>{});
    };
    cwVideo.ontimeupdate=()=>{
@@ -849,12 +884,13 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     bar?.querySelector('span')?.style.setProperty('width',percent+'%');
     bar?.setAttribute('aria-valuenow',String(percent));
     cwStorage.write('african-matrix-cw-progress',{...(cwStorage.read('african-matrix-cw-progress',{})),[card.dataset.cwId]:percent});
+    cwStorage.write('african-matrix-cw-positions',{...(cwStorage.read('african-matrix-cw-positions',{})),[card.dataset.cwId]:{time:cwVideo.currentTime,duration:cwVideo.duration}});
    };
   }else{
    cwVideo.hidden=true;
    cwPlaceholder.hidden=false;
    document.getElementById('an-cw-player-status').textContent=
-    'The Continue Watching player is connected to saved progress, but this title’s original video file has not been added yet.';
+    'The original video file for this title has not been connected yet. Add that file to enable playback and true resume-from-position.';
   }
  };
  if(cwRow){
@@ -865,33 +901,40 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
    const id=card.dataset.cwId;
    if(removed.includes(id)){card.remove();return;}
    if(Object.prototype.hasOwnProperty.call(progress,id)){
-    card.dataset.progress=String(progress[id]);
-    card.querySelector('.an-cw-progress span')?.style.setProperty('width',progress[id]+'%');
-    card.querySelector('.an-cw-progress')?.setAttribute('aria-valuenow',String(progress[id]));
+    const percent=Math.max(0,Math.min(100,Number(progress[id])||0));
+    card.dataset.progress=String(percent);
+    card.querySelector('.an-cw-progress span')?.style.setProperty('width',percent+'%');
+    card.querySelector('.an-cw-progress')?.setAttribute('aria-valuenow',String(percent));
    }
    if(feedback[id])card.dataset.feedback=feedback[id];
    card.querySelector('[data-cw-action="play"]').addEventListener('click',()=>cwOpenPlayer(card));
-   card.querySelector('[data-cw-action="info"]').addEventListener('click',()=>cwOpenSheet(card,'info'));
-   card.querySelector('[data-cw-action="menu"]').addEventListener('click',()=>cwOpenSheet(card,'menu'));
+   card.querySelector('[data-cw-action="info"]').addEventListener('click',()=>cwOpenDetails(card));
+   card.querySelector('[data-cw-action="menu"]').addEventListener('click',()=>cwOpenSheet(card));
   });
  }
  cwOverlay?.querySelectorAll('[data-cw-close]').forEach(b=>b.addEventListener('click',cwCloseSheet));
  cwPlayer?.querySelectorAll('[data-cw-player-close]').forEach(b=>b.addEventListener('click',cwClosePlayer));
- cwOverlay?.querySelector('[data-cw-resume]')?.addEventListener('click',()=>{
+ cwTitleProfile?.querySelectorAll('[data-cw-profile-close]').forEach(b=>b.addEventListener('click',cwCloseDetails));
+ cwTitleProfile?.querySelector('[data-cw-profile-resume]')?.addEventListener('click',()=>{
   if(cwCurrentCard)cwOpenPlayer(cwCurrentCard);
  });
  cwOverlay?.querySelectorAll('[data-cw-menu-action]').forEach(button=>button.addEventListener('click',()=>{
   if(!cwCurrentCard)return;
   const action=button.dataset.cwMenuAction;
-  const title=cwCurrentCard.dataset.title||'This title';
-  if(action==='episodes-info'){cwOpenSheet(cwCurrentCard,'info');return;}
+  if(action==='episodes-info'){
+   const card=cwCurrentCard;
+   cwCloseSheet();
+   cwOpenDetails(card);
+   return;
+  }
   if(action==='download'){
    const source=cwCurrentCard.dataset.downloadSrc;
+   const title=cwCurrentCard.dataset.title||'this episode';
    if(source){
     const link=document.createElement('a');link.href=source;link.download='';document.body.appendChild(link);link.click();link.remove();
     cwToastMessage('Download started.');
    }else{
-    cwToastMessage('Episode download will be available when its video file is added.');
+    cwToastMessage('The video file for '+title+' has not been added, so it cannot be downloaded yet.');
    }
    cwCloseSheet();return;
   }
@@ -916,6 +959,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
    if(cwPlayer&&!cwPlayer.hidden)cwClosePlayer();
+   else if(cwTitleProfile&&!cwTitleProfile.hidden)cwCloseDetails();
    else if(cwOverlay&&!cwOverlay.hidden)cwCloseSheet();
   }
  });
@@ -2119,5 +2163,68 @@ body.an-cw-modal-open,body.an-cw-player-open{overflow:hidden!important}
  .an-cw-sheet{border-radius:18px 18px 0 0!important}
 }
 </style>
+
+
+<style id="an-screen-five-continue-watching-corrections">
+/* The Info control opens a title page; the menu remains a separate bottom sheet. */
+body.an-cw-profile-open{overflow:hidden!important}
+.an-cw-title-profile[hidden]{display:none!important}
+.an-cw-title-profile{
+ position:fixed!important;inset:0!important;z-index:1250!important;overflow-y:auto!important;
+ background:#08080a!important;color:#fff!important;
+ padding:0 0 calc(env(safe-area-inset-bottom) + 28px)!important;
+}
+.an-cw-profile-hero{
+ position:relative!important;height:min(72vh,690px)!important;min-height:520px!important;
+ overflow:hidden!important;background:#151518!important;
+}
+.an-cw-profile-hero>img{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ object-fit:cover!important;object-position:center 30%!important;
+}
+.an-cw-profile-shade{
+ position:absolute!important;inset:0!important;
+ background:linear-gradient(180deg,rgba(0,0,0,.48) 0%,rgba(0,0,0,.04) 25%,rgba(0,0,0,.08) 43%,#08080a 100%)!important;
+}
+.an-cw-profile-close{
+ position:absolute!important;top:calc(env(safe-area-inset-top) + 17px)!important;left:18px!important;
+ display:grid!important;place-items:center!important;width:42px!important;height:42px!important;
+ padding:0!important;border:0!important;border-radius:50%!important;
+ background:rgba(20,20,22,.7)!important;color:#fff!important;z-index:2!important;
+}
+.an-cw-profile-close svg{width:24px!important;height:24px!important;fill:none!important;stroke:currentColor!important;stroke-width:2!important}
+.an-cw-profile-copy{
+ position:absolute!important;left:22px!important;right:22px!important;bottom:26px!important;z-index:2!important;
+}
+.an-cw-profile-eyebrow{margin:0 0 8px!important;color:#ddd!important;font-size:11px!important;font-weight:800!important;letter-spacing:1.3px!important}
+.an-cw-profile-copy h1{margin:0 0 10px!important;color:#fff!important;font-size:36px!important;line-height:1!important;font-weight:800!important;letter-spacing:-1px!important}
+.an-cw-profile-copy>p:not(.an-cw-profile-eyebrow){margin:0 0 8px!important;color:#d9d9dd!important;font-size:13px!important;font-weight:600!important}
+.an-cw-profile-progress{width:100%!important;height:4px!important;overflow:hidden!important;border-radius:99px!important;background:#777!important;margin:0 0 17px!important}
+.an-cw-profile-progress span{display:block!important;height:100%!important;width:0;background:#e50914!important;border-radius:99px!important}
+.an-cw-profile-resume{
+ display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;
+ width:100%!important;height:49px!important;border-radius:5px!important;
+ background:#f5f5f5!important;color:#101010!important;font-size:16px!important;font-weight:750!important;
+}
+.an-cw-profile-resume svg{width:19px!important;height:19px!important;fill:currentColor!important;stroke:currentColor!important}
+.an-cw-profile-lower{padding:18px 22px!important;color:#bcbcc2!important;font-size:14px!important}
+.an-cw-profile-lower p{margin:0 0 17px!important}
+.an-cw-profile-lower button{height:42px!important;padding:0 17px!important;border:1px solid #555!important;border-radius:5px!important;background:#242428!important;color:#fff!important;font-size:13px!important}
+
+/* Use exact Lucide-style strokes. */
+.an-cw-menu-item[data-cw-menu-action="not-for-me"] svg,
+.an-cw-menu-item[data-cw-menu-action="like"] svg,
+.an-cw-menu-item[data-cw-menu-action="love"] svg{
+ fill:none!important;stroke:currentColor!important;stroke-width:1.8!important;
+ stroke-linecap:round!important;stroke-linejoin:round!important;
+}
+.an-cw-player-poster{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ object-fit:cover!important;opacity:.22!important;filter:blur(3px)!important;
+}
+.an-cw-player-placeholder{position:relative!important;z-index:1!important}
+.an-cw-player-mark,.an-cw-player-placeholder h2,.an-cw-player-placeholder p,.an-cw-player-placeholder button{
+ position:relative!important;z-index:2!important;
+}
 
 </body></html>
