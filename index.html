@@ -546,7 +546,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     </article>
     <article class="an-cw-card" data-cw-id="avatar-last-airbender" data-title="Avatar: The Last Airbender" data-progress="0" data-kind="series" data-video-src="" data-download-src="">
      <div class="an-cw-poster">
-      <img src="https://www.impawards.com/tv/posters/avatar_the_last_airbender_ver18_xxlg.jpg" alt="Avatar: The Last Airbender poster" loading="lazy">
+      <img src="https://image.tmdb.org/t/p/original/mzUZNhLQ7opwE1gigWy35lnybXE.jpg" alt="Avatar: The Last Airbender poster" loading="lazy">
       <button class="an-cw-play" type="button" data-cw-action="play" aria-label="Resume Avatar: The Last Airbender">
        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5z"/></svg>
       </button>
@@ -582,7 +582,26 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     </article>
    </div>
   </section>
-  <section class="an-recommended">
+  <section class="an-row" id="an-screen-seven-teen-supernatural">
+   <h2>Teen Supernatural TV Shows</h2>
+   <div class="an-posters">
+    <article class="an-poster">
+     <div class="an-poster-art"><img src="https://i.pinimg.com/736x/50/00/47/500047243dda44b82aa89c639eebc3fe.jpg" alt="First Kill poster" loading="lazy"></div>
+     <span class="an-poster-title">FIRST KILL</span>
+    </article>
+    <article class="an-poster">
+     <div class="an-poster-art"><img src="https://media.glamour.mx/photos/62ab4c9b051117934dd8e7d9/master/w_1600%2Cc_limit/Boo%2520bitch.jpg" alt="Boo, Bitch poster" loading="lazy"></div>
+     <span class="an-poster-title">BOO, BITCH</span>
+    </article>
+    <article class="an-poster">
+     <div class="an-poster-art"><img src="https://pics.filmaffinity.com/Mr_Midnight_Beware_the_Monsters_TV_Series-484394182-large.jpg" alt="Mr. Midnight: Beware the Monsters poster" loading="lazy"></div>
+     <span class="an-poster-title">MR. MIDNIGHT</span>
+    </article>
+   </div>
+  </section>
+
+ </main>
+ <section class="an-recommended" id="an-search-recommendations" hidden>
    <h2>Recommended TV Shows &amp; Movies</h2>
    <div class="an-search-results" id="an-search-results">
     <article class="an-search-result" data-search-title="Steps" data-search-terms="steps kids animation fantasy">
@@ -638,7 +657,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
    </div>
    <p class="an-search-empty" id="an-search-empty" hidden>No matching titles found.</p>
   </section>
- </main>
  <nav class="an-bottom-nav" id="an-bottom-nav" style="display:none">
   <button class="an-nav-item active" data-tab="home"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-7h6v7"/></svg>Home</button>
   <button class="an-nav-item" data-tab="clips"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="13" height="17" rx="2"/><path d="M4 7v14a2 2 0 0 0 2 2h11M12 8l5 3-5 3z"/></svg>Clips</button>
@@ -2258,6 +2276,68 @@ body.an-cw-profile-open{overflow:hidden!important}
  #an-home .an-row:not(.an-new-on-netflix):not(#an-screen-five-continue) .an-posters>.an-poster{
   flex-basis:150px!important;width:150px!important;max-width:150px!important;
  }
+}
+</style>
+
+
+<style id="an-screen-seven-continue-watching-layout-fix">
+/* Home shelf order: Continue Watching is followed by Teen Supernatural TV Shows. */
+#an-home #an-screen-five-continue{
+ display:block!important;position:relative!important;clear:both!important;
+ width:100%!important;height:auto!important;min-height:0!important;
+ overflow:visible!important;z-index:1!important;
+}
+#an-home #an-screen-five-continue .an-cw-posters{
+ position:relative!important;display:flex!important;flex-flow:row nowrap!important;
+ align-items:flex-start!important;justify-content:flex-start!important;
+ height:auto!important;min-height:0!important;max-height:none!important;
+ overflow-x:auto!important;overflow-y:hidden!important;
+}
+#an-home #an-screen-five-continue .an-cw-card{
+ position:relative!important;top:auto!important;bottom:auto!important;
+ transform:none!important;float:none!important;flex-shrink:0!important;
+}
+#an-home #an-screen-seven-teen-supernatural{
+ display:block!important;position:relative!important;clear:both!important;
+ width:100%!important;height:auto!important;min-height:0!important;
+ margin:0 0 28px!important;padding:0!important;overflow:visible!important;
+}
+#an-home #an-screen-seven-teen-supernatural>h2{
+ margin:0 20px 12px!important;color:#f4f4f4!important;
+ font-size:19px!important;line-height:1.22!important;font-weight:700!important;
+}
+#an-home #an-screen-seven-teen-supernatural>.an-posters{
+ display:flex!important;flex-flow:row nowrap!important;align-items:flex-start!important;
+ width:100%!important;gap:10px!important;margin:0!important;padding:0 20px 5px!important;
+ overflow-x:auto!important;overflow-y:hidden!important;scroll-snap-type:x mandatory!important;
+ -webkit-overflow-scrolling:touch!important;scrollbar-width:none!important;
+}
+#an-home #an-screen-seven-teen-supernatural>.an-posters::-webkit-scrollbar{display:none!important}
+#an-home #an-screen-seven-teen-supernatural .an-poster{
+ position:relative!important;display:block!important;flex:0 0 38vw!important;
+ width:38vw!important;min-width:0!important;max-width:168px!important;
+ aspect-ratio:.71!important;height:auto!important;margin:0!important;
+ overflow:hidden!important;border-radius:6px!important;scroll-snap-align:start!important;
+}
+#an-home #an-screen-seven-teen-supernatural .an-poster-art,
+#an-home #an-screen-seven-teen-supernatural .an-poster-art img{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+}
+#an-home #an-screen-seven-teen-supernatural .an-poster-art img{
+ display:block!important;object-fit:cover!important;object-position:center!important;
+}
+#an-home #an-screen-seven-teen-supernatural .an-poster-title{
+ z-index:2!important;left:6px!important;right:6px!important;bottom:8px!important;
+ font-size:clamp(12px,3.3vw,15px)!important;line-height:1.05!important;
+}
+#an-home #an-screen-seven-teen-supernatural .an-poster-art:after{
+ content:""!important;position:absolute!important;inset:0!important;pointer-events:none!important;
+ background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.75) 100%)!important;
+}
+#an-search-recommendations[hidden]{display:none!important}
+@media(min-width:700px){
+ #an-home #an-screen-seven-teen-supernatural>.an-posters{padding-left:32px!important;padding-right:32px!important;gap:13px!important}
+ #an-home #an-screen-seven-teen-supernatural .an-poster{flex-basis:150px!important;width:150px!important;max-width:150px!important}
 }
 </style>
 
