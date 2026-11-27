@@ -465,9 +465,27 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
    <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">MY DEAREST ASSASSIN</span></article>
    <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">THE LAST PALACE</span></article>
   </div></section>
-  <section class="an-row"><h2>New on Netflix</h2><div class="an-trailer"><div class="an-trailer-art"></div><button class="an-trailer-play" aria-label="Play trailer"><svg viewBox="0 0 24 24"><path d="M7 4v16l13-8z"/></svg></button></div>
-   <div class="an-selected-info"><h3>Steps</h3><p>Kids&nbsp; • &nbsp;1h 46m&nbsp; • &nbsp;7+</p></div>
-   <div class="an-posters"><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">STEPS</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">GUARDING STARS</span></article><article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">CITY LIGHTS</span></article></div>
+  <section class="an-row an-new-on-netflix" id="an-new-on-netflix">
+   <h2>New on Netflix</h2>
+   <div class="an-trailer" id="an-new-trailer">
+    <iframe id="an-new-trailer-video" src="https://www.youtube.com/embed/Y0RW8EW08Dk?autoplay=1&amp;mute=1&amp;controls=0&amp;playsinline=1&amp;rel=0&amp;modestbranding=1&amp;loop=1&amp;playlist=Y0RW8EW08Dk" title="Steps official trailer" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    <div class="an-trailer-shade" aria-hidden="true"></div>
+   </div>
+   <div class="an-selected-info">
+    <h3><span id="an-selected-title">Steps</span><span class="an-title-chevron" aria-hidden="true">›</span></h3>
+    <p id="an-selected-meta">Kids&nbsp; • &nbsp;1h 47m&nbsp; • &nbsp;7+</p>
+   </div>
+   <div class="an-new-rail" aria-label="New on Netflix trailers">
+    <button class="an-new-card active" type="button" data-title="Steps" data-meta="Kids • 1h 47m • 7+" data-video="Y0RW8EW08Dk" aria-pressed="true" aria-label="Play Steps trailer">
+     <img src="https://i.ytimg.com/vi/Y0RW8EW08Dk/hqdefault.jpg" alt="Steps trailer thumbnail" loading="lazy"><span>STEPS</span>
+    </button>
+    <button class="an-new-card" type="button" data-title="Guarding Stars" data-meta="Romance • Movie • TV-14" data-video="mFvtVPMa5ak" aria-pressed="false" aria-label="Play Guarding Stars trailer">
+     <img src="https://i.ytimg.com/vi/mFvtVPMa5ak/hqdefault.jpg" alt="Guarding Stars trailer thumbnail" loading="lazy"><span>GUARDING STARS</span>
+    </button>
+    <button class="an-new-card" type="button" data-title="City Lights" data-meta="Kannada • 2h 9m • A" data-video="2UOmYG58_ZE" aria-pressed="false" aria-label="Play City Lights trailer">
+     <img src="https://i.ytimg.com/vi/2UOmYG58_ZE/hqdefault.jpg" alt="City Lights trailer thumbnail" loading="lazy"><span>CITY LIGHTS</span>
+    </button>
+   </div>
   </section>
   <section class="an-row"><h2>When You Want Scares but Not Nightmares</h2><div class="an-posters">
    <article class="an-poster"><div class="an-poster-art"></div><span class="an-poster-title">FROM</span><span class="an-added">Recently Added</span></article>
@@ -954,5 +972,92 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  #an-home .an-poster-title{bottom:24px!important}
 }
 </style>
+
+
+<style id="an-screen-three-new-on-netflix-player">
+/* New on Netflix: landscape trailer player and selectable horizontal trailer rail. */
+#an-home #an-new-on-netflix{margin:0 0 29px!important;padding:0!important}
+#an-home #an-new-on-netflix>h2{margin:0 20px 12px!important}
+#an-home #an-new-trailer{
+ position:relative!important;width:100%!important;height:58vw!important;
+ min-height:210px!important;max-height:360px!important;margin:0 0 13px!important;
+ overflow:hidden!important;border-radius:0!important;background:#07080d!important;
+}
+#an-home #an-new-trailer iframe{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ display:block!important;border:0!important;background:#07080d!important;
+}
+#an-home #an-new-trailer .an-trailer-shade{
+ position:absolute;inset:0;pointer-events:none;
+ background:linear-gradient(180deg,rgba(0,0,0,.06),transparent 28%,transparent 78%,rgba(0,0,0,.16));
+}
+#an-home #an-new-on-netflix .an-selected-info{padding:0 12px 12px!important;margin:0!important}
+#an-home #an-new-on-netflix .an-selected-info h3{
+ display:flex;align-items:center;gap:9px;font-size:21px!important;
+ line-height:1.2;margin:0 0 5px!important;font-weight:700!important;
+}
+#an-home #an-new-on-netflix .an-title-chevron{
+ font-size:32px;line-height:18px;font-weight:300;color:#aaa;transform:translateY(-1px);
+}
+#an-home #an-new-on-netflix .an-selected-info p{
+ margin:0!important;font-size:14px!important;line-height:1.3;
+ color:#b8b8bd!important;font-weight:650!important;
+}
+#an-home #an-new-on-netflix .an-new-rail{
+ display:flex!important;flex-wrap:nowrap!important;gap:10px!important;
+ width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;
+ padding:0 18px 5px!important;scrollbar-width:none!important;
+ scroll-snap-type:x mandatory!important;-webkit-overflow-scrolling:touch;
+}
+#an-home #an-new-on-netflix .an-new-rail::-webkit-scrollbar{display:none!important}
+#an-home #an-new-on-netflix .an-new-card{
+ position:relative!important;display:block!important;flex:0 0 160px!important;
+ width:160px!important;height:89px!important;min-width:0!important;
+ padding:0!important;margin:0!important;overflow:hidden!important;
+ border:2.5px solid transparent!important;border-radius:8px!important;
+ background:#17171c!important;scroll-snap-align:start!important;
+}
+#an-home #an-new-on-netflix .an-new-card.active{border-color:#fff!important}
+#an-home #an-new-on-netflix .an-new-card img{
+ position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+}
+#an-home #an-new-on-netflix .an-new-card span{
+ position:absolute;left:5px;right:5px;bottom:4px;
+ color:#fff;font-size:11px;font-weight:800;line-height:1.1;
+ text-align:center;text-shadow:0 1px 5px #000;
+}
+@media(min-width:700px){
+ #an-home #an-new-on-netflix .an-new-card{flex-basis:190px!important;width:190px!important;height:106px!important}
+ #an-home #an-new-on-netflix .an-new-rail{padding-left:32px!important;padding-right:32px!important;gap:13px!important}
+}
+</style>
+<script id="an-new-on-netflix-player-script">
+(()=> {
+ const section=document.getElementById('an-new-on-netflix');
+ if(!section||section.dataset.playerReady)return;
+ section.dataset.playerReady='1';
+ const frame=section.querySelector('#an-new-trailer-video');
+ const title=section.querySelector('#an-selected-title');
+ const meta=section.querySelector('#an-selected-meta');
+ const cards=[...section.querySelectorAll('.an-new-card')];
+ const makeEmbed=(id)=>'https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist='+encodeURIComponent(id);
+ cards.forEach(card=>card.addEventListener('click',()=>{
+  const video=card.dataset.video;
+  if(!video||!frame)return;
+  cards.forEach(item=>{
+   const active=item===card;
+   item.classList.toggle('active',active);
+   item.setAttribute('aria-pressed',active?'true':'false');
+  });
+  title.textContent=card.dataset.title||'';
+  meta.textContent=card.dataset.meta||'';
+  if(frame.dataset.video!==video){
+   frame.dataset.video=video;
+   frame.src=makeEmbed(video);
+  }
+ }));
+ if(frame)frame.dataset.video='Y0RW8EW08Dk';
+})();
+</script>
 
 </body></html>
