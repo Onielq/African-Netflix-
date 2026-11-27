@@ -2370,7 +2370,7 @@ body.an-cw-profile-open{overflow:hidden!important}
 
 <style id="an-home-horizontal-rails-only-fix">
 /* Alignment-only repair: preserve the existing catalogue order and section positions. */
-#an-home .an-row:not(.an-new-on-netflix):not(#an-screen-five-continue) .an-posters{
+#an-home .an-row:not(.an-new-on-netflix):not(#an-screen-five-continue):not(#an-only-netflix-row) .an-posters{
  display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;
  align-items:flex-start!important;justify-content:flex-start!important;
  width:100%!important;min-width:0!important;max-width:100%!important;
@@ -2380,22 +2380,22 @@ body.an-cw-profile-open{overflow:hidden!important}
  scroll-padding-left:20px!important;-webkit-overflow-scrolling:touch!important;
  scrollbar-width:none!important;
 }
-#an-home .an-row:not(.an-new-on-netflix):not(#an-screen-five-continue) .an-posters::-webkit-scrollbar{display:none!important}
-#an-home .an-row:not(.an-new-on-netflix):not(#an-screen-five-continue) .an-posters>.an-poster{
+#an-home .an-row:not(.an-new-on-netflix):not(#an-screen-five-continue):not(#an-only-netflix-row) .an-posters::-webkit-scrollbar{display:none!important}
+#an-home .an-row:not(.an-new-on-netflix):not(#an-screen-five-continue):not(#an-only-netflix-row) .an-posters>.an-poster{
  display:block!important;position:relative!important;
  flex:0 0 38vw!important;flex-shrink:0!important;
  width:38vw!important;min-width:0!important;max-width:168px!important;
  height:auto!important;aspect-ratio:.71!important;margin:0!important;
  overflow:hidden!important;border-radius:6px!important;scroll-snap-align:start!important;
 }
-#an-home .an-row:not(.an-new-on-netflix):not(#an-screen-five-continue) .an-posters>.an-poster>.an-poster-art{
+#an-home .an-row:not(.an-new-on-netflix):not(#an-screen-five-continue):not(#an-only-netflix-row) .an-posters>.an-poster>.an-poster-art{
  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
 }
 @media(min-width:700px){
- #an-home .an-row:not(.an-new-on-netflix):not(#an-screen-five-continue) .an-posters{
+ #an-home .an-row:not(.an-new-on-netflix):not(#an-screen-five-continue):not(#an-only-netflix-row) .an-posters{
   padding-left:32px!important;padding-right:32px!important;gap:13px!important;
  }
- #an-home .an-row:not(.an-new-on-netflix):not(#an-screen-five-continue) .an-posters>.an-poster{
+ #an-home .an-row:not(.an-new-on-netflix):not(#an-screen-five-continue):not(#an-only-netflix-row) .an-posters>.an-poster{
   flex-basis:150px!important;width:150px!important;max-width:150px!important;
  }
 }
