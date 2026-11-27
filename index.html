@@ -434,7 +434,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <div id="an-browse">
  <section id="an-profile">
   <div class="an-profile-backdrop"></div>
-  <div class="an-profile-brand"><small>AFRICAN NETFLIX</small><strong>Stories</strong><span>Your next story is waiting</span></div>
+  <div class="an-profile-brand"><small>NETFLIX</small><strong>STEPS</strong><span>Your Carriage Awaits: Watch Now</span></div>
   <div class="an-profile-picker"><h2>Choose Your Profile</h2>
    <div class="an-profile-grid">
     <button class="an-profile" data-profile="Amir"><span class="an-avatar"><span>Ａ</span><i class="an-profile-lock">♙</i></span><span class="an-profile-name">Amir</span></button>
@@ -511,4 +511,95 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 </script>
 
-</body></html>
+
+<style id="an-profile-reference-match">
+/* Screen 1 reference pass — isolated to profile selection only. */
+#an-profile{
+  justify-content:flex-end;
+  padding:0 22px calc(env(safe-area-inset-bottom) + 18px);
+  background:#090713;
+}
+.an-profile-backdrop{
+  background:
+    linear-gradient(180deg,rgba(3,2,12,.08) 0%,rgba(4,3,13,.04) 42%,rgba(7,5,17,.28) 58%,#171523 76%,#242132 100%),
+    url('https://cdn.mos.cms.futurecdn.net/TLvFoYVPXawr9iRsMwKnWh.jpg') center 25%/cover;
+  filter:saturate(1.08);
+}
+.an-profile-backdrop:after{
+  background:linear-gradient(180deg,transparent 0%,transparent 48%,rgba(5,4,13,.12) 58%,#171523 76%,#242132 100%);
+}
+.an-profile-brand{
+  top:57%;
+  transform:translateY(-50%);
+  left:12px;right:12px;
+  text-shadow:0 2px 14px #000;
+}
+.an-profile-brand small{
+  font-family:Arial,sans-serif;
+  font-size:13px;
+  letter-spacing:.3px;
+  margin-bottom:2px;
+}
+.an-profile-brand strong{
+  font-family:Georgia,serif;
+  font-size:clamp(68px,19vw,92px);
+  line-height:.9;
+  letter-spacing:-4px;
+  color:#fff;
+  text-transform:uppercase;
+}
+.an-profile-brand span{
+  font-family:Arial,sans-serif;
+  font-size:clamp(13px,3.5vw,16px);
+  font-weight:700;
+  margin-top:19px;
+}
+.an-profile-picker{
+  width:100%;
+  max-width:390px;
+}
+.an-profile-picker h2{
+  font-size:clamp(14px,3.7vw,17px);
+  color:#c9c7ce;
+  font-weight:400;
+  margin:0 0 18px;
+}
+.an-profile-grid{
+  width:100%;
+  column-gap:0;
+  row-gap:18px;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  justify-items:center;
+}
+.an-profile{gap:7px}
+.an-avatar{
+  width:clamp(70px,18.5vw,78px);
+  height:clamp(70px,18.5vw,78px);
+  min-width:0;min-height:0;
+  border-radius:14px;
+  font-size:36px;
+}
+.an-profile-name{
+  font-size:clamp(14px,3.8vw,16px);
+  font-weight:600;
+}
+.an-profile-lock{
+  left:6px;bottom:5px;
+  font-size:17px;
+}
+.an-profile:nth-child(6) .an-avatar{background:#3b394d!important}
+@media(min-width:600px){
+ #an-profile{padding-bottom:28px}
+ .an-profile-picker{max-width:440px}
+ .an-avatar{width:94px;height:94px}
+ .an-profile-picker h2{font-size:20px}
+ .an-profile-name{font-size:18px}
+}
+@media(max-height:740px){
+ .an-profile-brand{top:52%}
+ .an-profile-picker h2{margin-bottom:10px}
+ .an-profile-grid{row-gap:10px}
+ #an-profile{padding-bottom:10px}
+}
+</style>
+\n</body></html>
