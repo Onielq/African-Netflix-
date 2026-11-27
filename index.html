@@ -483,8 +483,29 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
      <button class="an-new-card" type="button" data-title="Guarding Stars" data-genre="Romance" data-format="movie" data-runtime="1h 50m" data-content-rating="TV-14" data-video="mFvtVPMa5ak" aria-pressed="false" aria-label="Play Guarding Stars trailer">
       <img src="https://i.ytimg.com/vi/mFvtVPMa5ak/hqdefault.jpg" alt="Guarding Stars trailer thumbnail" loading="lazy"><span>GUARDING STARS</span>
      </button>
-     <button class="an-new-card" type="button" data-title="City Lights" data-genre="Kannada" data-format="movie" data-runtime="2h 9m" data-content-rating="A" data-video="2UOmYG58_ZE" aria-pressed="false" aria-label="Play City Lights trailer">
+     <button class="an-new-card" type="button" data-title="City Lights" data-genre="Kannada" data-format="movie" data-runtime="2h 09m" data-content-rating="A" data-video="2UOmYG58_ZE" aria-pressed="false" aria-label="Play City Lights trailer">
       <img src="https://i.ytimg.com/vi/2UOmYG58_ZE/hqdefault.jpg" alt="City Lights trailer thumbnail" loading="lazy"><span>CITY LIGHTS</span>
+     </button>
+     <button class="an-new-card" type="button" data-title="The East Palace" data-genre="Horror" data-format="series" data-seasons="1" data-episodes="8" data-content-rating="TV-MA" data-video="wBUkNE1l9DU" aria-pressed="false" aria-label="Play The East Palace trailer">
+      <img src="https://i.ytimg.com/vi/wBUkNE1l9DU/hqdefault.jpg" alt="The East Palace trailer thumbnail" loading="lazy"><span>THE EAST PALACE</span>
+     </button>
+     <button class="an-new-card" type="button" data-title="My Dearest Assassin" data-genre="Action" data-format="movie" data-runtime="2h 07m" data-content-rating="18+" data-video="M7--LSAvW48" aria-pressed="false" aria-label="Play My Dearest Assassin trailer">
+      <img src="https://i.ytimg.com/vi/M7--LSAvW48/hqdefault.jpg" alt="My Dearest Assassin trailer thumbnail" loading="lazy"><span>MY DEAREST ASSASSIN</span>
+     </button>
+     <button class="an-new-card" type="button" data-title="The Body" data-genre="Drama" data-format="series" data-seasons="1" data-episodes="8" data-content-rating="TV-MA" data-video="wl7uj7n7DoY" aria-pressed="false" aria-label="Play The Body trailer">
+      <img src="https://i.ytimg.com/vi/wl7uj7n7DoY/hqdefault.jpg" alt="The Body trailer thumbnail" loading="lazy"><span>THE BODY</span>
+     </button>
+     <button class="an-new-card" type="button" data-title="Paradise" data-genre="Sci-Fi" data-format="movie" data-runtime="1h 57m" data-content-rating="TV-MA" data-video="EikCPQ7Zc8U" aria-pressed="false" aria-label="Play Paradise trailer">
+      <img src="https://i.ytimg.com/vi/EikCPQ7Zc8U/hqdefault.jpg" alt="Paradise trailer thumbnail" loading="lazy"><span>PARADISE</span>
+     </button>
+     <button class="an-new-card" type="button" data-title="Ranabaali" data-genre="Action" data-format="movie" data-runtime="2h 59m" data-content-rating="" data-video="g34gJUGC2Mg" aria-pressed="false" aria-label="Play Ranabaali trailer">
+      <img src="https://i.ytimg.com/vi/g34gJUGC2Mg/hqdefault.jpg" alt="Ranabaali trailer thumbnail" loading="lazy"><span>RANABAALI</span>
+     </button>
+     <button class="an-new-card" type="button" data-title="Haiku" data-genre="Romance" data-format="movie" data-runtime="2h 22m" data-content-rating="" data-video="gjyunMGD5rA" aria-pressed="false" aria-label="Play Haiku trailer">
+      <img src="https://i.ytimg.com/vi/gjyunMGD5rA/hqdefault.jpg" alt="Haiku trailer thumbnail" loading="lazy"><span>HAIKU</span>
+     </button>
+     <button class="an-new-card" type="button" data-title="Adolescence" data-genre="Drama" data-format="series" data-seasons="1" data-episodes="4" data-content-rating="TV-MA" data-video="Wk5OxqtpBR4" aria-pressed="false" aria-label="Play Adolescence trailer">
+      <img src="https://i.ytimg.com/vi/Wk5OxqtpBR4/hqdefault.jpg" alt="Adolescence trailer thumbnail" loading="lazy"><span>ADOLESCENCE</span>
      </button>
     </div>
    </div>
@@ -1036,14 +1057,95 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <script id="an-new-on-netflix-player-script">
 (()=>{
  const section=document.getElementById("an-new-on-netflix");
- if(!section||section.dataset.playerReady)return;section.dataset.playerReady="1";
- const frame=section.querySelector("#an-new-trailer-video"),title=section.querySelector("#an-selected-title"),meta=section.querySelector("#an-selected-meta"),track=section.querySelector("#an-new-track"),rail=section.querySelector(".an-new-rail");
- const cards=()=>[...track.querySelectorAll(".an-new-card")];
+ if(!section||section.dataset.playerReady)return;
+ section.dataset.playerReady="1";
+ const frame=section.querySelector("#an-new-trailer-video");
+ const title=section.querySelector("#an-selected-title");
+ const meta=section.querySelector("#an-selected-meta");
+ const track=section.querySelector("#an-new-track");
+ const rail=section.querySelector(".an-new-rail");
+ if(!frame||!title||!meta||!track||!rail)return;
+ const cards=()=>Array.from(track.querySelectorAll(".an-new-card"));
+ const isDesktop=()=>window.matchMedia("(min-width:700px)").matches;
+ const ringLeft=()=>isDesktop()?32:18;
+ const cardWidth=()=>isDesktop()?190:160;
  const makeEmbed=id=>"https://www.youtube.com/embed/"+encodeURIComponent(id)+"?autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist="+encodeURIComponent(id);
- const activate=c=>{if(!c)return;cards().forEach(x=>{const on=x===c;x.classList.toggle("active",on);x.setAttribute("aria-pressed",on?"true":"false")});const v=c.dataset.video;if(v&&frame.dataset.video!==v){frame.dataset.video=v;frame.src=makeEmbed(v);frame.title=(c.dataset.title||"")+" official trailer"}title.textContent=c.dataset.title||"";const format=(c.dataset.format||"movie").toLowerCase();let length;if(format==="series"){const seasons=Number(c.dataset.seasons||0),episodes=Number(c.dataset.episodes||0);length=seasons>1?seasons+" Seasons":episodes?episodes+" Episodes":seasons===1?"1 Season":""}else{length=c.dataset.runtime||""}const rating=c.dataset.rating||"";meta.textContent=[c.dataset.genre,length,rating].filter(Boolean).join("  •  ")};
- /* Native horizontal scrolling stays reversible in both directions. Only a tap changes the player. */
- track.addEventListener("click",e=>{const card=e.target.closest(".an-new-card");if(!card||!track.contains(card))return;activate(card);const left=card.offsetLeft-track.offsetLeft;rail.scrollTo({left:Math.max(0,left),behavior:"smooth"})});
- const first=cards()[0];if(first){activate(first)}
+ let activeCard=null;
+ let frameQueued=false;
+ const activate=c=>{
+  if(!c||c===activeCard)return;
+  activeCard=c;
+  cards().forEach(x=>{
+   const on=x===c;
+   x.classList.toggle("active",on);
+   x.setAttribute("aria-pressed",on?"true":"false");
+  });
+  const video=c.dataset.video;
+  if(video&&frame.dataset.video!==video){
+   frame.dataset.video=video;
+   frame.src=makeEmbed(video);
+   frame.title=(c.dataset.title||"")+" official trailer";
+  }
+  title.textContent=c.dataset.title||"";
+  const format=(c.dataset.format||"movie").toLowerCase();
+  let length="";
+  if(format==="series"){
+   const seasons=Number(c.dataset.seasons||0);
+   const episodes=Number(c.dataset.episodes||0);
+   length=seasons>1?seasons+" Seasons":episodes?episodes+" Episodes":seasons===1?"1 Season":"";
+  }else{
+   length=c.dataset.runtime||"";
+  }
+  const rating=c.dataset.contentRating||c.dataset.rating||"";
+  meta.textContent=[c.dataset.genre,length,rating].filter(Boolean).join("  •  ");
+ };
+ const cardUnderWindow=()=>{
+  const center=rail.getBoundingClientRect().left+ringLeft()+cardWidth()/2;
+  const list=cards();
+  let hit=list.find(c=>{
+   const r=c.getBoundingClientRect();
+   return r.left<=center&&r.right>=center;
+  });
+  if(hit)return hit;
+  let best=null,bestDistance=Infinity;
+  list.forEach(c=>{
+   const r=c.getBoundingClientRect();
+   const distance=Math.abs((r.left+r.right)/2-center);
+   if(distance<bestDistance){bestDistance=distance;best=c;}
+  });
+  return best;
+ };
+ const updateFromScroll=()=>{
+  if(frameQueued)return;
+  frameQueued=true;
+  requestAnimationFrame(()=>{
+   frameQueued=false;
+   activate(cardUnderWindow());
+  });
+ };
+ rail.addEventListener("scroll",updateFromScroll,{passive:true});
+ track.addEventListener("click",e=>{
+  const card=e.target.closest(".an-new-card");
+  if(!card||!track.contains(card))return;
+  const railRect=rail.getBoundingClientRect();
+  const cardRect=card.getBoundingClientRect();
+  const target=rail.scrollLeft+(cardRect.left-railRect.left)-ringLeft();
+  const max=Math.max(0,rail.scrollWidth-rail.clientWidth);
+  rail.scrollTo({left:Math.min(max,Math.max(0,target)),behavior:"smooth"});
+  if(Math.abs(target-rail.scrollLeft)<1)activate(card);
+ });
+ const onResize=()=>{
+  const current=activeCard||cards()[0];
+  if(!current)return;
+  const railRect=rail.getBoundingClientRect();
+  const cardRect=current.getBoundingClientRect();
+  const target=rail.scrollLeft+(cardRect.left-railRect.left)-ringLeft();
+  rail.scrollTo({left:Math.max(0,Math.min(rail.scrollWidth-rail.clientWidth,target)),behavior:"auto"});
+  updateFromScroll();
+ };
+ window.addEventListener("resize",onResize,{passive:true});
+ const first=cards()[0];
+ if(first)activate(first);
 })();
 </script>
 
@@ -1156,4 +1258,72 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  #an-home #an-new-on-netflix .an-new-card{flex-basis:190px!important;width:190px!important;height:106px!important}
  #an-home #an-new-on-netflix .an-new-rail:after{width:190px;height:106px;margin-top:-111px;margin-left:32px}
 }
-</style>\n</body></html>
+</style>\n
+<style id="an-screen-four-fixed-window-final">
+/* Screen 4: the white selection window is stationary; the ten thumbnails travel beneath it. */
+#an-home #an-new-on-netflix .an-new-rail{
+ position:relative!important;display:block!important;
+ height:98px!important;width:100%!important;
+ padding:0 18px 8px!important;margin:0!important;
+ overflow-x:auto!important;overflow-y:hidden!important;
+ overscroll-behavior-x:contain!important;
+ -webkit-overflow-scrolling:touch!important;
+ touch-action:pan-x pan-y!important;
+ scroll-snap-type:x mandatory!important;
+ scroll-padding-left:18px!important;
+ scrollbar-width:none!important;cursor:grab!important;
+}
+#an-home #an-new-on-netflix .an-new-rail::-webkit-scrollbar{display:none!important}
+#an-home #an-new-on-netflix .an-new-track{
+ display:flex!important;flex-wrap:nowrap!important;
+ align-items:flex-start!important;gap:10px!important;
+ width:max-content!important;min-width:max-content!important;
+ height:89px!important;padding:0!important;margin:0!important;
+ transform:none!important;transition:none!important;
+}
+#an-home #an-new-on-netflix .an-new-card{
+ position:relative!important;display:block!important;
+ flex:0 0 160px!important;width:160px!important;height:89px!important;
+ min-width:160px!important;padding:0!important;margin:0!important;
+ overflow:hidden!important;border:0!important;border-radius:8px!important;
+ background:#17171c!important;scroll-snap-align:start!important;
+ scroll-snap-stop:normal!important;touch-action:pan-x pan-y!important;
+}
+#an-home #an-new-on-netflix .an-new-card.active{border:0!important;outline:0!important}
+#an-home #an-new-on-netflix .an-new-card img{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ display:block!important;object-fit:cover!important;
+}
+#an-home #an-new-on-netflix .an-new-card span{
+ position:absolute!important;left:5px!important;right:5px!important;bottom:4px!important;
+ z-index:2!important;color:#fff!important;font-size:11px!important;
+ font-weight:800!important;line-height:1.1!important;text-align:center!important;
+ text-shadow:0 1px 5px #000!important;pointer-events:none!important;
+}
+/* This overlay never scrolls: the thumbnail strip passes behind this exact window. */
+#an-home #an-new-on-netflix .an-new-rail::after{
+ content:""!important;display:block!important;position:absolute!important;
+ left:18px!important;top:0!important;width:160px!important;height:89px!important;
+ margin:0!important;padding:0!important;z-index:20!important;
+ box-sizing:border-box!important;border:2.5px solid #fff!important;
+ border-radius:8px!important;pointer-events:none!important;
+}
+@media(min-width:700px){
+ #an-home #an-new-on-netflix .an-new-rail{
+  height:115px!important;padding:0 32px 9px!important;
+  scroll-padding-left:32px!important;
+ }
+ #an-home #an-new-on-netflix .an-new-track{height:106px!important;gap:13px!important}
+ #an-home #an-new-on-netflix .an-new-card{
+  flex-basis:190px!important;width:190px!important;min-width:190px!important;height:106px!important;
+ }
+ #an-home #an-new-on-netflix .an-new-rail::after{
+  left:32px!important;width:190px!important;height:106px!important;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ #an-home #an-new-on-netflix .an-new-rail{scroll-behavior:auto!important}
+}
+</style>
+
+</body></html>
