@@ -476,15 +476,17 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     <p id="an-selected-meta">Kids&nbsp; • &nbsp;1h 47m&nbsp; • &nbsp;7+</p>
    </div>
    <div class="an-new-rail" aria-label="New on Netflix trailers">
-    <button class="an-new-card active" type="button" data-title="Steps" data-meta="Kids • 1h 47m • 7+" data-video="Y0RW8EW08Dk" aria-pressed="true" aria-label="Play Steps trailer">
-     <img src="https://i.ytimg.com/vi/Y0RW8EW08Dk/hqdefault.jpg" alt="Steps trailer thumbnail" loading="lazy"><span>STEPS</span>
-    </button>
-    <button class="an-new-card" type="button" data-title="Guarding Stars" data-meta="Romance • Movie • TV-14" data-video="mFvtVPMa5ak" aria-pressed="false" aria-label="Play Guarding Stars trailer">
-     <img src="https://i.ytimg.com/vi/mFvtVPMa5ak/hqdefault.jpg" alt="Guarding Stars trailer thumbnail" loading="lazy"><span>GUARDING STARS</span>
-    </button>
-    <button class="an-new-card" type="button" data-title="City Lights" data-meta="Kannada • 2h 9m • A" data-video="2UOmYG58_ZE" aria-pressed="false" aria-label="Play City Lights trailer">
-     <img src="https://i.ytimg.com/vi/2UOmYG58_ZE/hqdefault.jpg" alt="City Lights trailer thumbnail" loading="lazy"><span>CITY LIGHTS</span>
-    </button>
+    <div class="an-new-track" id="an-new-track">
+     <button class="an-new-card active" type="button" data-title="Steps" data-genre="Kids" data-format="movie" data-runtime="1h 46m" data-content-rating="7+" data-video="Y0RW8EW08Dk" aria-pressed="true" aria-label="Play Steps trailer">
+      <img src="https://i.ytimg.com/vi/Y0RW8EW08Dk/hqdefault.jpg" alt="Steps trailer thumbnail" loading="lazy"><span>STEPS</span>
+     </button>
+     <button class="an-new-card" type="button" data-title="Guarding Stars" data-genre="Romance" data-format="movie" data-runtime="1h 50m" data-content-rating="TV-14" data-video="mFvtVPMa5ak" aria-pressed="false" aria-label="Play Guarding Stars trailer">
+      <img src="https://i.ytimg.com/vi/mFvtVPMa5ak/hqdefault.jpg" alt="Guarding Stars trailer thumbnail" loading="lazy"><span>GUARDING STARS</span>
+     </button>
+     <button class="an-new-card" type="button" data-title="City Lights" data-genre="Kannada" data-format="movie" data-runtime="2h 9m" data-content-rating="A" data-video="2UOmYG58_ZE" aria-pressed="false" aria-label="Play City Lights trailer">
+      <img src="https://i.ytimg.com/vi/2UOmYG58_ZE/hqdefault.jpg" alt="City Lights trailer thumbnail" loading="lazy"><span>CITY LIGHTS</span>
+     </button>
+    </div>
    </div>
   </section>
   <section class="an-row"><h2>When You Want Scares but Not Nightmares</h2><div class="an-posters">
@@ -1041,34 +1043,38 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  const info=section.querySelector('.an-selected-info');
  const title=section.querySelector('#an-selected-title');
  const meta=section.querySelector('#an-selected-meta');
- const cards=[...section.querySelectorAll('.an-new-card')];
+ const rail=section.querySelector('.an-new-rail');
+ const track=section.querySelector('#an-new-track');
  const makeEmbed=(id)=>'https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist='+encodeURIComponent(id);
  let changing=false;
- cards.forEach(card=>card.addEventListener('click',()=>{
-  const video=card.dataset.video;
-  if(!video||!frame||video===frame.dataset.video||changing)return;
+ const metaFor=card=>{
+  const parts=[card.dataset.genre,card.dataset.seasons||card.dataset.runtime,card.dataset.contentRating].filter(Boolean);
+  return parts.join('  •  ');
+ };
+ const cards=()=>[...track.querySelectorAll('.an-new-card')];
+ cards().forEach(card=>card.addEventListener('click',()=>{
+  const list=cards(),index=list.indexOf(card),video=card.dataset.video;
+  if(!video||!frame||changing)return;
+  if(index===0&&frame.dataset.video===video)return;
   changing=true;
-  cards.forEach(item=>{
-   const active=item===card;
-   item.classList.toggle('active',active);
-   item.setAttribute('aria-pressed',active?'true':'false');
-  });
-  [player,info].forEach(el=>{
-   if(el){el.classList.remove('an-slide-enter-right','an-slide-exit-left');void el.offsetWidth;el.classList.add('an-slide-exit-left');}
-  });
+  const step=list[0].getBoundingClientRect().width+(list[1]?list[1].getBoundingClientRect().left-list[0].getBoundingClientRect().right:10);
+  list.forEach(item=>{item.classList.remove('active');item.setAttribute('aria-pressed','false')});
+  card.classList.add('active');card.setAttribute('aria-pressed','true');
+  track.style.transition='transform .42s cubic-bezier(.22,.72,.2,1)';
+  track.style.transform='translate3d('+(-index*step)+'px,0,0)';
   window.setTimeout(()=>{
+   for(let n=0;n<index;n++)track.firstElementChild&&track.firstElementChild.remove();
+   track.style.transition='none';track.style.transform='translate3d(0,0,0)';
+   void track.offsetWidth;
+   track.style.transition='';
    frame.dataset.video=video;
    frame.src=makeEmbed(video);
+   frame.title=(card.dataset.title||'')+' official trailer';
    title.textContent=card.dataset.title||'';
-   meta.textContent=card.dataset.meta||'';
-   [player,info].forEach(el=>{
-    if(el){el.classList.remove('an-slide-exit-left');void el.offsetWidth;el.classList.add('an-slide-enter-right');}
-   });
-   window.setTimeout(()=>{
-    [player,info].forEach(el=>el&&el.classList.remove('an-slide-enter-right'));
-    changing=false;
-   },310);
-  },220);
+   meta.textContent=metaFor(card);
+   card.classList.add('active');card.setAttribute('aria-pressed','true');
+   changing=false;
+  },440);
  }));
  if(frame)frame.dataset.video='Y0RW8EW08Dk';
 })();
@@ -1103,6 +1109,17 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  #an-home #an-new-trailer.an-slide-enter-right,
  #an-home #an-new-on-netflix .an-selected-info.an-slide-enter-right{animation:none!important}
 }
+</style>
+
+
+<style id="an-new-on-netflix-carousel-queue">
+#an-home #an-new-on-netflix .an-new-rail{overflow-x:hidden!important}
+#an-home #an-new-on-netflix .an-new-track{
+ display:flex;flex-wrap:nowrap;gap:10px;width:max-content;min-width:100%;
+ transform:translate3d(0,0,0);will-change:transform;
+}
+#an-home #an-new-on-netflix .an-new-card{flex-shrink:0!important}
+@media(min-width:700px){#an-home #an-new-on-netflix .an-new-track{gap:13px}}
 </style>
 
 </body></html>
