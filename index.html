@@ -435,18 +435,16 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 </style>
 <div id="an-browse">
  <section id="an-profile">
-  <div class="an-profile-backdrop"></div>
-  <div class="an-profile-brand"><small><img src="https://thesvg.org/icons/netflix/wordmark.svg" alt="Netflix wordmark" loading="eager"></small><strong>STEPS</strong><span>Your Carriage Awaits: Watch Now</span></div>
-  <div class="an-profile-picker"><h2>Choose Your Profile</h2>
-   <div class="an-profile-grid">
-    <button class="an-profile" data-profile="Amir"><span class="an-avatar"><span>Ａ</span><i class="an-profile-lock">♙</i></span><span class="an-profile-name">Amir</span></button>
-    <button class="an-profile" data-profile="Bernisse"><span class="an-avatar"><span>✌</span></span><span class="an-profile-name">Bernisse</span></button>
-    <button class="an-profile" data-profile="Bohnuer"><span class="an-avatar"><span>🧢</span></span><span class="an-profile-name">Bohnuer</span></button>
-    <button class="an-profile" data-profile="Oniel"><span class="an-avatar"><span>😠</span></span><span class="an-profile-name">Oniel</span></button>
-    <button class="an-profile" data-profile="Kids"><span class="an-avatar"><span style="font-size:27px;background:#fff;color:#e33;padding:5px 8px;border-radius:10px">kids</span></span><span class="an-profile-name">Kids</span></button>
-    <button class="an-profile" data-profile="Edit"><span class="an-avatar" style="background:#393747"><span>✎</span></span><span class="an-profile-name">Edit</span></button>
-   </div>
-  </div>
+  <div class="an-profile-backdrop" aria-hidden="true"></div>
+  <div class="an-profile-brand"><small><img src="https://thesvg.org/icons/netflix/wordmark.svg" alt="Netflix" loading="eager"></small><strong>STEPS</strong><span>Your Carriage Awaits: Watch Now</span></div>
+  <div class="an-profile-picker"><h2>Choose Your Profile</h2><div class="an-profile-grid">
+   <button class="an-profile" data-profile="Amir" aria-label="Choose Amir profile"><span class="an-avatar"><svg class="an-avatar-image" viewBox="0 0 100 100" role="img" aria-label="Masked portrait"><defs><linearGradient id="amirBg" x2="1" y2="1"><stop stop-color="#e8bd38"/><stop offset="1" stop-color="#8d4b22"/></linearGradient></defs><rect width="100" height="100" fill="url(#amirBg)"/><path d="M8 100V40Q14 4 51 4T94 44V100" fill="#211b20"/><path d="M22 43Q25 18 50 18T78 43L72 89H28Z" fill="#e6d8bb"/><path d="M24 45Q35 30 49 42Q64 30 76 45L71 63Q62 57 50 60Q37 57 29 64Z" fill="#f7f1df"/><path d="M28 47l18 2-4 8-15-2M54 49l18-2 2 8-16 2" fill="#17151b"/><path d="M45 72h12" stroke="#5e4036" stroke-width="4" stroke-linecap="round"/></svg><i class="an-profile-lock" aria-label="Locked profile"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="12" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></i></span><span class="an-profile-name">Amir</span></button>
+   <button class="an-profile" data-profile="Bernisse" aria-label="Choose Bernisse profile"><span class="an-avatar"><svg class="an-avatar-image" viewBox="0 0 100 100" role="img" aria-label="Profile portrait"><defs><linearGradient id="bernBg" x2="0" y2="1"><stop stop-color="#3b245f"/><stop offset="1" stop-color="#8e56bc"/></linearGradient></defs><rect width="100" height="100" fill="url(#bernBg)"/><path d="M18 100Q20 77 40 70L47 38Q50 28 56 33Q61 36 58 45L56 55L68 25Q72 17 78 21Q82 24 77 34L66 58L82 38Q88 32 92 38Q95 43 89 49L70 76Q64 86 61 100Z" fill="#e5c4b7"/><path d="M13 100Q22 78 43 77L62 81Q74 84 83 100" fill="#c5a5a2"/></svg></span><span class="an-profile-name">Bernisse</span></button>
+   <button class="an-profile" data-profile="Bohnuer" aria-label="Choose Bohnuer profile"><span class="an-avatar"><svg class="an-avatar-image" viewBox="0 0 100 100" role="img" aria-label="Profile portrait"><defs><linearGradient id="bohBg" x2="1" y2="1"><stop stop-color="#f1d6aa"/><stop offset="1" stop-color="#9c433b"/></linearGradient></defs><rect width="100" height="100" fill="url(#bohBg)"/><path d="M15 100Q17 65 50 64T85 100" fill="#14705c"/><ellipse cx="50" cy="49" rx="27" ry="32" fill="#e6ad83"/><path d="M21 43Q18 15 50 15Q80 15 79 45L69 38Q51 27 31 40Z" fill="#5b392a"/><path d="M14 29Q19 6 53 8Q80 9 87 28L73 32Q45 22 14 36Z" fill="#eee5d5"/><path d="M27 47q8-7 15 0M58 47q8-7 15 0" fill="none" stroke="#3d2b28" stroke-width="3"/><path d="M43 64q8 6 16 0" fill="none" stroke="#8c403d" stroke-width="3" stroke-linecap="round"/></svg></span><span class="an-profile-name">Bohnuer</span></button>
+   <button class="an-profile" data-profile="Oniel" aria-label="Choose Oniel profile"><span class="an-avatar"><svg class="an-avatar-image" viewBox="0 0 100 100" role="img" aria-label="Red character portrait"><rect width="100" height="100" fill="#c92520"/><path d="M0 17Q50 -3 100 17V100H0Z" fill="#df3027"/><path d="M15 38Q29 30 45 39L41 48Q28 44 16 46ZM55 39Q72 30 87 38L84 47Q69 44 58 48Z" fill="#fff"/><path d="M20 43h22M58 43h22" stroke="#17151a" stroke-width="6"/><path d="M13 58L50 54L88 58L78 100H23Z" fill="#e8c65d"/><path d="M34 72q16 5 32 0" stroke="#302a24" stroke-width="4" fill="none"/></svg></span><span class="an-profile-name">Oniel</span></button>
+   <button class="an-profile" data-profile="Kids" aria-label="Choose Kids profile"><span class="an-avatar an-kids-avatar"><svg class="an-avatar-image" viewBox="0 0 100 100" role="img" aria-label="Kids profile icon"><rect width="100" height="100" fill="#5d61d8"/><path d="M0 0h25v100H0z" fill="#48a65b"/><path d="M25 0h25v100H25z" fill="#e6b648"/><path d="M50 0h25v100H50z" fill="#df63b5"/><path d="M75 0h25v100H75z" fill="#5579e4"/><text x="50" y="62" font-family="Arial,sans-serif" font-size="26" font-weight="900" text-anchor="middle" fill="white" stroke="#e34b40" stroke-width="2" paint-order="stroke">kids</text></svg></span><span class="an-profile-name">Kids</span></button>
+   <button class="an-profile" data-profile="Edit" aria-label="Edit profiles"><span class="an-avatar an-edit-avatar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 4 6 6M3 21l4.5-1 12-12a2.1 2.1 0 0 0-3-3l-12 12L3 21Z"/></svg></span><span class="an-profile-name">Edit</span></button>
+  </div></div>
  </section>
  <main id="an-home">
   <header class="an-home-header">
@@ -1156,6 +1154,13 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
    starring:'Katlego Lebogang, Siya Sepotokele, Didie Makobane',creditLabel:'Film',creditValue:'South African romantic comedy'
   },
  };
+ const profileBackdrop=root.querySelector('.an-profile-backdrop');
+ const profileHeroPosters=Object.values(titleProfiles).filter(item=>item.poster).map(item=>item.poster);
+ if(profileBackdrop&&profileHeroPosters.length){
+  const chosenPoster=profileHeroPosters[Math.floor(Math.random()*profileHeroPosters.length)];
+  profileBackdrop.style.backgroundImage='linear-gradient(180deg,rgba(3,2,12,.58) 0%,rgba(4,3,13,.20) 34%,rgba(5,4,13,.42) 57%,rgba(9,7,18,.92) 76%,#242132 100%),url("'+chosenPoster+'")';
+  profileBackdrop.dataset.heroPoster=chosenPoster;
+ }
  const posterCards=[...home.querySelectorAll('.an-poster')];
  posterCards.forEach(card=>{
   const title=card.querySelector('.an-poster-title')?.textContent.trim()||'';
@@ -3143,5 +3148,34 @@ body.an-cw-profile-open{overflow:hidden!important}
 @media(prefers-reduced-motion:reduce){
  #an-home .an-home-header .an-categories{transition:none!important}
 }
+</style>
+
+<style id="an-profile-screen-reference-match">
+#an-profile{display:block!important;position:absolute!important;inset:0!important;overflow:hidden!important;padding:0!important;background:#080611!important}
+#an-profile .an-profile-backdrop{position:absolute!important;inset:0!important;z-index:0!important;background-color:#080611!important;background-size:cover!important;background-position:center 24%!important;background-repeat:no-repeat!important;filter:saturate(1.04)!important}
+#an-profile .an-profile-backdrop:after{content:""!important;position:absolute!important;inset:0!important;background:radial-gradient(ellipse at 50% 35%,transparent 4%,rgba(0,0,0,.14) 58%,rgba(0,0,0,.4) 100%)!important}
+#an-profile:before{content:""!important;position:absolute!important;z-index:1!important;top:51.1%!important;left:-15%!important;width:130%!important;height:22px!important;border-radius:50%!important;background:#242132!important;pointer-events:none!important}
+#an-profile:after{content:""!important;position:absolute!important;z-index:1!important;top:52.25%!important;left:-15%!important;width:130%!important;bottom:0!important;background:#242132!important;pointer-events:none!important}
+#an-profile .an-profile-brand{position:absolute!important;z-index:2!important;top:35.3%!important;left:8px!important;right:8px!important;transform:none!important;text-align:center!important;text-shadow:0 2px 16px #000!important}
+#an-profile .an-profile-brand small{display:flex!important;justify-content:center!important;align-items:center!important;height:12px!important;margin:0 0 3px!important;font-size:0!important}
+#an-profile .an-profile-brand small img{display:block!important;width:auto!important;height:12px!important;max-width:70px!important;object-fit:contain!important}
+#an-profile .an-profile-brand strong{display:block!important;font-family:"Bodoni 72",Didot,"Times New Roman",serif!important;font-size:clamp(54px,15vw,62px)!important;line-height:.88!important;letter-spacing:-4px!important;font-weight:700!important;color:#fff!important;text-transform:uppercase!important}
+#an-profile .an-profile-brand>span{display:block!important;margin-top:12px!important;font-family:Arial,Helvetica,sans-serif!important;font-size:14px!important;line-height:18px!important;font-weight:700!important;color:#fff!important}
+#an-profile .an-profile-picker{position:absolute!important;z-index:3!important;top:48.45%!important;left:50%!important;transform:translateX(-50%)!important;width:min(250px,80vw)!important;max-width:250px!important}
+#an-profile .an-profile-picker h2{margin:0!important;padding:0!important;text-align:center!important;font-family:Arial,Helvetica,sans-serif!important;font-size:15px!important;line-height:18px!important;font-weight:400!important;color:#c9c7ce!important;white-space:nowrap!important}
+#an-profile .an-profile-grid{display:grid!important;width:100%!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;column-gap:0!important;row-gap:7px!important;justify-items:center!important}
+#an-profile .an-profile{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;gap:5px!important;min-width:0!important;width:100%!important;padding:0!important;margin:0!important;background:transparent!important;border:0!important}
+#an-profile .an-avatar{display:block!important;position:relative!important;width:52px!important;height:52px!important;min-width:52px!important;min-height:52px!important;max-width:52px!important;max-height:52px!important;border-radius:11px!important;overflow:hidden!important;background:#393747!important;box-shadow:none!important;font-size:0!important}
+#an-profile .an-avatar:before{display:none!important}
+#an-profile .an-avatar-image{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important}
+#an-profile .an-profile-name{display:block!important;margin:0!important;padding:0!important;font-family:Arial,Helvetica,sans-serif!important;font-size:14px!important;line-height:18px!important;font-weight:600!important;color:#fff!important;white-space:nowrap!important}
+#an-profile .an-profile-lock{position:absolute!important;left:4px!important;bottom:4px!important;z-index:2!important;width:13px!important;height:15px!important;display:grid!important;place-items:center!important;color:#fff!important;background:transparent!important;text-shadow:0 1px 3px #000!important}
+#an-profile .an-profile-lock svg{display:block!important;width:14px!important;height:15px!important;fill:none!important;stroke:#fff!important;stroke-width:2.5!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+#an-profile .an-edit-avatar{display:grid!important;place-items:center!important;background:#3b394d!important}
+#an-profile .an-edit-avatar svg{display:block!important;width:23px!important;height:23px!important;fill:none!important;stroke:#fff!important;stroke-width:2.2!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+#an-profile .an-kids-avatar{background:#4b62d6!important}
+#an-profile .an-profile:focus-visible .an-avatar{outline:2px solid #fff!important;outline-offset:3px!important}
+@media(max-width:360px){#an-profile .an-profile-picker{width:min(250px,84vw)!important}#an-profile .an-avatar{width:49px!important;height:49px!important;min-width:49px!important;min-height:49px!important}}
+@media(min-width:700px){#an-profile .an-profile-picker{top:48%!important;width:270px!important;max-width:270px!important}#an-profile .an-avatar{width:72px!important;height:72px!important;min-width:72px!important;min-height:72px!important;max-width:72px!important;max-height:72px!important;border-radius:14px!important}#an-profile .an-profile-name{font-size:16px!important;line-height:20px!important}#an-profile .an-profile-brand strong{font-size:clamp(70px,9vw,92px)!important}}
 </style>
 </body></html>
